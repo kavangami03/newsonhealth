@@ -1,5 +1,67 @@
 @import "tailwindcss";
 
+/* ============================================
+   FONTS — PP Mori (body) & PP Pangaia (display)
+   Served from /public/fonts/
+   ============================================ */
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/PPMori-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/PPMori-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/PPMori-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/PPMori-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Mori";
+  src: url("/fonts/PPMori-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Pangaia";
+  src: url("/fonts/PPPangaia-Ultralight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Pangaia";
+  src: url("/fonts/PPPangaia-MediumItalic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Pangaia";
+  src: url("/fonts/PPPangaia-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-newson-pink: #e9516f;
   --color-white: #ffffff;
@@ -14,8 +76,10 @@
   --color-glass-border: rgba(255, 255, 255, 0.4);
   --color-glass-bg: rgba(255, 255, 255, 0.6);
 
-  --font-display: "Pppangaia", "Georgia", serif;
-  --font-body: "Inter", "Roboto", "Helvetica Neue", sans-serif;
+  --font-display: "PP Pangaia", "Georgia", serif;
+  --font-body: "PP Mori", "Inter", "Helvetica Neue", sans-serif;
+  --font-sans: "PP Mori", "Inter", "Helvetica Neue", sans-serif;
+  --font-serif: "PP Pangaia", "Georgia", serif;
   
   --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
   --shadow-premium-hover: 0 20px 50px -10px rgba(233, 81, 111, 0.15);

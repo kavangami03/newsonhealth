@@ -288,7 +288,7 @@ export default function MegaMenu({ logoSrc }: { logoSrc?: string }) {
 							{MENU_COLUMNS.map((col, idx) => (
 								<div key={idx} className="menu-col flex flex-col">
 									<div className="flex items-center gap-3 mb-6 pb-4 border-b border-black/8">
-										<span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#ea526f]">
+										<span className="text-[14px] font-bold uppercase tracking-[0.22em] text-[#ea526f]">
 											{col.title}
 										</span>
 										<span className="flex-1 h-[1px] bg-gradient-to-r from-[#ea526f]/20 to-transparent" />

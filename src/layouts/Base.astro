@@ -61,9 +61,10 @@ const pageCtx = createPublicPageContext({
 		{pageDescription && <meta name="description" content={pageDescription} />}
 		{canonical && <link rel="canonical" href={canonical} />}
 
-		<!-- Preconnect to Google Fonts for Pppangaia fallback -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<!-- Preload critical fonts (PP Mori body + PP Pangaia display) -->
+		<link rel="preload" href="/fonts/PPMori-Regular.ttf" as="font" type="font/ttf" crossorigin />
+		<link rel="preload" href="/fonts/PPMori-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
+		<link rel="preload" href="/fonts/PPPangaia-Bold.otf" as="font" type="font/otf" crossorigin />
 
 		<!-- Analytics & SEO -->
 		<Analytics />
@@ -253,8 +254,7 @@ const pageCtx = createPublicPageContext({
 						<a href="#" class="hover:text-white transition-all duration-300">Cookie Policy</a>
 					</div>
 					<div class="flex items-center gap-2 text-[12px] text-white/40">
-						<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" class="opacity-50"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-						A work of Bluechilli
+						Design and developed Bluechilli
 					</div>
 				</div>
 			</div>
