@@ -1,3 +1,6 @@
+import { loadEnvFile } from "node:process";
+try { loadEnvFile(".env"); } catch {}
+
 import node from "@astrojs/node";
 import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
@@ -23,6 +26,7 @@ import { libsql, sqlite } from "emdash/db";
  */
 
 const isProduction = !!process.env.VERCEL;
+const hasTurso = !!(process.env.TURSO_URL && process.env.TURSO_AUTH_TOKEN);
 const hasS3Storage = !!(
 	process.env.S3_ENDPOINT &&
 	process.env.S3_BUCKET &&
@@ -30,7 +34,7 @@ const hasS3Storage = !!(
 	process.env.S3_SECRET_ACCESS_KEY
 );
 
-const database = isProduction
+const database = isProduction || hasTurso
 	? libsql({
 			url: process.env.TURSO_URL,
 			authToken: process.env.TURSO_AUTH_TOKEN,
