@@ -11,7 +11,7 @@
  * - Reduce or disable animations on mobile when needed
  */
 
-import { gsap } from "gsap";
+import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 // Register GSAP plugins
