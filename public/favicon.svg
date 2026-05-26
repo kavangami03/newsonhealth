@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Pink rounded square background, matching brand color #ea526f -->
+  <rect width="64" height="64" rx="14" ry="14" fill="#ea526f"/>
+  <!-- White heart, geometrically centered -->
+  <path
+    d="M32 50
+       C 32 50, 12 38, 12 24
+       C 12 17, 17 12, 22.5 12
+       C 26.5 12, 30 14, 32 17.5
+       C 34 14, 37.5 12, 41.5 12
+       C 47 12, 52 17, 52 24
+       C 52 38, 32 50, 32 50 Z"
+    fill="#ffffff"/>
+</svg>

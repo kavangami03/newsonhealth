@@ -61,6 +61,11 @@ const pageCtx = createPublicPageContext({
 		{pageDescription && <meta name="description" content={pageDescription} />}
 		{canonical && <link rel="canonical" href={canonical} />}
 
+		<!-- Favicon — pink rounded square with the brand white heart -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" href="/favicon.svg" />
+		<meta name="theme-color" content="#ea526f" />
+
 		<!-- Preload critical fonts (PP Mori body + PP Pangaia display) -->
 		<link rel="preload" href="/fonts/PPMori-Regular.ttf" as="font" type="font/ttf" crossorigin />
 		<link rel="preload" href="/fonts/PPMori-SemiBold.ttf" as="font" type="font/ttf" crossorigin />

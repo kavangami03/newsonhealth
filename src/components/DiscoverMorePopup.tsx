@@ -68,9 +68,15 @@ function markShownThisSession() {
 export default function DiscoverMorePopup() {
 	const [open, setOpen] = useState(false);
 	const [mounted, setMounted] = useState(false);
+	const [triggerVisible, setTriggerVisible] = useState(false);
 
+	// First-load behaviour: open the popup once per session, otherwise show the trigger.
 	useEffect(() => {
-		if (alreadyShownThisSession()) return;
+		if (alreadyShownThisSession()) {
+			// Already seen this session — only show the persistent trigger.
+			const t = window.setTimeout(() => setTriggerVisible(true), 600);
+			return () => window.clearTimeout(t);
+		}
 		const t = window.setTimeout(() => {
 			markShownThisSession();
 			setOpen(true);
@@ -95,12 +101,98 @@ export default function DiscoverMorePopup() {
 
 	function dismiss() {
 		setMounted(false);
-		window.setTimeout(() => setOpen(false), 280);
-		// Session flag is already set on first show, so we don't need to write again here.
+		window.setTimeout(() => {
+			setOpen(false);
+			// Reveal the persistent re-open trigger after the popup closes.
+			setTriggerVisible(true);
+		}, 280);
 	}
 
-	if (!open) return null;
+	function reopen() {
+		setOpen(true);
+		window.requestAnimationFrame(() => setMounted(true));
+	}
 
+	return (
+		<>
+			{open ? <DiscoverDialog onDismiss={dismiss} mounted={mounted} /> : null}
+			<DiscoverTrigger visible={triggerVisible && !open} onClick={reopen} />
+		</>
+	);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Persistent re-open trigger — bottom-right floating button
+   ════════════════════════════════════════════════════════════════ */
+function DiscoverTrigger({ visible, onClick }: { visible: boolean; onClick: () => void }) {
+	const [hovered, setHovered] = useState(false);
+
+	return (
+		<button
+			type="button"
+			onClick={onClick}
+			onMouseEnter={() => setHovered(true)}
+			onMouseLeave={() => setHovered(false)}
+			aria-label="Discover more about Dr Louise Newson"
+			className={`fixed bottom-6 right-6 z-[95] group flex items-center gap-3 pl-2 pr-1 py-1 rounded-full bg-white shadow-[0_18px_40px_-10px_rgba(233,81,111,0.45),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-[0_22px_50px_-10px_rgba(233,81,111,0.6)] transition-all duration-500 ease-out ${
+				visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0 pointer-events-none"
+			}`}
+			style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}
+		>
+			{/* Animated pulse ring (draws attention) */}
+			<span className="absolute -inset-1 rounded-full bg-[#ea526f]/20 opacity-40 pointer-events-none" aria-hidden="true" />
+
+			{/* Doctor avatar */}
+			<span className="relative shrink-0">
+				<span className="block w-11 h-11 rounded-full overflow-hidden border-[2px] border-white shadow-[0_4px_12px_rgba(233,81,111,0.3)]">
+					<img src={DOCTOR_IMAGE} alt="" className="w-full h-full object-cover object-top" />
+				</span>
+				{/* Pink dot status indicator */}
+				<span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#ea526f] border-[2px] border-white shadow-sm" aria-hidden="true">
+					<span className="absolute inset-0 rounded-full bg-[#ea526f] animate-ping opacity-50" />
+				</span>
+			</span>
+
+			{/* Expanding label */}
+			<span
+				className={`relative overflow-hidden transition-all duration-500 ease-out flex items-center`}
+				style={{
+					width: hovered ? "190px" : "78px",
+					transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+				}}
+			>
+				<span className="flex flex-col leading-tight pr-2 whitespace-nowrap">
+					<span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#ea526f]">Discover</span>
+					<span
+						className={`font-display text-[13px] text-not-quite-black transition-opacity duration-300 ${
+							hovered ? "opacity-100" : "opacity-100"
+						}`}
+					>
+						{hovered ? (
+							<span>
+								<span className="italic font-light">More</span> from Dr&nbsp;Louise
+							</span>
+						) : (
+							<span className="italic font-light">More</span>
+						)}
+					</span>
+				</span>
+			</span>
+
+			{/* Pink arrow circle on the right end */}
+			<span className="relative w-10 h-10 rounded-full bg-[#ea526f] text-white flex items-center justify-center shrink-0 shadow-[0_4px_10px_rgba(233,81,111,0.4)] group-hover:scale-110 transition-transform duration-300">
+				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+					<path d="M5 12h14M12 5l7 7-7 7" />
+				</svg>
+			</span>
+		</button>
+	);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Modal dialog (extracted so the trigger can render alongside it)
+   ════════════════════════════════════════════════════════════════ */
+function DiscoverDialog({ onDismiss, mounted }: { onDismiss: () => void; mounted: boolean }) {
 	return (
 		<div
 			role="dialog"
@@ -110,7 +202,7 @@ export default function DiscoverMorePopup() {
 				mounted ? "opacity-100" : "opacity-0"
 			}`}
 			onClick={(e) => {
-				if (e.target === e.currentTarget) dismiss();
+				if (e.target === e.currentTarget) onDismiss();
 			}}
 		>
 			{/* Backdrop */}
@@ -149,7 +241,7 @@ export default function DiscoverMorePopup() {
 					{/* Close button */}
 					<button
 						type="button"
-						onClick={dismiss}
+						onClick={onDismiss}
 						aria-label="Close"
 						className="absolute top-5 right-5 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-black/[0.04] hover:bg-[#ea526f] text-not-quite-black hover:text-white flex items-center justify-center transition-all duration-300 hover:rotate-90 z-20"
 					>
