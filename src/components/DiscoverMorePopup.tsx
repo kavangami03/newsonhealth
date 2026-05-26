@@ -210,61 +210,53 @@ function DiscoverDialog({ onDismiss, mounted }: { onDismiss: () => void; mounted
 
 			{/* Card */}
 			<div
-				className={`relative w-full max-w-[1080px] max-h-[92dvh] bg-white rounded-[1.5rem] sm:rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden shadow-[0_50px_120px_-20px_rgba(233,81,111,0.45),0_0_0_1px_rgba(255,255,255,0.6)] grid grid-cols-1 lg:grid-cols-[5fr_7fr] transition-all duration-500 ease-out ${
+				className={`relative w-full max-w-[1080px] max-h-[92dvh] bg-white rounded-[1.25rem] sm:rounded-[1.75rem] md:rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden shadow-[0_50px_120px_-20px_rgba(233,81,111,0.45),0_0_0_1px_rgba(255,255,255,0.6)] grid grid-cols-1 md:grid-cols-[5fr_7fr] transition-all duration-500 ease-out ${
 					mounted ? "translate-y-0 scale-100" : "translate-y-6 scale-95"
 				}`}
 			>
 				{/* Decorative gradient */}
 				<div className="absolute -top-32 -right-32 w-[400px] h-[400px] bg-gradient-to-br from-[#ea526f]/10 to-transparent rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
-				{/* ─── Mobile-only close (top-right of card) ─── */}
+				{/* ─── Stacked-layout close (top-right of card, < md) ─── */}
 				<button
 					type="button"
 					onClick={onDismiss}
 					aria-label="Close"
-					className="lg:hidden absolute top-3 right-3 z-30 w-9 h-9 rounded-full bg-white/95 hover:bg-[#ea526f] text-not-quite-black hover:text-white flex items-center justify-center transition-all duration-300 shadow-md backdrop-blur-md"
+					className="md:hidden absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-30 w-9 h-9 rounded-full bg-white/95 hover:bg-[#ea526f] text-not-quite-black hover:text-white flex items-center justify-center transition-all duration-300 shadow-md backdrop-blur-md"
 				>
 					<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
 						<path d="M18 6L6 18M6 6l12 12" />
 					</svg>
 				</button>
 
-				{/* ═══ LEFT (lg+) / TOP (mobile): Doctor portrait ═══ */}
-				<div className="relative bg-gradient-to-br from-[#fdf5f1] via-white to-[#f7d3d9]/30 h-[180px] sm:h-[240px] lg:h-auto lg:min-h-[640px] overflow-hidden flex-shrink-0">
+				{/* ═══ LEFT (md+) / TOP (mobile): Doctor portrait ═══ */}
+				<div className="relative bg-gradient-to-br from-[#fdf5f1] via-white to-[#f7d3d9]/30 h-[160px] sm:h-[220px] md:h-auto md:min-h-[520px] lg:min-h-[640px] overflow-hidden flex-shrink-0">
 					<img
 						src={DOCTOR_IMAGE}
 						alt="Dr Louise Newson"
 						loading="lazy"
-						className="absolute inset-0 w-full h-full object-cover object-[center_25%] lg:object-[center_top] select-none"
+						className="absolute inset-0 w-full h-full object-cover object-[center_25%] md:object-[center_top] select-none"
 					/>
-					{/* Bottom fade on mobile/tablet so the doctor blends into the content */}
-					<div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white via-white/60 to-transparent lg:hidden pointer-events-none" />
+					{/* Bottom fade on mobile (stacked layout only) */}
+					<div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white via-white/60 to-transparent md:hidden pointer-events-none" />
 
-					{/* Floating credential badge (desktop only) */}
-					<div className="absolute bottom-6 left-6 hidden lg:flex items-center gap-3 px-5 py-3 rounded-full bg-white/95 backdrop-blur-xl shadow-lg border border-white/60">
-						<span className="w-2 h-2 rounded-full bg-[#ea526f] animate-pulse" />
-						<span className="text-[12px] font-bold tracking-[0.2em] uppercase text-[#ea526f]">
-							Clinic Founder
-						</span>
-					</div>
-
-					{/* Mobile credential pill — sits at the bottom of the portrait band */}
-					<div className="lg:hidden absolute bottom-3 left-3 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-sm border border-white/60">
-						<span className="w-1.5 h-1.5 rounded-full bg-[#ea526f] animate-pulse" />
-						<span className="text-[12px] font-bold tracking-[0.15em] uppercase text-[#ea526f]">
+					{/* Credential badge */}
+					<div className="absolute bottom-3 left-3 md:bottom-5 md:left-5 lg:bottom-6 lg:left-6 flex items-center gap-2 md:gap-3 px-3 py-1.5 md:px-4 md:py-2.5 lg:px-5 lg:py-3 rounded-full bg-white/95 backdrop-blur-md md:backdrop-blur-xl shadow-md md:shadow-lg border border-white/60">
+						<span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#ea526f] animate-pulse" />
+						<span className="text-[12px] font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase text-[#ea526f]">
 							Clinic Founder
 						</span>
 					</div>
 				</div>
 
-				{/* ═══ RIGHT (lg+) / BOTTOM (mobile): Content (scrolls internally if needed) ═══ */}
-				<div className="relative flex flex-col overflow-y-auto p-5 sm:p-7 lg:p-12">
-					{/* Desktop close button (inside content panel, top-right) */}
+				{/* ═══ RIGHT (md+) / BOTTOM (mobile): Content (scrolls internally if needed) ═══ */}
+				<div className="relative flex flex-col overflow-y-auto p-4 sm:p-6 md:p-8 lg:p-12">
+					{/* Side-by-side close button (md+) */}
 					<button
 						type="button"
 						onClick={onDismiss}
 						aria-label="Close"
-						className="hidden lg:flex absolute top-6 right-6 w-10 h-10 rounded-full bg-black/[0.04] hover:bg-[#ea526f] text-not-quite-black hover:text-white items-center justify-center transition-all duration-300 hover:rotate-90 z-20"
+						className="hidden md:flex absolute top-5 right-5 lg:top-6 lg:right-6 w-10 h-10 rounded-full bg-black/[0.04] hover:bg-[#ea526f] text-not-quite-black hover:text-white items-center justify-center transition-all duration-300 hover:rotate-90 z-20"
 					>
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
 							<path d="M18 6L6 18M6 6l12 12" />
@@ -273,27 +265,27 @@ function DiscoverDialog({ onDismiss, mounted }: { onDismiss: () => void; mounted
 
 					<h2
 						id="discover-more-title"
-						className="font-display text-[1.85rem] sm:text-[2.5rem] lg:text-[3.5rem] xl:text-[3.75rem] leading-[0.95] tracking-tight mb-3 sm:mb-5 lg:mb-6 pr-10 lg:pr-0"
+						className="font-display text-[1.75rem] sm:text-[2.25rem] md:text-[2.5rem] lg:text-[3.25rem] xl:text-[3.75rem] leading-[0.95] tracking-tight mb-3 sm:mb-4 md:mb-5 lg:mb-6 pr-10 md:pr-0"
 					>
 						<span className="text-[#ea526f] italic font-light">Discover</span>{" "}
 						<span className="text-not-quite-black">more.</span>
 					</h2>
 
-					<p className="text-[13px] sm:text-[14px] lg:text-[15px] text-[#666] leading-relaxed mb-5 sm:mb-7 lg:mb-8 max-w-[460px]">
+					<p className="text-[13px] sm:text-[14px] lg:text-[15px] text-[#666] leading-relaxed mb-4 sm:mb-5 md:mb-6 lg:mb-8 max-w-[460px]">
 						Clinic founder —{" "}
 						<strong className="text-not-quite-black font-semibold">Dr Louise Newson</strong>{" "}
 						— a leading authority in hormone health is here to support your hormone journey.
 					</p>
 
 					{/* 2×2 grid of feature cards */}
-					<div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:gap-4">
+					<div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-3 lg:gap-4">
 						{CARDS.map((card) => (
 							<a
 								key={card.title}
 								href={card.url}
 								target="_blank"
 								rel="noopener noreferrer"
-								className={`group relative aspect-[5/4] rounded-xl sm:rounded-2xl lg:rounded-[1.25rem] overflow-hidden border border-black/5 bg-gradient-to-br ${card.accent} hover:shadow-[0_20px_40px_-12px_rgba(233,81,111,0.35)] hover:-translate-y-1 transition-all duration-500 ease-out`}
+								className={`group relative aspect-[5/4] rounded-lg sm:rounded-xl md:rounded-2xl lg:rounded-[1.25rem] overflow-hidden border border-black/5 bg-gradient-to-br ${card.accent} hover:shadow-[0_20px_40px_-12px_rgba(233,81,111,0.35)] hover:-translate-y-1 transition-all duration-500 ease-out`}
 							>
 								<img
 									src={card.image}
@@ -303,7 +295,7 @@ function DiscoverDialog({ onDismiss, mounted }: { onDismiss: () => void; mounted
 								/>
 								<div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
-								<div className="absolute top-2 left-2 sm:top-3 sm:left-3 inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[#ea526f] text-white text-[12px] font-bold tracking-wide rounded-full shadow-[0_8px_20px_rgba(233,81,111,0.4)] group-hover:gap-2.5 transition-all">
+								<div className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 md:top-3 md:left-3 inline-flex items-center gap-1.5 px-2 sm:px-2.5 md:px-3 py-1 md:py-1.5 bg-[#ea526f] text-white text-[12px] font-bold tracking-wide rounded-full shadow-[0_8px_20px_rgba(233,81,111,0.4)] group-hover:gap-2.5 transition-all">
 									<span>{card.title}</span>
 									<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
 										<path d="M9 18l6-6-6-6" />
@@ -312,13 +304,6 @@ function DiscoverDialog({ onDismiss, mounted }: { onDismiss: () => void; mounted
 							</a>
 						))}
 					</div>
-
-					{/* Tiny print — desktop only (mobile has the corner X) */}
-					<p className="hidden sm:block mt-5 lg:mt-7 text-[12px] text-[#888] tracking-wide">
-						Press{" "}
-						<kbd className="px-1.5 py-0.5 rounded bg-black/5 font-mono text-[12px] text-[#444]">Esc</kbd>{" "}
-						or click outside to dismiss.
-					</p>
 				</div>
 			</div>
 		</div>
