@@ -68,7 +68,10 @@ export default defineConfig({
 		// and crashes.
 		ssr: {
 			external: ["better-sqlite3"],
-			noExternal: isProduction ? [] : undefined,
+			// Bundle gsap into the function instead of letting Node resolve it at runtime.
+			// gsap's package.json doesn't declare "type": "module" but ships ESM in index.js,
+			// so Node refuses to load it ("Cannot use import statement outside a module").
+			noExternal: isProduction ? ["gsap"] : undefined,
 		},
 		build: {
 			rollupOptions: {
