@@ -1,0 +1,369 @@
+---
+import { getMenu, getSiteSettings } from "emdash";
+import {
+	WidgetArea,
+	EmDashHead,
+	EmDashBodyStart,
+	EmDashBodyEnd,
+} from "emdash/ui";
+import { createPublicPageContext } from "emdash/page";
+import { resolveStarterSiteIdentity } from "../utils/site-identity";
+import Header from "../components/Header.astro";
+import FloatingWidgets from "../components/FloatingWidgets";
+import Analytics from "../components/Analytics.astro";
+import LenisProvider from "../components/LenisProvider";
+import cqcBadge from "../images/CQC inspected and rated outstanding RGB.png";
+import "../styles/global.css";
+import "../styles/mega-menu.css";
+
+interface Props {
+	title: string;
+	pageTitle?: string | null;
+	description?: string | null;
+	image?: string | null;
+	canonical?: string | null;
+	/** Pass content reference for plugin page contributions on content pages */
+	content?: { collection: string; id: string; slug?: string | null };
+	/** JSON-LD Schema object to inject into the head */
+	schema?: Record<string, any> | Record<string, any>[];
+	/** Open Graph page type (default: website) */
+	pageType?: "website" | "article";
+}
+
+const { title, pageTitle, description, image, canonical, content, schema, pageType = "website" } = Astro.props;
+const { siteTitle, siteTagline, siteLogo } = resolveStarterSiteIdentity(await getSiteSettings());
+const fullTitle = title.includes(siteTitle) ? title : `${title} — ${siteTitle}`;
+const pageDescription = description ?? siteTagline;
+
+const menu = await getMenu("primary");
+
+const pageCtx = createPublicPageContext({
+	Astro,
+	kind: content ? "content" : "custom",
+	pageType,
+	title: fullTitle,
+	pageTitle: pageTitle ?? title,
+	description: pageDescription,
+	canonical,
+	image,
+	content,
+	siteName: siteTitle,
+});
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{fullTitle}</title>
+		{pageDescription && <meta name="description" content={pageDescription} />}
+		{canonical && <link rel="canonical" href={canonical} />}
+
+		<!-- Preconnect to Google Fonts for Pppangaia fallback -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<!-- Analytics & SEO -->
+		<Analytics />
+		{schema && (
+			<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+		)}
+
+		<EmDashHead page={pageCtx} />
+	</head>
+	<body>
+		<EmDashBodyStart page={pageCtx} />
+		<LenisProvider client:load>
+			<Header />
+
+			<main id="main-content">
+				<slot />
+			</main>
+
+	<!-- ═══════════════════════════════════════
+	     RADICAL OUT-OF-THE-BOX FOOTER
+	     ═══════════════════════════════════════ -->
+	<div class="px-4 md:px-8 pb-4 md:pb-8">
+		<footer class="relative overflow-hidden font-sans rounded-[3rem] md:rounded-[5rem] bg-not-quite-black text-white px-6 p-20 md:p-24 shadow-[0_30px_80px_rgba(0,0,0,0.2)]" id="site-footer">
+			<!-- Huge dramatic ambient glows -->
+			<div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-[#ea526f]/20 to-transparent rounded-full blur-[100px] pointer-events-none -translate-y-1/3 translate-x-1/3"></div>
+			<div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#fdf5f1]/5 rounded-full blur-[100px] pointer-events-none translate-y-1/3 -translate-x-1/3"></div>
+
+			<div class="max-w-[1400px] mx-auto relative z-10">
+				<!-- Top Huge CTA Area -->
+				<div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-white/10 pb-16 mb-16 gap-10">
+					<div>
+						<h2 class="font-display text-white text-[3.5rem] md:text-[6rem] leading-[0.9] tracking-tight mb-6">
+							Start your <br />
+							<span class="text-[#ea526f] italic font-light relative">
+								journey.
+								<!-- Abstract underline -->
+								<svg class="absolute w-[110%] h-[15px] -bottom-1 -left-2 text-[#ea526f]/40" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M5 15 Q 50 0 95 15" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+							</span>
+						</h2>
+						<p class="text-[1.25rem] text-white/60 font-medium max-w-[400px]">
+							Join thousands of women who have embraced life again with our evidence-based care.
+						</p>
+					</div>
+					
+					<!-- Newsletter Sign Up Widget -->
+					<div class="w-full md:w-[450px] bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-[2rem] group hover:bg-white/10 transition-colors duration-500">
+						<h3 class="text-[12px] font-bold text-[#ea526f] uppercase tracking-widest mb-4">Stay Informed</h3>
+						<h4 class="font-display text-[1.75rem] text-white leading-tight mb-6">Sign-up to our newsletter</h4>
+						<div class="relative">
+							<input type="email" placeholder="Your email address" class="w-full bg-black/40 border border-white/20 rounded-full py-4 pl-6 pr-14 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#ea526f] transition-colors" />
+							<button class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#ea526f] text-white rounded-full flex items-center justify-center hover:bg-white hover:text-[#ea526f] transition-all group-hover:scale-110">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Main Footer Navigation Grid -->
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
+					
+					<!-- Branding / Info Column -->
+					<div class="lg:col-span-4 flex flex-col pr-8">
+						<a href="/" class="mb-10 inline-block group">
+							{siteLogo
+								? <img src={siteLogo.url} alt={siteLogo.alt || siteTitle} class="h-10 w-auto brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity" />
+								: <span class="font-display text-4xl text-white tracking-tight">{siteTitle}</span>
+							}
+						</a>
+						
+						<p class="text-[13px] leading-relaxed text-white/50 mb-10 max-w-sm">
+							Winton House, Church Street,<br />
+							Stratford Upon Avon CV37 6HB<br /><br />
+							<a href="tel:01789595004" class="text-white hover:text-[#ea526f] font-medium transition-colors text-[1rem]">01789 595004</a><br />
+							<a href="mailto:info@newsonhealth.co.uk" class="text-white hover:text-[#ea526f] transition-colors">info@newsonhealth.co.uk</a>
+						</p>
+
+						<!-- Socials -->
+						<div class="flex items-center gap-4">
+							<a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:bg-[#ea526f] hover:border-[#ea526f] hover:text-white transition-all duration-300">
+								<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"/></svg>
+							</a>
+							<a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:bg-[#ea526f] hover:border-[#ea526f] hover:text-white transition-all duration-300">
+								<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+							</a>
+							<a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:bg-[#ea526f] hover:border-[#ea526f] hover:text-white transition-all duration-300">
+								<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+							</a>
+						</div>
+					</div>
+
+					<!-- Links Columns -->
+					<div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-10">
+						<div class="flex flex-col gap-4">
+							<h3 class="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2">Knowledge</h3>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Menopause & perimenopause</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Women's hormonal health</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Knowledge library</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">How to guides</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">FAQs</a>
+						</div>
+						<div class="flex flex-col gap-4">
+							<h3 class="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2">Clinic</h3>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">About</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Our team</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Prices</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Our clinics</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Join our team</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Contact</a>
+						</div>
+						<div class="flex flex-col gap-4">
+							<h3 class="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2">Services</h3>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Consultations</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Testosterone for women</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Prescriptions</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">PMS and PMDD</a>
+							<a href="#" class="text-[13px] text-white/80 hover:text-white font-medium hover:translate-x-2 transition-transform w-max">Coils & Scans</a>
+						</div>
+					</div>
+					
+				</div>
+
+				<!-- Badges and Trust Area -->
+				<div class="pt-8 pb-4 border-t border-white/10 w-full">
+					<div class="flex flex-wrap items-center justify-between gap-6 w-full">
+						
+						<!-- Group 1: Mobile Apps -->
+						<div class="flex flex-wrap items-center gap-3">
+							<a href="#" class="bg-white/5 text-white hover:bg-[#ea526f] hover:text-white transition-all px-4 h-[48px] rounded-xl flex items-center gap-3 border border-white/10 hover:border-[#ea526f]/30 group duration-300">
+								<svg class="w-5 h-5 fill-current group-hover:scale-110 transition-transform" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+									<path d="M11.182.008C11.148-.03 9.923.023 8.857 1.18c-1.066 1.156-.902 2.482-.878 2.516s1.52.087 2.475-1.258.762-2.391.728-2.43m3.314 11.733c-.048-.096-2.325-1.234-2.113-3.422s1.675-2.789 1.698-2.854-.597-.79-1.254-1.157a3.7 3.7 0 0 0-1.563-.434c-.108-.003-.483-.095-1.254.116-.508.139-1.653.589-1.968.607-.316.018-1.256-.522-2.267-.665-.647-.125-1.333.131-1.824.328-.49.196-1.422.754-2.074 2.237-.652 1.482-.311 3.83-.067 4.56s.625 1.924 1.273 2.796c.576.984 1.34 1.667 1.659 1.899s1.219.386 1.843.067c.502-.308 1.408-.485 1.766-.472.357.013 1.061.154 1.782.539.571.197 1.111.115 1.652-.105.541-.221 1.324-1.059 2.238-2.758q.52-1.185.473-1.282"/>
+								</svg>
+								<div class="flex flex-col items-start leading-none text-left">
+									<span class="text-[8px] uppercase tracking-widest mb-[2px] opacity-75">Download on the</span>
+									<span class="text-[14px] font-bold tracking-tight">App Store</span>
+								</div>
+							</a>
+							
+							<a href="#" class="bg-white/5 text-white hover:bg-[#ea526f] hover:text-white transition-all px-4 h-[48px] rounded-xl flex items-center gap-3 border border-white/10 hover:border-[#ea526f]/30 group duration-300">
+								<svg class="w-5 h-5 fill-current group-hover:scale-110 transition-transform" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+									<path d="M14.222 9.374c1.037-.61 1.037-2.137 0-2.748L11.528 5.04 8.32 8l3.207 2.96zm-3.595 2.116L7.583 8.68 1.03 14.73c.201 1.029 1.36 1.61 2.303 1.055zM1 13.396V2.603L6.846 8zm.03-12.126l6.553 6.05 3.044-2.81L3.333.215C2.39-.341 1.231.24 1.03 1.27z"/>
+								</svg>
+								<div class="flex flex-col items-start leading-none text-left">
+									<span class="text-[8px] uppercase tracking-widest mb-[2px] opacity-75">Get it on</span>
+									<span class="text-[14px] font-bold tracking-tight">Google Play</span>
+								</div>
+							</a>
+						</div>
+
+						<!-- Group 2: Trust & Quality Ratings -->
+						<div class="flex flex-wrap items-center gap-3">
+							<!-- CQC Badge -->
+							<a href="https://www.cqc.org.uk/location/1-5627255955" target="_blank" rel="noopener noreferrer" class="hover:scale-[1.03] transition-all duration-300 select-none block w-max">
+								<img src={cqcBadge.src} alt="CQC Outstanding" class="h-[72px] w-auto object-contain" />
+							</a>
+
+							<!-- Trustpilot Badge -->
+							<a href="https://uk.trustpilot.com/review/newsonhealth.co.uk" target="_blank" rel="noopener noreferrer" class="bg-white border border-[#00b67a]/20 hover:border-[#00b67a] rounded-xl px-4 h-[48px] flex items-center justify-center gap-1.5 transition-all duration-300 hover:scale-[1.03] select-none">
+								<span class="text-[11px] font-bold text-neutral-800 leading-none">Review us on</span>
+								<svg class="w-3.5 h-3.5 fill-[#00b67a]" viewBox="0 0 24 24">
+									<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+								</svg>
+								<span class="text-[12px] font-black text-neutral-800 tracking-tighter leading-none">Trustpilot</span>
+							</a>
+						</div>
+
+						<!-- Group 3: Language & Accessibility -->
+						<button id="footer-translate-btn" class="border border-white/15 hover:border-white rounded-xl px-5 h-[48px] flex items-center justify-center gap-3 transition-all duration-300 bg-white/5 hover:bg-white/10 group select-none cursor-pointer">
+							<div class="bg-white text-[#ea526f] rounded px-1.5 py-0.5 font-bold text-[10px] tracking-tight flex items-center justify-center leading-none">
+								A<span class="text-[9px] ml-0.5 font-normal">文</span>
+							</div>
+							<span class="text-white text-[13px] font-semibold tracking-wide leading-none">Translate</span>
+						</button>
+
+					</div>
+				</div>
+
+				<!-- Legal & Copyright Footer Bar -->
+				<div class="flex flex-col md:flex-row items-center justify-between gap-6 py-8 border-t border-white/10 w-full">
+					<div class="text-[11px] text-white/40 text-center md:text-left">
+						© {new Date().getFullYear()} Newson Health. All rights reserved.
+					</div>
+					<div class="flex flex-wrap items-center justify-center gap-4 text-[11px] text-white/50">
+						<a href="#" class="hover:text-white transition-all duration-300">Terms & Conditions</a>
+						<span>|</span>
+						<a href="#" class="hover:text-white transition-all duration-300">Privacy Policy</a>
+						<span>|</span>
+						<a href="#" class="hover:text-white transition-all duration-300">Cookie Policy</a>
+					</div>
+					<div class="flex items-center gap-2 text-[11px] text-white/40">
+						<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" class="opacity-50"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+						A work of Genius
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+		</LenisProvider>
+		<EmDashBodyEnd page={pageCtx} />
+
+		<FloatingWidgets client:load />
+
+		<!-- Global Reveal Animations (if any left over) -->
+		<script>
+			import { initRevealAnimations } from "../utils/animations";
+
+			document.addEventListener("DOMContentLoaded", () => {
+				initRevealAnimations();
+			});
+		</script>
+	</body>
+</html>
+
+<style>
+	/* ── Header ── */
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		background-color: var(--color-glass-bg);
+		backdrop-filter: blur(24px);
+		-webkit-backdrop-filter: blur(24px);
+		border-bottom: 1px solid var(--color-glass-border);
+		transition: transform 0.5s var(--ease-bounce),
+					box-shadow 0.5s var(--ease-fluid);
+	}
+
+	.site-header.scrolled {
+		box-shadow: var(--shadow-glass);
+		background-color: rgba(255, 255, 255, 0.85);
+	}
+
+	.site-nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+		padding-block: 1rem;
+		max-width: 1400px;
+		margin-inline: auto;
+		padding-inline: clamp(1.5rem, 1rem + 2vw, 3rem);
+	}
+
+	.site-logo {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		transition: transform 0.4s var(--ease-bounce);
+	}
+	
+	.site-logo:hover {
+		transform: scale(1.05);
+	}
+
+	.site-logo__image {
+		height: 48px;
+		width: auto;
+		display: block;
+	}
+
+	.site-logo__text {
+		font-family: var(--font-display);
+		font-size: var(--text-xl);
+		color: var(--color-not-quite-black);
+		font-weight: 500;
+	}
+
+	.site-nav__links {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.site-nav__link {
+		padding: 0.5rem 1.25rem;
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--color-text-grey);
+		border-radius: 2rem;
+		transition:
+			color 0.3s var(--ease-fluid),
+			background-color 0.3s var(--ease-fluid),
+			transform 0.3s var(--ease-bounce);
+	}
+
+	.site-nav__link:hover {
+		color: var(--color-newson-pink);
+		background-color: rgba(233, 81, 111, 0.08);
+		transform: translateY(-2px);
+	}
+
+	.site-nav__actions {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+	}
+
+	.btn-sm {
+		padding: 0.625rem 1.5rem;
+		font-size: 0.75rem;
+	}
+
+	/* ── Footer ── */
+	/* Footer CSS has been completely migrated to Tailwind utility classes */
+</style>

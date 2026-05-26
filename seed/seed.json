@@ -1,0 +1,1309 @@
+{
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "meta": {
+    "name": "Newson Health Modular CMS",
+    "description": "Modular CMS configuration for Newson Clinic containing section-by-section homepage blocks.",
+    "author": "Antigravity"
+  },
+  "settings": {
+    "title": "Newson Health",
+    "tagline": "Evidence-based Menopause & Hormone Care"
+  },
+  "collections": [
+    {
+      "slug": "posts",
+      "label": "Posts",
+      "labelSingular": "Post",
+      "supports": [
+        "drafts",
+        "revisions",
+        "search",
+        "seo"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "featured_image",
+          "label": "Featured Image",
+          "type": "string"
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText",
+          "searchable": true
+        },
+        {
+          "slug": "excerpt",
+          "label": "Excerpt",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "slug": "pages",
+      "label": "Pages",
+      "labelSingular": "Page",
+      "supports": [
+        "drafts",
+        "revisions",
+        "search"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText",
+          "searchable": true
+        }
+      ]
+    },
+    {
+      "slug": "clinicians",
+      "label": "Clinicians",
+      "labelSingular": "Clinician",
+      "supports": [
+        "drafts",
+        "search"
+      ],
+      "fields": [
+        {
+          "slug": "name",
+          "label": "Name",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "role",
+          "label": "Role",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "credentials",
+          "label": "Credentials",
+          "type": "string"
+        },
+        {
+          "slug": "bio",
+          "label": "Biography",
+          "type": "text",
+          "searchable": true
+        },
+        {
+          "slug": "initials",
+          "label": "Initials",
+          "type": "string"
+        },
+        {
+          "slug": "featured",
+          "label": "Featured (Founder)",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "slug": "faqs",
+      "label": "FAQs",
+      "labelSingular": "FAQ",
+      "supports": [
+        "drafts",
+        "search"
+      ],
+      "fields": [
+        {
+          "slug": "question",
+          "label": "Question",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "answer",
+          "label": "Answer",
+          "type": "text",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "category",
+          "label": "Category",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "slug": "homepage",
+      "label": "Homepage",
+      "labelSingular": "Homepage",
+      "supports": [
+        "drafts"
+      ],
+      "fields": [
+        {
+          "slug": "hero_title",
+          "label": "Hero Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "hero_subtitle",
+          "label": "Hero Subtitle",
+          "type": "string"
+        },
+        {
+          "slug": "hero_description",
+          "label": "Hero Description",
+          "type": "text"
+        },
+        {
+          "slug": "hero_button_text",
+          "label": "Hero Button Text",
+          "type": "string"
+        },
+        {
+          "slug": "hero_button_url",
+          "label": "Hero Button URL",
+          "type": "string"
+        },
+        {
+          "slug": "hero_video_url",
+          "label": "Hero Video URL",
+          "type": "string"
+        },
+        {
+          "slug": "founders_title",
+          "label": "Founders Title",
+          "type": "string"
+        },
+        {
+          "slug": "founders_subtitle",
+          "label": "Founders Subtitle",
+          "type": "string"
+        },
+        {
+          "slug": "founders_description",
+          "label": "Founders Description",
+          "type": "text"
+        },
+        {
+          "slug": "founders_content",
+          "label": "Founders Biography Content",
+          "type": "text"
+        },
+        {
+          "slug": "founders_button_text",
+          "label": "Founders Button Text",
+          "type": "string"
+        },
+        {
+          "slug": "founders_button_url",
+          "label": "Founders Button URL",
+          "type": "string"
+        },
+        {
+          "slug": "founders_image",
+          "label": "Founders Main Image",
+          "type": "string"
+        },
+        {
+          "slug": "founders_secondary_image",
+          "label": "Founders Secondary Image",
+          "type": "string"
+        },
+        {
+          "slug": "services_title",
+          "label": "Services Section Title",
+          "type": "string"
+        },
+        {
+          "slug": "services_subtitle",
+          "label": "Services Section Subtitle",
+          "type": "string"
+        },
+        {
+          "slug": "services_description",
+          "label": "Services Section Description",
+          "type": "text"
+        },
+        {
+          "slug": "clinics_title",
+          "label": "Clinics Section Title",
+          "type": "string"
+        },
+        {
+          "slug": "clinics_subtitle",
+          "label": "Clinics Section Subtitle",
+          "type": "string"
+        },
+        {
+          "slug": "clinics_description",
+          "label": "Clinics Section Description",
+          "type": "text"
+        },
+        {
+          "slug": "appointments_title",
+          "label": "Appointments Section Title",
+          "type": "string"
+        },
+        {
+          "slug": "appointments_subtitle",
+          "label": "Appointments Section Subtitle",
+          "type": "string"
+        },
+        {
+          "slug": "appointments_description",
+          "label": "Appointments Section Description",
+          "type": "text"
+        },
+        {
+          "slug": "advice_title",
+          "label": "Advice Section Title",
+          "type": "string"
+        },
+        {
+          "slug": "advice_subtitle",
+          "label": "Advice Section Subtitle",
+          "type": "string"
+        },
+        {
+          "slug": "advice_description",
+          "label": "Advice Section Description",
+          "type": "text"
+        },
+        {
+          "slug": "clinicians_title",
+          "label": "Clinicians Section Title",
+          "type": "string"
+        },
+        {
+          "slug": "clinicians_subtitle",
+          "label": "Clinicians Section Subtitle",
+          "type": "string"
+        },
+        {
+          "slug": "clinicians_description",
+          "label": "Clinicians Section Description",
+          "type": "text"
+        },
+        {
+          "slug": "service1_title",
+          "label": "Service 1 Title",
+          "type": "string"
+        },
+        {
+          "slug": "service1_price",
+          "label": "Service 1 Price",
+          "type": "string"
+        },
+        {
+          "slug": "service1_text",
+          "label": "Service 1 Description",
+          "type": "text"
+        },
+        {
+          "slug": "service1_link",
+          "label": "Service 1 URL",
+          "type": "string"
+        },
+        {
+          "slug": "service1_image",
+          "label": "Service 1 Image",
+          "type": "string"
+        },
+        {
+          "slug": "service2_title",
+          "label": "Service 2 Title",
+          "type": "string"
+        },
+        {
+          "slug": "service2_price",
+          "label": "Service 2 Price",
+          "type": "string"
+        },
+        {
+          "slug": "service2_text",
+          "label": "Service 2 Description",
+          "type": "text"
+        },
+        {
+          "slug": "service2_link",
+          "label": "Service 2 URL",
+          "type": "string"
+        },
+        {
+          "slug": "service2_image",
+          "label": "Service 2 Image",
+          "type": "string"
+        },
+        {
+          "slug": "service3_title",
+          "label": "Service 3 Title",
+          "type": "string"
+        },
+        {
+          "slug": "service3_price",
+          "label": "Service 3 Price",
+          "type": "string"
+        },
+        {
+          "slug": "service3_text",
+          "label": "Service 3 Description",
+          "type": "text"
+        },
+        {
+          "slug": "service3_link",
+          "label": "Service 3 URL",
+          "type": "string"
+        },
+        {
+          "slug": "service3_image",
+          "label": "Service 3 Image",
+          "type": "string"
+        },
+        {
+          "slug": "service4_title",
+          "label": "Service 4 Title",
+          "type": "string"
+        },
+        {
+          "slug": "service4_price",
+          "label": "Service 4 Price",
+          "type": "string"
+        },
+        {
+          "slug": "service4_text",
+          "label": "Service 4 Description",
+          "type": "text"
+        },
+        {
+          "slug": "service4_link",
+          "label": "Service 4 URL",
+          "type": "string"
+        },
+        {
+          "slug": "service4_image",
+          "label": "Service 4 Image",
+          "type": "string"
+        },
+        {
+          "slug": "service5_title",
+          "label": "Service 5 Title",
+          "type": "string"
+        },
+        {
+          "slug": "service5_price",
+          "label": "Service 5 Price",
+          "type": "string"
+        },
+        {
+          "slug": "service5_text",
+          "label": "Service 5 Description",
+          "type": "text"
+        },
+        {
+          "slug": "service5_link",
+          "label": "Service 5 URL",
+          "type": "string"
+        },
+        {
+          "slug": "service5_image",
+          "label": "Service 5 Image",
+          "type": "string"
+        },
+        {
+          "slug": "service6_title",
+          "label": "Service 6 Title",
+          "type": "string"
+        },
+        {
+          "slug": "service6_price",
+          "label": "Service 6 Price",
+          "type": "string"
+        },
+        {
+          "slug": "service6_text",
+          "label": "Service 6 Description",
+          "type": "text"
+        },
+        {
+          "slug": "service6_link",
+          "label": "Service 6 URL",
+          "type": "string"
+        },
+        {
+          "slug": "service6_image",
+          "label": "Service 6 Image",
+          "type": "string"
+        },
+        {
+          "slug": "service7_title",
+          "label": "Service 7 Title",
+          "type": "string"
+        },
+        {
+          "slug": "service7_price",
+          "label": "Service 7 Price",
+          "type": "string"
+        },
+        {
+          "slug": "service7_text",
+          "label": "Service 7 Description",
+          "type": "text"
+        },
+        {
+          "slug": "service7_link",
+          "label": "Service 7 URL",
+          "type": "string"
+        },
+        {
+          "slug": "service7_image",
+          "label": "Service 7 Image",
+          "type": "string"
+        },
+        {
+          "slug": "service8_title",
+          "label": "Service 8 Title",
+          "type": "string"
+        },
+        {
+          "slug": "service8_price",
+          "label": "Service 8 Price",
+          "type": "string"
+        },
+        {
+          "slug": "service8_text",
+          "label": "Service 8 Description",
+          "type": "text"
+        },
+        {
+          "slug": "service8_link",
+          "label": "Service 8 URL",
+          "type": "string"
+        },
+        {
+          "slug": "service8_image",
+          "label": "Service 8 Image",
+          "type": "string"
+        },
+        {
+          "slug": "service9_title",
+          "label": "Service 9 Title",
+          "type": "string"
+        },
+        {
+          "slug": "service9_price",
+          "label": "Service 9 Price",
+          "type": "string"
+        },
+        {
+          "slug": "service9_text",
+          "label": "Service 9 Description",
+          "type": "text"
+        },
+        {
+          "slug": "service9_link",
+          "label": "Service 9 URL",
+          "type": "string"
+        },
+        {
+          "slug": "service9_image",
+          "label": "Service 9 Image",
+          "type": "string"
+        },
+        {
+          "slug": "clinic1_title",
+          "label": "Clinic 1 Title",
+          "type": "string"
+        },
+        {
+          "slug": "clinic1_address1",
+          "label": "Clinic 1 Address Line 1",
+          "type": "string"
+        },
+        {
+          "slug": "clinic1_address2",
+          "label": "Clinic 1 Address Line 2",
+          "type": "string"
+        },
+        {
+          "slug": "clinic1_town",
+          "label": "Clinic 1 Town/City",
+          "type": "string"
+        },
+        {
+          "slug": "clinic1_postcode",
+          "label": "Clinic 1 Postcode",
+          "type": "string"
+        },
+        {
+          "slug": "clinic1_image",
+          "label": "Clinic 1 Image",
+          "type": "string"
+        },
+        {
+          "slug": "clinic1_link",
+          "label": "Clinic 1 URL",
+          "type": "string"
+        },
+        {
+          "slug": "clinic2_title",
+          "label": "Clinic 2 Title",
+          "type": "string"
+        },
+        {
+          "slug": "clinic2_address1",
+          "label": "Clinic 2 Address Line 1",
+          "type": "string"
+        },
+        {
+          "slug": "clinic2_address2",
+          "label": "Clinic 2 Address Line 2",
+          "type": "string"
+        },
+        {
+          "slug": "clinic2_town",
+          "label": "Clinic 2 Town/City",
+          "type": "string"
+        },
+        {
+          "slug": "clinic2_postcode",
+          "label": "Clinic 2 Postcode",
+          "type": "string"
+        },
+        {
+          "slug": "clinic2_image",
+          "label": "Clinic 2 Image",
+          "type": "string"
+        },
+        {
+          "slug": "clinic2_link",
+          "label": "Clinic 2 URL",
+          "type": "string"
+        },
+        {
+          "slug": "clinic3_title",
+          "label": "Clinic 3 Title",
+          "type": "string"
+        },
+        {
+          "slug": "clinic3_address1",
+          "label": "Clinic 3 Address Line 1",
+          "type": "string"
+        },
+        {
+          "slug": "clinic3_address2",
+          "label": "Clinic 3 Address Line 2",
+          "type": "string"
+        },
+        {
+          "slug": "clinic3_town",
+          "label": "Clinic 3 Town/City",
+          "type": "string"
+        },
+        {
+          "slug": "clinic3_postcode",
+          "label": "Clinic 3 Postcode",
+          "type": "string"
+        },
+        {
+          "slug": "clinic3_image",
+          "label": "Clinic 3 Image",
+          "type": "string"
+        },
+        {
+          "slug": "clinic3_link",
+          "label": "Clinic 3 URL",
+          "type": "string"
+        },
+        {
+          "slug": "clinic4_title",
+          "label": "Clinic 4 Title",
+          "type": "string"
+        },
+        {
+          "slug": "clinic4_address1",
+          "label": "Clinic 4 Address Line 1",
+          "type": "string"
+        },
+        {
+          "slug": "clinic4_address2",
+          "label": "Clinic 4 Address Line 2",
+          "type": "string"
+        },
+        {
+          "slug": "clinic4_town",
+          "label": "Clinic 4 Town/City",
+          "type": "string"
+        },
+        {
+          "slug": "clinic4_postcode",
+          "label": "Clinic 4 Postcode",
+          "type": "string"
+        },
+        {
+          "slug": "clinic4_image",
+          "label": "Clinic 4 Image",
+          "type": "string"
+        },
+        {
+          "slug": "clinic4_link",
+          "label": "Clinic 4 URL",
+          "type": "string"
+        },
+        {
+          "slug": "clinic5_title",
+          "label": "Clinic 5 Title",
+          "type": "string"
+        },
+        {
+          "slug": "clinic5_address1",
+          "label": "Clinic 5 Address Line 1",
+          "type": "string"
+        },
+        {
+          "slug": "clinic5_address2",
+          "label": "Clinic 5 Address Line 2",
+          "type": "string"
+        },
+        {
+          "slug": "clinic5_town",
+          "label": "Clinic 5 Town/City",
+          "type": "string"
+        },
+        {
+          "slug": "clinic5_postcode",
+          "label": "Clinic 5 Postcode",
+          "type": "string"
+        },
+        {
+          "slug": "clinic5_image",
+          "label": "Clinic 5 Image",
+          "type": "string"
+        },
+        {
+          "slug": "clinic5_link",
+          "label": "Clinic 5 URL",
+          "type": "string"
+        },
+        {
+          "slug": "clinic6_title",
+          "label": "Clinic 6 Title",
+          "type": "string"
+        },
+        {
+          "slug": "clinic6_address1",
+          "label": "Clinic 6 Address Line 1",
+          "type": "string"
+        },
+        {
+          "slug": "clinic6_address2",
+          "label": "Clinic 6 Address Line 2",
+          "type": "string"
+        },
+        {
+          "slug": "clinic6_town",
+          "label": "Clinic 6 Town/City",
+          "type": "string"
+        },
+        {
+          "slug": "clinic6_postcode",
+          "label": "Clinic 6 Postcode",
+          "type": "string"
+        },
+        {
+          "slug": "clinic6_image",
+          "label": "Clinic 6 Image",
+          "type": "string"
+        },
+        {
+          "slug": "clinic6_link",
+          "label": "Clinic 6 URL",
+          "type": "string"
+        },
+        {
+          "slug": "appointment1_title",
+          "label": "Appointment Option 1 Title",
+          "type": "string"
+        },
+        {
+          "slug": "appointment1_subtitle",
+          "label": "Appointment Option 1 Subtitle",
+          "type": "string"
+        },
+        {
+          "slug": "appointment1_url",
+          "label": "Appointment Option 1 Booking URL",
+          "type": "string"
+        },
+        {
+          "slug": "appointment1_icon",
+          "label": "Appointment Option 1 Icon",
+          "type": "string"
+        },
+        {
+          "slug": "appointment2_title",
+          "label": "Appointment Option 2 Title",
+          "type": "string"
+        },
+        {
+          "slug": "appointment2_subtitle",
+          "label": "Appointment Option 2 Subtitle",
+          "type": "string"
+        },
+        {
+          "slug": "appointment2_url",
+          "label": "Appointment Option 2 Booking URL",
+          "type": "string"
+        },
+        {
+          "slug": "appointment2_icon",
+          "label": "Appointment Option 2 Icon",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "taxonomies": [
+    {
+      "name": "category",
+      "label": "Categories",
+      "labelSingular": "Category",
+      "hierarchical": true,
+      "collections": [
+        "posts"
+      ],
+      "terms": [
+        {
+          "slug": "general",
+          "label": "General"
+        },
+        {
+          "slug": "updates",
+          "label": "Updates"
+        }
+      ]
+    },
+    {
+      "name": "tag",
+      "label": "Tags",
+      "labelSingular": "Tag",
+      "hierarchical": false,
+      "collections": [
+        "posts"
+      ],
+      "terms": [
+        {
+          "slug": "starter",
+          "label": "Starter"
+        },
+        {
+          "slug": "example",
+          "label": "Example"
+        }
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "name": "primary",
+      "label": "Primary Navigation",
+      "items": [
+        {
+          "type": "custom",
+          "label": "Home",
+          "url": "/"
+        },
+        {
+          "type": "custom",
+          "label": "Posts",
+          "url": "/posts"
+        },
+        {
+          "type": "custom",
+          "label": "About",
+          "url": "/about"
+        }
+      ]
+    }
+  ],
+  "widgetAreas": [
+    {
+      "name": "sidebar",
+      "label": "Sidebar",
+      "description": "Sidebar widget area",
+      "widgets": [
+        {
+          "type": "component",
+          "componentId": "core:search",
+          "title": "Search"
+        },
+        {
+          "type": "component",
+          "componentId": "core:categories",
+          "title": "Categories"
+        },
+        {
+          "type": "component",
+          "componentId": "core:recent-posts",
+          "title": "Recent Posts",
+          "settings": {
+            "count": 5
+          }
+        }
+      ]
+    }
+  ],
+  "content": {
+    "pages": [
+      {
+        "id": "about",
+        "slug": "about",
+        "status": "published",
+        "data": {
+          "title": "About",
+          "content": [
+            {
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "text": "This is the about page. Edit it in the admin panel or replace this template with your own design.",
+                  "_key": "k1"
+                }
+              ],
+              "_key": "k0"
+            }
+          ]
+        }
+      }
+    ],
+    "posts": [
+      {
+        "id": "post-hrt-differences",
+        "slug": "hrt-differences",
+        "status": "published",
+        "data": {
+          "title": "Natural or synthetic HRT: understanding the difference",
+          "excerpt": "Synthetic HRT and natural hormone replacement therapy for menopause symptoms are not the same - learn the differences",
+          "featured_image": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80",
+          "content": [
+            {
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "text": "Synthetic HRT and natural hormone replacement therapy for menopause symptoms are not the same - learn the differences in oestrogens, progesterones, and delivery methods.",
+                  "_key": "s1"
+                }
+              ],
+              "_key": "s0"
+            }
+          ]
+        },
+        "taxonomies": {
+          "category": [
+            "general"
+          ]
+        }
+      },
+      {
+        "id": "post-blood-tests-hrt",
+        "slug": "blood-tests-hrt",
+        "status": "published",
+        "data": {
+          "title": "What should I know before having a blood test while on HRT?",
+          "excerpt": "Newson Clinic's guide to blood tests while on HRT, including timings, what we test, and why bone density also matters.",
+          "featured_image": "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=800&q=80",
+          "content": [
+            {
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "text": "Blood tests are a useful tool to monitor hormone levels, especially oestrogen and thyroid hormones, to ensure your body is receiving the optimal dosage.",
+                  "_key": "b1"
+                }
+              ],
+              "_key": "b0"
+            }
+          ]
+        },
+        "taxonomies": {
+          "category": [
+            "general"
+          ]
+        }
+      },
+      {
+        "id": "post-testosterone-benefits",
+        "slug": "testosterone-benefits",
+        "status": "published",
+        "data": {
+          "title": "What are the benefits of testosterone for women who take HRT?",
+          "excerpt": "Testosterone can be taken alongside oestrogen and/or progesterone to treat perimenopausal and menopausal symptoms like brain fog, low libido, and muscle loss.",
+          "featured_image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
+          "content": [
+            {
+              "_type": "block",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "text": "Testosterone is an essential female hormone produced by the ovaries and adrenal glands. Learn the clinical evidence supporting its replacement during menopause.",
+                  "_key": "t1"
+                }
+              ],
+              "_key": "t0"
+            }
+          ]
+        },
+        "taxonomies": {
+          "category": [
+            "general"
+          ]
+        }
+      }
+    ],
+    "clinicians": [
+      {
+        "id": "doc1",
+        "slug": "sally-mok",
+        "status": "published",
+        "data": {
+          "name": "Dr Sally Mok",
+          "role": "GP Menopause Specialist",
+          "credentials": "MB BS, MRCGP, DRCOG, DFSRH",
+          "bio": "Highly experienced GP with over 20 years of clinical experience in supporting women through all stages of their hormone health journeys.",
+          "initials": "SM",
+          "featured": false
+        }
+      },
+      {
+        "id": "doc2",
+        "slug": "zaakira-mahomed",
+        "status": "published",
+        "data": {
+          "name": "Dr Zaakira Mahomed",
+          "role": "GP Menopause Specialist",
+          "credentials": "MBChB, MRCGP, DFSRH",
+          "bio": "Experienced NHS GP with over 11 years of clinical practice with a specialized passion for individualized, holistic hormonal care.",
+          "initials": "ZM",
+          "featured": false
+        }
+      },
+      {
+        "id": "doc3",
+        "slug": "anj-auckloo",
+        "status": "published",
+        "data": {
+          "name": "Dr Anj Auckloo",
+          "role": "GP Menopause Specialist",
+          "credentials": "MBChB, MRCGP, PGMEc",
+          "bio": "Dedicated passion for women's health, reducing health inequalities, and educating patients to make evidence-based oestrogen choices.",
+          "initials": "AA",
+          "featured": false
+        }
+      },
+      {
+        "id": "doc4",
+        "slug": "victoria-woodhouse",
+        "status": "published",
+        "data": {
+          "name": "Dr Victoria Woodhouse",
+          "role": "GP Menopause Specialist",
+          "credentials": "MBChB, MRCGP, DRCOG",
+          "bio": "Gives her patients the very best evidence-based care, scientific knowledge, and emotional support to navigate perimenopause beautifully.",
+          "initials": "VW",
+          "featured": false
+        }
+      },
+      {
+        "id": "doc5",
+        "slug": "sandra-ives",
+        "status": "published",
+        "data": {
+          "name": "Dr Sandra Ives",
+          "role": "GP Menopause Specialist",
+          "credentials": "MBChB, MRCGP, DFSRH",
+          "bio": "Broad primary care expert combining general practice with deep, specialized knowledge of body-identical hormones.",
+          "initials": "SI",
+          "featured": false
+        }
+      },
+      {
+        "id": "doc6",
+        "slug": "yusianmar-borrero",
+        "status": "published",
+        "data": {
+          "name": "Dr Yusianmar Borrero",
+          "role": "GP Menopause Specialist",
+          "credentials": "MBBS, MRCGP",
+          "bio": "A tireless advocate for women's health, empowering them with scientific research and supportive, compassionate consultation.",
+          "initials": "YB",
+          "featured": false
+        }
+      },
+      {
+        "id": "doc7",
+        "slug": "helen-winpenny",
+        "status": "published",
+        "data": {
+          "name": "Dr Helen Winpenny",
+          "role": "GP Menopause Specialist",
+          "credentials": "MBBS BSc DFFP DRCOG",
+          "bio": "Committed to empowering women with clear, unbiased clinical evidence so they can take control of their long-term health.",
+          "initials": "HW",
+          "featured": false
+        }
+      },
+      {
+        "id": "doc8",
+        "slug": "rebecca-cassin",
+        "status": "published",
+        "data": {
+          "name": "Dr Rebecca Cassin",
+          "role": "GP Menopause Specialist",
+          "credentials": "MRCGP, MBchB",
+          "bio": "Passionate about helping women successfully navigate physical and emotional changes during oestrogen transitions.",
+          "initials": "RC",
+          "featured": false
+        }
+      }
+    ],
+    "faqs": [
+      {
+        "id": "faq-1",
+        "slug": "faq-1",
+        "status": "published",
+        "data": {
+          "question": "How do I book a consultation at Newson Clinic?",
+          "answer": "You can book an appointment by filling out our online booking request form on our secure Patient Portal, or by calling our patient support team on 01789 595004. We offer both in-person consultations at our clinics and video consultations nationwide.",
+          "category": "Consultations & Appointments"
+        }
+      },
+      {
+        "id": "faq-2",
+        "slug": "faq-2",
+        "status": "published",
+        "data": {
+          "question": "Do you offer online video consultations?",
+          "answer": "Yes, we offer secure video consultations for patients across the UK and internationally. Video consultations are highly popular, highly convenient, and held with the exact same expert GP Menopause Specialists as our in-person visits.",
+          "category": "Consultations & Appointments"
+        }
+      },
+      {
+        "id": "faq-3",
+        "slug": "faq-3",
+        "status": "published",
+        "data": {
+          "question": "Do I need a GP referral to visit Newson Clinic?",
+          "answer": "No, you do not need a GP referral. We welcome self-referrals from all patients seeking specialized menopause support, perimenopause support, or hormone wellness advice.",
+          "category": "Consultations & Appointments"
+        }
+      },
+      {
+        "id": "faq-4",
+        "slug": "faq-4",
+        "status": "published",
+        "data": {
+          "question": "What type of HRT do you prescribe?",
+          "answer": "We prioritize prescribing body-identical (also known as regulated bio-identical) hormones, which are derived from natural plant sources (yam) and are structurally identical to the hormones produced by your own body. These carry significantly lower risks compared to older synthetic hormones.",
+          "category": "Hormone Replacement Therapy (HRT)"
+        }
+      },
+      {
+        "id": "faq-5",
+        "slug": "faq-5",
+        "status": "published",
+        "data": {
+          "question": "How long does it take for HRT to start working?",
+          "answer": "Many patients start noticing improvements in symptoms like hot flushes and night sweats within 2 to 4 weeks. However, other symptoms such as joint pain, mood shifts, and brain fog can take 3 to 6 months to fully stabilize. We schedule follow-ups at 3 months to monitor progress.",
+          "category": "Hormone Replacement Therapy (HRT)"
+        }
+      },
+      {
+        "id": "faq-6",
+        "slug": "faq-6",
+        "status": "published",
+        "data": {
+          "question": "Are body-identical hormones safe?",
+          "answer": "Yes, body-identical hormones (specifically transdermal oestrogen and micronised progesterone) have an outstanding safety profile. Unlike older synthetic oral treatments, transdermal oestrogen does not increase the risk of blood clots or stroke, and carries no increased risk of breast cancer when used appropriately.",
+          "category": "Hormone Replacement Therapy (HRT)"
+        }
+      },
+      {
+        "id": "faq-7",
+        "slug": "faq-7",
+        "status": "published",
+        "data": {
+          "question": "Do I need blood tests before my first consultation?",
+          "answer": "Not necessarily. In most cases, perimenopause and menopause are diagnosed based on your symptoms and clinical history rather than blood hormone levels (which can fluctuate wildly from day to day). Your clinician will advise you during your initial consultation if blood tests are necessary.",
+          "category": "Blood Tests & Diagnostics"
+        }
+      },
+      {
+        "id": "faq-8",
+        "slug": "faq-8",
+        "status": "published",
+        "data": {
+          "question": "What is a DEXA scan and why is it important?",
+          "answer": "A DEXA scan is a quick, painless scan that measures bone mineral density. Since oestrogen declines during menopause, bone loss can accelerate, increasing the risk of osteoporosis. We offer DEXA scans at our Stratford clinic to assess bone health and screen for osteoporosis risk.",
+          "category": "Blood Tests & Diagnostics"
+        }
+      }
+    ],
+    "homepage": [
+      {
+        "id": "homepage",
+        "slug": "homepage",
+        "status": "published",
+        "data": {
+          "hero_title": "Embrace life again",
+          "hero_subtitle": "Expert Hormone Care",
+          "hero_description": "Rated Outstanding by CQC. We provide unbiased, evidence-based information to support women's hormonal health and overall wellbeing.",
+          "hero_button_text": "Start your journey",
+          "hero_button_url": "https://portal.newsonhealth.co.uk/patient-portal/booking-request",
+          "hero_video_url": "/src/images/hero-banner-video.mp4",
+          "founders_title": "Founded by Dr Louise Newson & Dr Rebecca Lewis",
+          "founders_subtitle": "The Visionaries",
+          "founders_description": "Evidence-based care and treatment founded on scientific research and a wealth of clinical experience.",
+          "founders_content": "Newson Clinic was founded by Dr Louise Newson with Dr Rebecca Lewis in 2018. We are dedicated to providing individualized, holistic care for women experiencing perimenopause, menopause, and other hormonal imbalances.",
+          "founders_button_text": "Dr Louise's Website",
+          "founders_button_url": "https://www.drlouisenewson.co.uk",
+          "founders_image": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80",
+          "founders_secondary_image": "https://images.unsplash.com/photo-1638202993928-7267aad84c31?auto=format&fit=crop&w=600&q=80",
+          "services_title": "Ways we can help you",
+          "services_subtitle": "Our Services",
+          "services_description": "We are the UK’s leading female hormonal health clinic, rated Outstanding by the CQC, with expert clinicians providing individualised appointments for women's hormone health. We prescribe body identical hormones for perimenopause, menopause, PMS, PMDD, postnatal depression and other conditions including PCOS/PMOS and endometriosis.",
+          "clinics_title": "Our clinics",
+          "clinics_subtitle": "Global Presence",
+          "clinics_description": "Patient care is our top priority. We use our research and evidence-based knowledge across our beautifully designed clinics to offer the best care and advice in the world.",
+          "appointments_title": "Appointments that work round you.",
+          "appointments_subtitle": "Your Journey",
+          "appointments_description": "Our expert clinicians offer in-person or video appointments for perimenopause and menopause, PMS, PMDD and testosterone for women. Choose the experience that suits your lifestyle.",
+          "advice_title": "Advice and information",
+          "advice_subtitle": "Expert Knowledge",
+          "advice_description": "We believe in empowering people through information and education. Explore our library of resources.",
+          "clinicians_title": "Meet our clinicians",
+          "clinicians_subtitle": "The Team",
+          "clinicians_description": "Newson Clinic is the UK’s leading female hormonal health clinic. Our expert team share a passion for hormone health and cover a wealth of specialisms from mental health to nutrition.",
+          "service1_title": "Consultation with a doctor (initial)",
+          "service1_price": "£295",
+          "service1_text": "To ensure we can offer you the best service, our consultations are designed to personalise our advice for your individual needs.",
+          "service1_link": "https://www.newsonhealth.co.uk/services/consultations",
+          "service1_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/685178efacc33ab0b3f4d6e0_Mask%20Group%2016.avif",
+          "service2_title": "Consultation with a doctor (follow up)",
+          "service2_price": "£230",
+          "service2_text": "Many patients see major improvements in symptoms within three months, but every journey is different. Follow ups are key to tracking changes.",
+          "service2_link": "https://www.newsonhealth.co.uk/services/consultations-follow-up",
+          "service2_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68c970236950b6ced77cad03_Screenshot%202025-09-16%20151132.png",
+          "service3_title": "Consultation with a nurse/pharmacist (initial)",
+          "service3_price": "£195",
+          "service3_text": "To ensure we can offer you the best service, our consultations are designed to personalise our advice for your individual needs.",
+          "service3_link": "https://www.newsonhealth.co.uk/services/consultation---new-nurse-pharmacist-led",
+          "service3_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68b96a1374677aad48c38acf__7R56413.jpg",
+          "service4_title": "Consultation with a nurse (follow up)",
+          "service4_price": "£165",
+          "service4_text": "To ensure we can offer you the best service, our consultations are designed to personalise our advice for your individual needs.",
+          "service4_link": "https://www.newsonhealth.co.uk/services/consultation---nurse-pharmacist-led-follow-up",
+          "service4_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68c97079251e57dae5d34907_Screenshot%202025-09-16%20151303.png",
+          "service5_title": "Testosterone for women",
+          "service5_price": "£230",
+          "service5_text": "These appointments are designed for women who are already taking HRT and are keen to discuss testosterone as an additional hormone treatment.",
+          "service5_link": "https://www.newsonhealth.co.uk/testosterone-for-women",
+          "service5_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68c970386950b6ced77cbbd1_Screenshot%202025-09-16%20150950.png",
+          "service6_title": "Consultation - Key worker",
+          "service6_price": "£195",
+          "service6_text": "We are delighted to offer a discounted first appointment to those working in the emergency services, NHS, teachers, and Armed Forces.",
+          "service6_link": "https://www.newsonhealth.co.uk/services/consultation---key-worker",
+          "service6_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68b8538168ec1098d99fdcee__7R55634.jpg",
+          "service7_title": "Blood tests",
+          "service7_price": "From £95",
+          "service7_text": "Newson Clinic offers a range of tests to assess full blood count, kidney function, liver function, lipids, and a full hormone panel.",
+          "service7_link": "https://www.newsonhealth.co.uk/services/blood-tests",
+          "service7_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/6862ad958669074422e6c3d4_Blood%20Test%20vials%20and%20paperwork%20on%20a%20desk.avif",
+          "service8_title": "Advanced thyroid check",
+          "service8_price": "£110",
+          "service8_text": "Newson Clinic can offer you a comprehensive thyroid function test, including antibodies, for a detailed analysis of thyroid health.",
+          "service8_link": "#",
+          "service8_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/6859af0a5eaaade6a051a377_Mask%20Group%20124.avif",
+          "service9_title": "Enhanced hormone & thyroid",
+          "service9_price": "£110",
+          "service9_text": "A comprehensive profile including female hormones, thyroid function, and vitamin D levels for a complete wellness overview.",
+          "service9_link": "https://www.newsonhealth.co.uk/services/enhanced-hormone-and-thyroid-check-with-added-vit-d",
+          "service9_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/6859af00ab7244250ca31f88_Mask%20Group%20123.avif",
+          "clinic1_title": "London - 4 Harley St",
+          "clinic1_address1": "4 Harley Street",
+          "clinic1_address2": "The Hale Clinic",
+          "clinic1_town": "London",
+          "clinic1_postcode": "W1G 9PB",
+          "clinic1_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/6a01a7713afef91cc5986c2f_LCC001-scaled.jpg",
+          "clinic1_link": "/clinic/4-harley-street",
+          "clinic2_title": "London - 18 Wimpole St",
+          "clinic2_address1": "18 Wimpole Street",
+          "clinic2_address2": "Inuvi Diagnostic Centre",
+          "clinic2_town": "London",
+          "clinic2_postcode": "W1G 8GD",
+          "clinic2_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/69b7dd8860bde2721121bcde_Image%20(14).jpg",
+          "clinic2_link": "/clinic/london-18-wimpole-street",
+          "clinic3_title": "Hale",
+          "clinic3_address1": "185 Ashley Rd",
+          "clinic3_address2": "Bank Medispa",
+          "clinic3_town": "Hale",
+          "clinic3_postcode": "WA15 9SQ",
+          "clinic3_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/695e6b5bb138761a635560f1_bank-medispa-external-view-crop.jpg",
+          "clinic3_link": "/clinic/hale",
+          "clinic4_title": "Video Consultation",
+          "clinic4_address1": "Virtual Appointments",
+          "clinic4_address2": "from your own home",
+          "clinic4_town": "Global",
+          "clinic4_postcode": "",
+          "clinic4_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/691aefa794777ab5c10e841d_Mask%20Group%20126.png",
+          "clinic4_link": "/clinic/video",
+          "clinic5_title": "London - 32 Wimpole St",
+          "clinic5_address1": "32 Wimpole Street",
+          "clinic5_address2": "",
+          "clinic5_town": "London",
+          "clinic5_postcode": "W1G 8GT",
+          "clinic5_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/691aef85eebacdb88f2c4138_Mask%20Group%20124.png",
+          "clinic5_link": "/clinic/london",
+          "clinic6_title": "Stratford-Upon-Avon",
+          "clinic6_address1": "Winton House",
+          "clinic6_address2": "Church Street",
+          "clinic6_town": "Stratford Upon Avon",
+          "clinic6_postcode": "CV37 6HB",
+          "clinic6_image": "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/691aef69733c2cb3c13cd7c4_Mask%20Group%20123.png",
+          "clinic6_link": "/clinic/stratford-upon-avon",
+          "appointment1_title": "Video Consultation",
+          "appointment1_subtitle": "From the comfort of your home",
+          "appointment1_url": "/book-video",
+          "appointment1_icon": "video",
+          "appointment2_title": "In-person Appointment",
+          "appointment2_subtitle": "Visit us at one of our clinics",
+          "appointment2_url": "/book-in-person",
+          "appointment2_icon": "map-pin"
+        }
+      }
+    ]
+  }
+}

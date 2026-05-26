@@ -1,0 +1,217 @@
+---
+import Base from "../layouts/Base.astro";
+import { getSiteSettings } from "emdash";
+import { resolveStarterSiteIdentity } from "../utils/site-identity";
+import { generateBreadcrumbSchema } from "../utils/schema";
+import AnimatedReveal from "../components/AnimatedReveal";
+
+const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+
+const feeTiers = [
+	{
+		title: "Follow-up Consultation",
+		price: "£195",
+		period: "Per Visit",
+		duration: "30 minutes",
+		badge: "",
+		description: "For existing patients to review progress and optimize treatment.",
+		features: [
+			"Detailed symptom improvement review",
+			"HRT dosage adjustments & optimization",
+			"Ongoing prescription renewals",
+			"Clinical letter copy for your GP",
+		],
+		ctaLabel: "Book Follow-up",
+		featured: false,
+	},
+	{
+		title: "Initial Consultation",
+		price: "£295",
+		period: "First Visit",
+		duration: "55 minutes",
+		badge: "Most Popular",
+		description: "Comprehensive assessment and personalized treatment plan.",
+		features: [
+			"Comprehensive medical history review",
+			"Symptom assessment & clinical diagnosis",
+			"Personalized treatment plan discussion",
+			"Body-identical HRT prescribing",
+			"Full clinical consultation letter copy",
+		],
+		ctaLabel: "Request Booking",
+		featured: true,
+	},
+	{
+		title: "Diagnostics & Scans",
+		price: "From £50",
+		period: "Per Scan",
+		duration: "Varies",
+		badge: "",
+		description: "Specialized testing and bone density screening.",
+		features: [
+			"Comprehensive blood tests (From £50)",
+			"DEXA scan for bone density (£125)",
+			"Coil fitting & removals (Custom)",
+			"Reviewed by clinical specialists",
+		],
+		ctaLabel: "View Details",
+		featured: false,
+	},
+];
+
+const faqs = [
+	{
+		q: "Are prescription costs included in the consultation fee?",
+		a: "The consultation fee covers the clinical assessment and the writing of your prescription. The actual cost of the medication is paid separately to the dispensing pharmacy."
+	},
+	{
+		q: "Is this covered by private health insurance?",
+		a: "While most standard health insurance policies in the UK do not cover routine menopause care, some may reimburse for specific diagnostic tests or specialist referrals. Please check with your provider directly."
+	},
+	{
+		q: "What is your cancellation policy?",
+		a: "We require at least 48 business hours' notice to cancel or reschedule an appointment. Cancellations made within 48 hours may be subject to a cancellation fee."
+	}
+];
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+	{ name: "Home", url: Astro.url.origin },
+	{ name: "Pricing & Fees", url: Astro.url.href },
+]);
+---
+
+<Base
+	title={`Pricing & Fees — ${siteTitle}`}
+	description="View transparent clinical pricing for menopause consultations, follow-up visits, diagnostic blood tests, and DEXA bone density scans."
+	schema={breadcrumbSchema}
+>
+	<!-- ═══════════════════════════════════════
+	     HERO (PREMIUM REDESIGN)
+	     ═══════════════════════════════════════ -->
+	<header class="relative bg-white pt-32 pb-24 border-b border-black/5 overflow-hidden">
+		<!-- Soft ambient glows -->
+		<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden flex justify-center items-center">
+			<div class="w-[800px] h-[800px] bg-gradient-to-bl from-[#f7d3d9]/40 to-[#fdf5f1] rounded-full blur-[120px] opacity-80 mix-blend-multiply absolute top-[-30%] right-[-10%]"></div>
+			<div class="w-[600px] h-[600px] bg-[#ea526f]/5 rounded-full blur-[100px] absolute bottom-[-10%] left-[-5%]"></div>
+		</div>
+
+		<div class="container mx-auto px-6 max-w-5xl text-center relative z-10 mt-10">
+			<AnimatedReveal client:visible duration={1.2} yOffset={30}>
+				<div class="inline-flex items-center px-4 py-2 mb-8 rounded-full border border-[#ea526f]/10 bg-[#ea526f]/5 text-[11px] font-bold tracking-widest uppercase text-[#ea526f] shadow-sm">
+					Transparent Clinical Pricing
+				</div>
+				<h1 class="font-display text-[4rem] md:text-[5.5rem] text-not-quite-black mb-6 leading-[1.05] tracking-tight">
+					Invest in your <br/>
+					<span class="text-[#ea526f] italic font-light relative">
+						hormonal health
+						<!-- Underline swoop -->
+						<svg class="absolute w-[105%] h-4 -bottom-2 -left-2 text-[#ea526f]/20" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5Q50 10 100 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+					</span>
+				</h1>
+				<p class="text-[1.2rem] md:text-[1.35rem] text-[#666] max-w-2xl mx-auto leading-relaxed font-medium">
+					We believe in complete transparency. No hidden fees, just world-class, evidence-based care tailored entirely to your unique hormonal journey.
+				</p>
+			</AnimatedReveal>
+		</div>
+	</header>
+
+	<!-- ═══════════════════════════════════════
+	     PRICING TIERS
+	     ═══════════════════════════════════════ -->
+	<main class="relative bg-[#fdf5f1] py-24 lg:py-32 overflow-hidden" id="pricing-tiers-section">
+		<div class="absolute top-[20%] right-[5%] w-[600px] h-[600px] bg-[#ea526f]/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+		<div class="container mx-auto px-6 max-w-[1400px] relative z-10">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-end max-w-6xl mx-auto">
+				{feeTiers.map((tier, index) => (
+					<AnimatedReveal client:visible delay={index * 0.15} yOffset={50} className={`w-full ${tier.featured ? 'z-20' : 'z-10'}`}>
+						<article class={`group relative flex flex-col p-10 rounded-[2.5rem] transition-all duration-700 ease-out-expo h-full ${tier.featured ? 'bg-white shadow-[0_30px_80px_rgba(233,81,111,0.15)] border border-[#ea526f]/20 py-14 hover:-translate-y-4' : 'bg-white/60 backdrop-blur-3xl border border-white hover:bg-white hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] hover:-translate-y-2'}`}>
+							
+							{tier.featured && (
+								<div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#ea526f] text-white text-[11px] font-bold uppercase tracking-[0.2em] px-6 py-2.5 rounded-full shadow-lg whitespace-nowrap">
+									{tier.badge}
+								</div>
+							)}
+
+							<div class="mb-8">
+								<h2 class={`text-[2rem] font-display mb-3 tracking-tight ${tier.featured ? 'text-[#ea526f]' : 'text-not-quite-black'}`}>{tier.title}</h2>
+								<p class="text-[1.05rem] text-[#555] font-medium leading-relaxed min-h-[3rem]">{tier.description}</p>
+							</div>
+
+							<div class="mb-10 flex flex-col gap-2">
+								<div class="flex items-baseline gap-2">
+									<span class={`font-display text-[4rem] md:text-[5rem] tracking-tight leading-none ${tier.featured ? 'text-not-quite-black' : 'text-not-quite-black'}`}>{tier.price}</span>
+								</div>
+								<span class="text-[13px] text-text-grey font-bold uppercase tracking-widest flex items-center gap-2">
+									<span class="w-1.5 h-1.5 rounded-full bg-[#ea526f]/50"></span>
+									{tier.period} • {tier.duration}
+								</span>
+							</div>
+
+							<div class={`h-px w-full mb-10 ${tier.featured ? 'bg-gradient-to-r from-transparent via-[#ea526f]/20 to-transparent' : 'bg-black/5'}`}></div>
+
+							<ul class="flex flex-col gap-5 mb-12 flex-grow">
+								{tier.features.map((feat) => (
+									<li class="flex gap-4 text-[1.05rem] text-[#444] font-medium leading-relaxed items-start">
+										<div class={`mt-1 flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center ${tier.featured ? 'bg-[#ea526f]/10 text-[#ea526f]' : 'bg-[#f7d3d9]/50 text-[#ea526f]'}`}>
+											<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+										</div>
+										<span>{feat}</span>
+									</li>
+								))}
+							</ul>
+
+							<div class="mt-auto">
+								<a
+									href="https://portal.newsonhealth.co.uk/patient-portal/booking-request"
+									target="_blank"
+									class={`block text-center w-full py-4.5 px-6 text-[13px] font-bold uppercase tracking-widest rounded-full transition-all duration-500 ease-out flex items-center justify-center gap-3 ${tier.featured ? 'bg-[#ea526f] text-white shadow-[0_15px_30px_rgba(233,81,111,0.25)] hover:shadow-[0_20px_40px_rgba(233,81,111,0.4)] hover:-translate-y-1' : 'bg-white text-not-quite-black border border-black/10 hover:bg-[#ea526f] hover:text-white hover:border-[#ea526f] hover:shadow-[0_10px_20px_rgba(233,81,111,0.2)] hover:-translate-y-1'}`}
+								>
+									{tier.ctaLabel}
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+								</a>
+							</div>
+						</article>
+					</AnimatedReveal>
+				))}
+			</div>
+		</div>
+	</main>
+
+	<!-- ═══════════════════════════════════════
+	     FAQS SECTION
+	     ═══════════════════════════════════════ -->
+	<section class="bg-white py-24 md:py-32 relative overflow-hidden" id="faq-section">
+		<div class="absolute -left-32 top-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-[#ea526f]/10 to-transparent rounded-full blur-[100px]"></div>
+		
+		<div class="container mx-auto px-6 max-w-4xl relative z-10">
+			<AnimatedReveal client:visible yOffset={30}>
+				<div class="text-center mb-16">
+					<h2 class="font-display text-[3rem] md:text-[4rem] text-not-quite-black mb-4 tracking-tight">Pricing Questions</h2>
+					<p class="text-[1.1rem] text-[#666] font-medium leading-relaxed">Everything you need to know about our clinical fees and billing.</p>
+				</div>
+			</AnimatedReveal>
+
+			<div class="flex flex-col gap-6">
+				{faqs.map((faq, index) => (
+					<AnimatedReveal client:visible delay={index * 0.1} yOffset={20}>
+						<div class="group bg-white rounded-3xl p-8 shadow-[0_10px_30px_rgba(0,0,0,0.03)] border border-black/5 hover:border-[#ea526f]/20 hover:shadow-[0_15px_40px_rgba(233,81,111,0.08)] transition-all duration-500">
+							<h3 class="text-[1.4rem] font-display text-not-quite-black mb-3 group-hover:text-[#ea526f] transition-colors">{faq.q}</h3>
+							<p class="text-[1.05rem] text-[#555] leading-relaxed font-medium">{faq.a}</p>
+						</div>
+					</AnimatedReveal>
+				))}
+			</div>
+			
+			<AnimatedReveal client:visible delay={0.4} yOffset={20}>
+				<div class="mt-16 text-center">
+					<p class="text-text-grey mb-6">Still have questions? Our patient care team is here to help.</p>
+					<a href="/contact-us" class="inline-flex items-center gap-2 text-newson-pink font-semibold uppercase tracking-widest text-sm hover:gap-4 transition-all duration-300">
+						Contact Support <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+					</a>
+				</div>
+			</AnimatedReveal>
+		</div>
+	</section>
+</Base>
+

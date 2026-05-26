@@ -1,0 +1,28 @@
+---
+import Base from "../layouts/Base.astro";
+import AnimatedReveal from "../components/AnimatedReveal";
+---
+
+<Base title="Page Not Found — Newson Clinic" description="The page you are looking for does not exist. Back to the Newson Clinic homepage.">
+	<main class="min-h-[70vh] flex items-center justify-center bg-[radial-gradient(circle_at_center,rgba(253,221,221,0.2)_0%,var(--color-buff)_70%)] section-spacing" id="not-found-content">
+		<div class="container mx-auto px-6 text-center">
+			<AnimatedReveal client:visible yOffset={30}>
+				<div class="max-w-2xl mx-auto premium-surface p-12 md:p-16 bg-white">
+					<span class="block font-display text-7xl md:text-8xl text-newson-pink font-bold leading-none mb-6 opacity-85">404</span>
+					<h1 class="text-3xl md:text-4xl text-not-quite-black mb-6">Page not found</h1>
+					<p class="text-lg text-text-grey leading-relaxed mb-10 max-w-lg mx-auto">
+						We're sorry, but the page you are looking for does not exist or has been moved.
+					</p>
+					<div class="flex flex-col sm:flex-row gap-4 justify-center">
+						<a href="/" class="px-10 py-4 bg-not-quite-black text-white text-sm font-medium uppercase tracking-wider rounded-full shadow-premium hover:shadow-glow hover:-translate-y-1 hover:bg-newson-pink transition-all duration-400 ease-out-expo" id="go-home-btn">
+							Return Home
+						</a>
+						<a href="/posts" class="px-10 py-4 bg-white border border-black/5 text-newson-pink text-sm font-medium uppercase tracking-wider rounded-full shadow-premium hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-400 ease-out-expo" id="browse-articles-btn">
+							Browse Knowledge
+						</a>
+					</div>
+				</div>
+			</AnimatedReveal>
+		</div>
+	</main>
+</Base>

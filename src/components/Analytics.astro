@@ -1,0 +1,19 @@
+---
+// src/components/Analytics.astro
+export interface Props {
+  measurementId?: string;
+}
+
+// Default GA4 measurement ID for Newson Clinic (placeholder)
+const { measurementId = "G-NWSN123456" } = Astro.props;
+---
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+<script define:vars={{ measurementId }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', measurementId);
+</script>

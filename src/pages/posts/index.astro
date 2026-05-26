@@ -1,0 +1,204 @@
+---
+import { getEmDashCollection, getTermsForEntries, getSiteSettings } from "emdash";
+import { Image } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+import { resolveStarterSiteIdentity } from "../../utils/site-identity";
+import AnimatedReveal from "../../components/AnimatedReveal";
+
+const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
+	orderBy: { published_at: "desc" },
+});
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+
+// Batch get both tags and categories for our posts
+const postIds = posts.map((p) => p.data.id);
+const tagsByEntry = await getTermsForEntries("posts", postIds, "tag");
+const categoriesByEntry = await getTermsForEntries("posts", postIds, "category");
+
+const postsWithMeta = posts.map((post) => {
+	const tags = tagsByEntry.get(post.data.id) ?? [];
+	const categories = categoriesByEntry.get(post.data.id) ?? [];
+	return {
+		post,
+		tags,
+		categories,
+	};
+});
+
+// Separate the featured post (most recent) from the rest
+const featuredPost = postsWithMeta[0];
+const remainingPosts = postsWithMeta.slice(1);
+---
+
+<Base title={`Knowledge Library — ${siteTitle}`} description="Explore our library of evidence-based healthcare articles, menopause support, hormonal wellbeing guides, and expert advice.">
+	<!-- ═══════════════════════════════════════
+	     LIBRARY HERO
+	     ═══════════════════════════════════════ -->
+	<header class="bg-gradient-to-br from-peach via-bg-soft-pink to-peachy-pink pt-24 pb-16 border-b border-black/5">
+		<div class="container mx-auto px-6 max-w-4xl text-center">
+			<nav class="flex items-center justify-center gap-2 text-xs font-medium mb-6" aria-label="Breadcrumb">
+				<a href="/" class="text-text-grey hover:text-newson-pink transition-colors">Home</a>
+				<span class="text-lines opacity-50">/</span>
+				<span class="text-newson-pink">Knowledge Library</span>
+			</nav>
+			<AnimatedReveal client:visible duration={1.2}>
+				<h1 class="text-fluid-5xl tracking-tight text-not-quite-black mb-6">Knowledge Library</h1>
+				<p class="text-lg text-text-grey max-w-2xl mx-auto leading-relaxed">
+					Unbiased, evidence-based articles and resources about women’s hormonal health,
+					perimenopause, menopause, and overall clinical wellbeing.
+				</p>
+			</AnimatedReveal>
+		</div>
+	</header>
+
+	<main class="bg-white section-spacing">
+		<div class="container mx-auto px-6 max-w-7xl">
+			<!-- ═══════════════════════════════════════
+			     FEATURED POST
+			     ═══════════════════════════════════════ -->
+			{featuredPost && (
+				<section class="mb-20" id="featured-article-section">
+					<AnimatedReveal client:visible yOffset={40}>
+						<span class="inline-block text-xs font-semibold text-newson-pink uppercase tracking-widest mb-6">Latest &amp; Featured</span>
+						<article class="premium-surface group bg-white overflow-hidden flex flex-col lg:flex-row">
+							<div class="lg:w-[55%] relative overflow-hidden min-h-[300px] lg:min-h-[400px]">
+								{featuredPost.post.data.featured_image ? (
+									<a href={`/posts/${featuredPost.post.id}`} class="block w-full h-full" aria-label={`Read ${featuredPost.post.data.title}`}>
+										<Image image={featuredPost.post.data.featured_image} class="w-full h-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105" />
+									</a>
+								) : (
+									<div class="w-full h-full bg-gradient-to-br from-peach to-peachy-pink flex items-center justify-center text-newson-pink font-display text-3xl">
+										<span>Newson Clinic</span>
+									</div>
+								)}
+							</div>
+
+							<div class="lg:w-[45%] p-8 lg:p-12 flex flex-col justify-center gap-6">
+								<div class="flex items-center gap-4 text-xs">
+									{featuredPost.categories.length > 0 && (
+										<span class="font-semibold text-newson-pink uppercase tracking-widest">
+											{featuredPost.categories[0].label}
+										</span>
+									)}
+									{featuredPost.post.data.publishedAt && (
+										<time class="text-text-grey" datetime={featuredPost.post.data.publishedAt.toISOString()}>
+											{featuredPost.post.data.publishedAt.toLocaleDateString("en-GB", {
+												year: "numeric",
+												month: "long",
+												day: "numeric",
+											})}
+										</time>
+									)}
+								</div>
+
+								<h2 class="text-3xl lg:text-4xl font-display leading-tight">
+									<a href={`/posts/${featuredPost.post.id}`} class="text-not-quite-black hover:text-newson-pink transition-colors">{featuredPost.post.data.title}</a>
+								</h2>
+
+								{featuredPost.post.data.excerpt && (
+									<p class="text-base text-text-grey leading-relaxed line-clamp-3">
+										{featuredPost.post.data.excerpt}
+									</p>
+								)}
+
+								<div class="mt-auto pt-6 border-t border-black/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+									{featuredPost.tags.length > 0 && (
+										<div class="flex flex-wrap gap-2">
+											{featuredPost.tags.map((t) => (
+												<a href={`/tag/${t.slug}`} class="px-3 py-1 bg-buff text-text-grey text-xs font-medium rounded-full border border-black/5 hover:bg-newson-pink hover:text-white hover:border-newson-pink transition-colors">
+													{t.label}
+												</a>
+											))}
+										</div>
+									)}
+									<a href={`/posts/${featuredPost.post.id}`} class="shrink-0 px-6 py-2.5 bg-white border border-black/5 text-not-quite-black text-xs font-medium uppercase tracking-wider rounded-full shadow-sm hover:shadow-premium-hover hover:border-newson-pink/30 hover:text-newson-pink transition-all duration-300">
+										Read Article
+									</a>
+								</div>
+							</div>
+						</article>
+					</AnimatedReveal>
+				</section>
+			)}
+
+			<!-- ═══════════════════════════════════════
+			     ARTICLES GRID
+			     ═══════════════════════════════════════ -->
+			<section class="border-t border-black/5 pt-16" id="all-articles-section">
+				<AnimatedReveal client:visible>
+					<h2 class="text-3xl font-display mb-10">All Articles</h2>
+				</AnimatedReveal>
+				
+				{remainingPosts.length === 0 && !featuredPost ? (
+					<AnimatedReveal client:visible>
+						<div class="text-center py-16 text-text-grey">
+							<p>No articles found in our library yet. Please check back soon.</p>
+						</div>
+					</AnimatedReveal>
+				) : (
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						{remainingPosts.map(({ post, tags, categories }) => (
+							<article class="premium-surface group flex flex-col overflow-hidden bg-white">
+								<div class="relative h-56 overflow-hidden">
+									{post.data.featured_image ? (
+										<a href={`/posts/${post.id}`} class="block w-full h-full" aria-label={`Read ${post.data.title}`}>
+											<Image image={post.data.featured_image} class="w-full h-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105" />
+										</a>
+									) : (
+										<div class="w-full h-full bg-gradient-to-br from-peach to-peachy-pink flex items-center justify-center text-newson-pink font-display text-2xl">
+											<span>Newson Clinic</span>
+										</div>
+									)}
+								</div>
+
+								<div class="p-6 flex flex-col flex-grow gap-4">
+									<div class="flex items-center gap-3 text-[11px]">
+										{categories.length > 0 && (
+											<span class="font-semibold text-newson-pink uppercase tracking-widest">{categories[0].label}</span>
+										)}
+										{post.data.publishedAt && (
+											<time class="text-lines" datetime={post.data.publishedAt.toISOString()}>
+												{post.data.publishedAt.toLocaleDateString("en-GB", {
+													year: "numeric",
+													month: "short",
+													day: "numeric",
+												})}
+											</time>
+										)}
+									</div>
+
+									<h3 class="text-xl font-display leading-snug">
+										<a href={`/posts/${post.id}`} class="text-not-quite-black hover:text-newson-pink transition-colors">{post.data.title}</a>
+									</h3>
+
+									{post.data.excerpt && (
+										<p class="text-sm text-text-grey leading-relaxed line-clamp-3">
+											{post.data.excerpt}
+										</p>
+									)}
+
+									<div class="mt-auto pt-4 border-t border-black/5 flex items-center justify-between gap-4">
+										{tags.length > 0 && (
+											<div class="flex overflow-hidden gap-1.5">
+												{tags.slice(0, 2).map((t) => (
+													<a href={`/tag/${t.slug}`} class="px-2.5 py-1 bg-buff text-text-grey text-[10px] font-medium rounded-full border border-black/5 hover:bg-newson-pink hover:text-white hover:border-newson-pink transition-colors whitespace-nowrap">
+														{t.label}
+													</a>
+												))}
+											</div>
+										)}
+										<a href={`/posts/${post.id}`} class="text-sm font-semibold text-newson-pink shrink-0 transition-transform duration-300 group-hover:translate-x-1" aria-label={`Read ${post.data.title}`}>
+											Read &rarr;
+										</a>
+									</div>
+								</div>
+							</article>
+						))}
+					</div>
+				)}
+			</section>
+		</div>
+	</main>
+</Base>
