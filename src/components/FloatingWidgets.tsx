@@ -126,13 +126,12 @@ export default function FloatingWidgets() {
 			</div>
 
 			{/* ─────────── Bottom-Right: Chat + Share stack ─────────── */}
-			<div
+			{/* <div
 				className={`fixed bottom-6 right-6 z-[90] flex flex-row-reverse items-end gap-3 transition-all duration-700 ease-out ${
 					mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
 				}`}
 				style={{ transitionDelay: "200ms", transitionTimingFunction: springTransition }}
 			>
-				{/* Chat */}
 				<button
 					type="button"
 					aria-label="Open chat"
@@ -142,10 +141,7 @@ export default function FloatingWidgets() {
 						<path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
 					</svg>
 				</button>
-
-				{/* Share */}
 				<div className="relative flex flex-col items-center justify-end">
-					{/* Social icons */}
 					<div className="absolute bottom-[70px] flex flex-col gap-3 pointer-events-none">
 						<a
 							href="#"
@@ -191,8 +187,6 @@ export default function FloatingWidgets() {
 							</svg>
 						</a>
 					</div>
-
-					{/* Share toggle */}
 					<button
 						type="button"
 						onClick={() => setIsShareOpen(!isShareOpen)}
@@ -237,7 +231,7 @@ export default function FloatingWidgets() {
 						</svg>
 					</button>
 				</div>
-			</div>
+			</div> */}
 		</>
 	);
 }
