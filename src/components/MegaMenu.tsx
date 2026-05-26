@@ -140,7 +140,7 @@ export default function MegaMenu({ logoSrc }: { logoSrc?: string }) {
 			<div
 				ref={menuPanelRef}
 				className={`fixed left-0 w-full z-[110] bg-white/98 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.1)] overflow-y-auto invisible opacity-0 ${
-					isMobile ? "top-0 h-[100dvh] pt-24 pb-12" : "top-0 pt-32 pb-20 rounded-b-[3rem] border-b border-black/5"
+					isMobile ? "top-0 h-[100dvh] pt-24 pb-12" : "top-0 pt-44 pb-20 rounded-b-[3rem] border-b border-black/5"
 				}`}
 				role="navigation"
 				aria-label="Main navigation"
@@ -169,6 +169,50 @@ export default function MegaMenu({ logoSrc }: { logoSrc?: string }) {
 				<div className="absolute bottom-0 left-[10%] w-[450px] h-[450px] bg-[#ea526f]/5 rounded-full blur-[120px] pointer-events-none -z-10" />
 
 				<div className="container mx-auto px-6 lg:px-10 max-w-[1480px] h-full">
+					{/* ── TOP UTILITY ROW: search + patient portal (key for mobile) ── */}
+					<form
+						action="/search"
+						method="get"
+						className="menu-top-utility flex flex-col sm:flex-row items-stretch gap-3 mb-8 lg:mb-10"
+						onSubmit={(e) => {
+							const input = e.currentTarget.querySelector('input[name="q"]') as HTMLInputElement | null;
+							const q = input?.value.trim();
+							if (!q) {
+								e.preventDefault();
+								return;
+							}
+							closeMenu();
+						}}
+					>
+						<label className="relative flex-1 group">
+							<span className="absolute left-5 top-1/2 -translate-y-1/2 text-[#ea526f] pointer-events-none">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+									<circle cx="11" cy="11" r="8" />
+									<line x1="21" y1="21" x2="16.65" y2="16.65" />
+								</svg>
+							</span>
+							<input
+								type="search"
+								name="q"
+								placeholder="Search the clinic — services, articles, FAQs…"
+								className="w-full bg-[#fdf5f1] focus:bg-white border border-transparent focus:border-[#ea526f]/30 rounded-full py-3.5 sm:py-4 pl-14 pr-5 text-[14px] sm:text-[15px] font-medium text-not-quite-black outline-none transition-colors placeholder:text-[#888]"
+							/>
+						</label>
+						<a
+							href="https://portal.newsonhealth.co.uk/patient-portal"
+							target="_blank"
+							rel="noopener noreferrer"
+							onClick={closeMenu}
+							className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:py-4 rounded-full bg-white border border-black/8 text-not-quite-black text-[12px] font-bold uppercase tracking-[0.12em] hover:bg-not-quite-black hover:text-white hover:border-not-quite-black transition-colors shrink-0"
+						>
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+								<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+								<circle cx="12" cy="7" r="4" />
+							</svg>
+							<span>Patient Portal</span>
+						</a>
+					</form>
+
 					<div className={`grid gap-10 lg:gap-14 ${isMobile ? "grid-cols-1" : "grid-cols-[360px_1fr] xl:grid-cols-[400px_1fr]"}`}>
 						{/* ── LEFT: Contact card ── */}
 						<aside className="menu-contact-card">

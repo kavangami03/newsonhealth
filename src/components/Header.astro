@@ -10,9 +10,9 @@ const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 ---
 
 <div class="fixed top-0 left-0 right-0 z-[150] transition-all duration-500 ease-out-expo pointer-events-none" id="global-header-wrap">
-	<!-- ═══ TOP TRUST RIBBON ═══ -->
+	<!-- ═══ TOP TRUST RIBBON (desktop only — contents available in mega menu on mobile) ═══ -->
 	<div
-		class="pointer-events-auto bg-gradient-to-r from-[#ea526f] via-[#e63d5d] to-[#ea526f] text-white transition-all duration-500 ease-out-expo overflow-hidden"
+		class="pointer-events-auto bg-gradient-to-r from-[#ea526f] via-[#e63d5d] to-[#ea526f] text-white transition-all duration-500 ease-out-expo overflow-hidden hidden md:block"
 		id="trust-ribbon"
 	>
 		<div class="max-w-[1640px] mx-auto px-4 md:px-6 lg:px-10 h-9 md:h-10 flex items-center justify-between gap-4 text-[11px] md:text-[12px] font-medium">
@@ -62,11 +62,11 @@ const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 			<!-- Subtle pink gradient line at top -->
 			<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-[1px] bg-gradient-to-r from-transparent via-[#ea526f]/50 to-transparent pointer-events-none" aria-hidden="true"></div>
 
-			<div class="flex items-center justify-between gap-3 md:gap-5 lg:gap-7 h-[72px] md:h-[88px] px-4 md:px-6 lg:px-8 transition-all duration-500 ease-out-expo" id="header-inner">
+			<div class="flex items-center justify-between gap-3 md:gap-5 lg:gap-7 h-[64px] md:h-[88px] px-4 md:px-6 lg:px-8 transition-all duration-500 ease-out-expo" id="header-inner">
 				<!-- LOGO with editorial side caption -->
 				<a href="/" class="flex-shrink-0 relative z-[120] group flex items-center gap-4" aria-label={`${siteTitle} home`}>
 					<Logo
-						class="w-auto h-10 md:h-12 lg:h-[56px] transition-transform duration-500 ease-out-expo group-hover:scale-[1.03]"
+						class="w-auto h-8 md:h-12 lg:h-[56px] transition-transform duration-500 ease-out-expo group-hover:scale-[1.03]"
 						id="header-logo"
 					/>
 					<!-- Editorial micro-caption (xl+) -->
@@ -81,24 +81,17 @@ const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 
 				<!-- RIGHT CLUSTER -->
 				<div class="flex items-center gap-2 md:gap-3 flex-shrink-0">
-					<!-- Search icon (desktop) -->
+					<!-- Search icon (desktop only — mobile users search inside mega menu) -->
 					<button type="button" id="header-search-toggle" class="hidden md:flex w-11 h-11 rounded-full border border-black/8 hover:border-[#ea526f] hover:bg-[#ea526f] text-not-quite-black hover:text-white items-center justify-center transition-all duration-300" aria-label="Open search">
 						<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 					</button>
 
-					<!-- Book dropdown (desktop) -->
+					<!-- Book dropdown (desktop only — mobile book lives in mega menu contact card) -->
 					<div class="hidden md:block">
 						<AppointmentDropdown client:load />
 					</div>
 
-					<!-- Mobile -->
-					<button type="button" id="mobile-search-toggle" class="md:hidden w-11 h-11 rounded-full border border-black/8 text-not-quite-black flex items-center justify-center" aria-label="Open search">
-						<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-					</button>
-					<a href="https://portal.newsonhealth.co.uk/patient-portal/booking-request" target="_blank" rel="noopener noreferrer" class="md:hidden inline-flex items-center px-4 h-11 bg-[#ea526f] text-white text-[11px] font-bold uppercase tracking-widest rounded-full shadow-[0_10px_25px_rgba(233,81,111,0.4)]">
-						Book
-					</a>
-
+					<!-- Mega menu trigger (always visible — primary mobile control) -->
 					<MegaMenu client:load logoSrc={customLogo?.src} />
 				</div>
 			</div>
