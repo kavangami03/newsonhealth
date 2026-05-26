@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
-const STORAGE_KEY = "newsonhealth:discover_more_dismissed_at";
-const SUPPRESS_FOR_DAYS = 7;
+// sessionStorage so the popup only shows once per browser session:
+// - survives in-site navigation and hard refresh on the same tab
+// - cleared when the tab/browser closes, so it shows again on the user's next visit
+const SESSION_SHOWN_KEY = "newsonhealth:discover_more_shown";
 const OPEN_AFTER_MS = 1800;
 
 interface DiscoverCard {
@@ -45,14 +47,22 @@ const CARDS: DiscoverCard[] = [
 const DOCTOR_IMAGE =
 	"https://cdn.prod.website-files.com/6751c479dec4c0b0de747da1/69e216a9b75f63633ff59117_DL%202.png";
 
-function shouldShow(): boolean {
-	if (typeof window === "undefined") return false;
-	const raw = window.localStorage.getItem(STORAGE_KEY);
-	if (!raw) return true;
-	const dismissedAt = Number.parseInt(raw, 10);
-	if (Number.isNaN(dismissedAt)) return true;
-	const ageDays = (Date.now() - dismissedAt) / (1000 * 60 * 60 * 24);
-	return ageDays > SUPPRESS_FOR_DAYS;
+function alreadyShownThisSession(): boolean {
+	if (typeof window === "undefined") return true;
+	try {
+		return window.sessionStorage.getItem(SESSION_SHOWN_KEY) === "1";
+	} catch {
+		return false;
+	}
+}
+
+function markShownThisSession() {
+	if (typeof window === "undefined") return;
+	try {
+		window.sessionStorage.setItem(SESSION_SHOWN_KEY, "1");
+	} catch {
+		/* sessionStorage unavailable (e.g. private mode quota) — ignore */
+	}
 }
 
 export default function DiscoverMorePopup() {
@@ -60,8 +70,9 @@ export default function DiscoverMorePopup() {
 	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
-		if (!shouldShow()) return;
+		if (alreadyShownThisSession()) return;
 		const t = window.setTimeout(() => {
+			markShownThisSession();
 			setOpen(true);
 			window.requestAnimationFrame(() => setMounted(true));
 		}, OPEN_AFTER_MS);
@@ -84,14 +95,8 @@ export default function DiscoverMorePopup() {
 
 	function dismiss() {
 		setMounted(false);
-		window.setTimeout(() => {
-			setOpen(false);
-			try {
-				window.localStorage.setItem(STORAGE_KEY, Date.now().toString());
-			} catch {
-				/* storage unavailable — ignore */
-			}
-		}, 280);
+		window.setTimeout(() => setOpen(false), 280);
+		// Session flag is already set on first show, so we don't need to write again here.
 	}
 
 	if (!open) return null;
@@ -199,7 +204,7 @@ export default function DiscoverMorePopup() {
 					<p className="mt-7 text-[11px] text-[#888] tracking-wide">
 						Press{" "}
 						<kbd className="px-1.5 py-0.5 rounded bg-black/5 font-mono text-[10px] text-[#444]">Esc</kbd>{" "}
-						or click outside to dismiss. We won't show this again for {SUPPRESS_FOR_DAYS} days.
+						or click outside to dismiss.
 					</p>
 				</div>
 			</div>
