@@ -10,6 +10,7 @@ import { createPublicPageContext } from "emdash/page";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
 import Header from "../components/Header.astro";
 import FloatingWidgets from "../components/FloatingWidgets";
+import DiscoverMorePopup from "../components/DiscoverMorePopup";
 import Analytics from "../components/Analytics.astro";
 import LenisProvider from "../components/LenisProvider";
 import cqcBadge from "../images/CQC inspected and rated outstanding RGB.png";
@@ -263,6 +264,7 @@ const pageCtx = createPublicPageContext({
 		<EmDashBodyEnd page={pageCtx} />
 
 		<FloatingWidgets client:load />
+		<DiscoverMorePopup client:idle />
 
 		<!-- Global Reveal Animations (if any left over) -->
 		<script>
