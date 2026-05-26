@@ -6,8 +6,9 @@ import AnimatedReveal from "../components/AnimatedReveal";
 
 import heroVideo from "../images/hero-banner-video.mp4";
 import heroPoster from "../images/hero-banner-poster.jpg";
-import founderPortrait from "../images/founders/dr-louise-newson-portrait.avif";
-import founderClinical from "../images/founders/dr-louise-newson-clinical.avif";
+import founderPortrait from "../images/founders/dr-newson-and-dr-lewis.png";
+import founderClinical from "../images/founders/dr-louise-newson-portrait.avif";
+import appointmentsImage from "../images/appointments/dr-louise-consultation.jpg";
 
 const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 
@@ -284,7 +285,7 @@ const medicalClinicSchema = {
 				<div class="w-full lg:w-1/2 relative h-[600px] lg:h-[700px]">
 					<AnimatedReveal client:visible duration={1.5} yOffset={0} className="w-full h-full">
 						<div class="absolute top-10 right-10 w-[60%] h-[65%] rounded-[3rem] overflow-hidden shadow-2xl border-[6px] border-white z-20 group hover:-translate-y-2 transition-all duration-700 ease-out-expo" {...foundersSec?.edit?.image}>
-							<img src={foundersSec?.data?.image ?? founderPortrait.src} alt="Dr Louise Newson" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s]" />
+							<img src={foundersSec?.data?.image ?? founderPortrait.src} alt="Dr Louise Newson and Dr Rebecca Lewis" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s]" />
 							<div class="absolute inset-0 bg-[#ea526f]/10 group-hover:opacity-0 transition-opacity duration-700 mix-blend-multiply"></div>
 						</div>
 
@@ -533,8 +534,7 @@ const medicalClinicSchema = {
 				<div class="lg:col-span-7 w-full mt-12 lg:mt-0 flex justify-end">
 					<AnimatedReveal client:visible duration={1.5} delay={0.2} yOffset={40} className="w-full">
 						<div class="w-full h-[500px] md:h-[700px] lg:h-[750px] rounded-[3rem] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.12)] border border-black/5 group relative ml-auto">
-							<!-- Reliable Newson Health Video Consultation Image -->
-							<img src="https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/691aefa794777ab5c10e841d_Mask%20Group%20126.png" alt="Video Consultation" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-[2s] ease-out" />
+							<img src={appointmentsSec?.data?.image ?? appointmentsImage.src} alt={appointmentsSec?.data?.title ?? "Video Consultation"} class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-[2s] ease-out" {...appointmentsSec?.edit?.image} />
 							<!-- Soft overlay -->
 							<div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-80 pointer-events-none"></div>
 							<!-- Floating Decor Badge -->
