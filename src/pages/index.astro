@@ -4,7 +4,9 @@ import Base from "../layouts/Base.astro";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
 import AnimatedReveal from "../components/AnimatedReveal";
 
-import heroVideo from "../images/hero-banner-video.mp4";
+// Video served as-is from /public to bypass Astro's asset bundling pipeline
+// (large MP4s don't survive serverless functions on Vercel).
+const heroVideo = "/hero-banner-video.mp4";
 import heroPoster from "../images/hero-banner-poster.jpg";
 import founderPortrait from "../images/founders/dr-louise-newson-portrait.avif";
 import founderClinical from "../images/founders/dr-louise-newson-speaking.avif";
