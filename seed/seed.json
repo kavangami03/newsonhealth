@@ -13,8 +13,9 @@
 	"collections": [
 		{
 			"slug": "home_sections",
-			"label": "Home Sections",
-			"labelSingular": "Home Section",
+			"label": "Homepage",
+			"labelSingular": "Section",
+			"icon": "house",
 			"description": "Editable text + media for each section of the homepage. One entry per section (hero, founders, services, clinics, appointments, advice, clinicians).",
 			"supports": ["drafts", "search"],
 			"fields": [
@@ -33,7 +34,8 @@
 			"slug": "services",
 			"label": "Services",
 			"labelSingular": "Service",
-			"description": "Cards shown in the homepage services carousel and on the /services page.",
+			"icon": "briefcase-medical",
+			"description": "Service cards shown on the homepage carousel and /services.",
 			"supports": ["drafts", "search"],
 			"fields": [
 				{ "slug": "title", "label": "Title", "type": "string", "required": true, "searchable": true },
@@ -48,7 +50,8 @@
 			"slug": "clinics",
 			"label": "Clinics",
 			"labelSingular": "Clinic",
-			"description": "Clinic locations shown in the homepage clinics swiper and on /clinics.",
+			"icon": "map-pin",
+			"description": "Clinic locations shown on the homepage and /clinics.",
 			"supports": ["drafts", "search"],
 			"fields": [
 				{ "slug": "title", "label": "Clinic Name", "type": "string", "required": true, "searchable": true },
@@ -65,7 +68,8 @@
 			"slug": "appointments",
 			"label": "Appointments",
 			"labelSingular": "Appointment Option",
-			"description": "Booking options shown in the homepage appointments picker (e.g. Video, In-person).",
+			"icon": "calendar",
+			"description": "Booking options on the homepage (Video, In-person, etc.).",
 			"supports": ["drafts", "search"],
 			"fields": [
 				{ "slug": "title", "label": "Title", "type": "string", "required": true, "searchable": true },
@@ -79,7 +83,8 @@
 			"slug": "clinicians",
 			"label": "Clinicians",
 			"labelSingular": "Clinician",
-			"description": "Doctor / specialist profiles used on the homepage swiper and /meet-the-team.",
+			"icon": "stethoscope",
+			"description": "Doctor and specialist profiles shown on the homepage and /meet-the-team.",
 			"supports": ["drafts", "search"],
 			"fields": [
 				{ "slug": "name", "label": "Name", "type": "string", "required": true, "searchable": true },
@@ -95,7 +100,8 @@
 			"slug": "posts",
 			"label": "Posts",
 			"labelSingular": "Post",
-			"description": "Blog / advice articles.",
+			"icon": "newspaper",
+			"description": "Blog and advice articles.",
 			"supports": ["drafts", "revisions", "search", "seo"],
 			"fields": [
 				{ "slug": "title", "label": "Title", "type": "string", "required": true, "searchable": true },
@@ -108,6 +114,7 @@
 			"slug": "faqs",
 			"label": "FAQs",
 			"labelSingular": "FAQ",
+			"icon": "question",
 			"description": "Frequently asked questions shown on /faqs.",
 			"supports": ["drafts", "search"],
 			"fields": [
@@ -120,7 +127,8 @@
 			"slug": "pages",
 			"label": "Pages",
 			"labelSingular": "Page",
-			"description": "Generic content pages rendered at /[slug].",
+			"icon": "file-text",
+			"description": "Generic CMS pages rendered at /[slug].",
 			"supports": ["drafts", "revisions", "search"],
 			"fields": [
 				{ "slug": "title", "label": "Title", "type": "string", "required": true, "searchable": true },
