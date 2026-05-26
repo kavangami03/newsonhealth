@@ -139,7 +139,7 @@ export default function MegaMenu({ logoSrc }: { logoSrc?: string }) {
 			{/* Panel */}
 			<div
 				ref={menuPanelRef}
-				className={`fixed left-0 w-full z-[110] bg-white/98 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.1)] overflow-y-auto invisible opacity-0 ${
+				className={`fixed left-0 w-full max-w-[100vw] z-[110] bg-white/98 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.1)] overflow-y-auto overflow-x-hidden invisible opacity-0 ${
 					isMobile ? "top-0 h-[100dvh] pt-24 pb-12" : "top-0 pt-44 pb-20 rounded-b-[3rem] border-b border-black/5"
 				}`}
 				role="navigation"
@@ -215,7 +215,7 @@ export default function MegaMenu({ logoSrc }: { logoSrc?: string }) {
 
 					<div className={`grid gap-10 lg:gap-14 ${isMobile ? "grid-cols-1" : "grid-cols-[360px_1fr] xl:grid-cols-[400px_1fr]"}`}>
 						{/* ── LEFT: Contact card ── */}
-						<aside className="menu-contact-card">
+						<aside className="menu-contact-card min-w-0">
 							<div className="bg-gradient-to-br from-[#fdf5f1] via-white to-[#f7d3d9]/30 rounded-[2rem] p-7 lg:p-8 border border-black/5 shadow-[0_25px_60px_-20px_rgba(233,81,111,0.3)] relative overflow-hidden">
 								<div className="absolute -top-16 -right-16 w-40 h-40 bg-[#ea526f]/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
