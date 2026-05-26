@@ -353,10 +353,10 @@ const medicalClinicSchema = {
 				<div class="swiper services-swiper w-full !overflow-visible py-10">
 					<div class="swiper-wrapper">
 						{services.map((item) => (
-							<div class="swiper-slide h-auto group cursor-grab" {...item.edit?.title}>
-								<div class="bg-white rounded-[2.5rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.06)] border border-black/5 flex flex-col h-full relative transition-all duration-500 hover:shadow-[0_20px_50px_rgba(233,81,111,0.15)] hover:-translate-y-2">
+							<div class="swiper-slide !h-auto group cursor-grab flex" {...item.edit?.title}>
+								<div class="bg-white rounded-[2.5rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.06)] border border-black/5 flex flex-col w-full relative transition-all duration-500 hover:shadow-[0_20px_50px_rgba(233,81,111,0.15)] hover:-translate-y-2">
 									<!-- Image Wrapper -->
-									<div class="h-[220px] w-full relative overflow-hidden bg-buff/20">
+									<div class="h-[220px] w-full relative overflow-hidden bg-buff/20 flex-shrink-0">
 										<img src={item.image} alt={item.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
 										<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
 										<div class="absolute bottom-4 right-5">
@@ -367,8 +367,8 @@ const medicalClinicSchema = {
 									</div>
 									<!-- Content Wrapper -->
 									<div class="p-8 flex flex-col flex-1 bg-white">
-										<h3 class="text-[1.4rem] font-display text-not-quite-black group-hover:text-[#ea526f] transition-colors duration-300 mb-4 leading-[1.2]">{item.title}</h3>
-										<p class="text-[14px] text-text-grey leading-relaxed flex-1 mb-8 line-clamp-3" {...item.edit?.text}>{item.text}</p>
+										<h3 class="text-[1.4rem] font-display text-not-quite-black group-hover:text-[#ea526f] transition-colors duration-300 mb-4 leading-[1.2] line-clamp-2 min-h-[3.36rem]">{item.title}</h3>
+										<p class="text-[14px] text-text-grey leading-relaxed flex-1 mb-8 line-clamp-3 min-h-[4.2rem]" {...item.edit?.text}>{item.text}</p>
 										<div class="mt-auto">
 											<a href={item.link} class="inline-flex items-center justify-between w-full px-6 py-4 rounded-2xl bg-[#fdf5f1] text-[#ea526f] group-hover:bg-[#ea526f] group-hover:text-white transition-all duration-300 group/btn">
 												<span class="text-[13px] font-bold uppercase tracking-widest">Learn More</span>
