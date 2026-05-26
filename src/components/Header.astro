@@ -1,7 +1,6 @@
 ---
 import { getSiteSettings } from "emdash";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
-import LiveSearch from "emdash/ui/search";
 import MegaMenu from "./MegaMenu";
 import AppointmentDropdown from "./AppointmentDropdown";
 import customLogo from "../images/logo.svg";
@@ -10,99 +9,130 @@ import Logo from "./Logo.astro";
 const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 ---
 
+<!--
+  Unique three-island floating header:
+  - Left island: logo plate (its own pill)
+  - Center island: trust strip / rotating tagline (no shadow, thin border)
+  - Right island: utility + book action pill
+  Falls back to a single compact pill on mobile.
+-->
 <header
-	class="fixed top-3 md:top-5 left-1/2 -translate-x-1/2 w-[96%] max-w-[1480px] z-[150] transition-all duration-500 ease-out-expo"
+	class="fixed top-4 md:top-6 left-0 right-0 z-[150] pointer-events-none transition-all duration-500 ease-out-expo"
 	id="global-header"
 >
-	<div
-		class="relative bg-white/90 backdrop-blur-3xl border border-white/70 rounded-full shadow-[0_25px_60px_-15px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.5)] transition-all duration-500"
-		id="header-bg"
-	>
-		<!-- Decorative gradient line at top -->
-		<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[1px] bg-gradient-to-r from-transparent via-[#ea526f]/40 to-transparent pointer-events-none" aria-hidden="true"></div>
-
-		<div
-			class="flex items-center justify-between gap-3 sm:gap-5 md:gap-8 h-[68px] md:h-[88px] px-3 sm:px-5 md:px-7 lg:px-9 transition-all duration-500 ease-out-expo"
-			id="header-inner"
-		>
-			<!-- Logo block -->
-			<a href="/" class="flex-shrink-0 relative z-[120] group flex items-center gap-3" aria-label={`${siteTitle} home`}>
-				<Logo
-					class="w-auto h-9 md:h-11 lg:h-[52px] transition-transform duration-500 ease-out-expo group-hover:scale-[1.03]"
-					id="header-logo"
-				/>
+	<div class="relative px-4 md:px-6 lg:px-10 max-w-[1640px] mx-auto">
+		<div class="flex items-center justify-between gap-3 md:gap-4 lg:gap-6" id="header-row">
+			<!-- ═══ ISLAND 1: LOGO PLATE ═══ -->
+			<a
+				href="/"
+				aria-label={`${siteTitle} home`}
+				class="pointer-events-auto group relative flex-shrink-0"
+				id="header-logo-link"
+			>
+				<div
+					class="relative bg-white/95 backdrop-blur-2xl border border-white/70 rounded-[1.75rem] md:rounded-[2rem] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.5)] px-5 md:px-7 py-3 md:py-4 transition-all duration-500 ease-out-expo overflow-hidden"
+					id="header-logo-plate"
+				>
+					<!-- Decorative pink corner accent -->
+					<div class="absolute -top-8 -right-8 w-20 h-20 bg-[#ea526f]/15 rounded-full blur-2xl pointer-events-none" aria-hidden="true"></div>
+					<Logo
+						class="relative w-auto h-9 md:h-11 lg:h-[52px] transition-transform duration-500 ease-out-expo group-hover:scale-[1.04]"
+						id="header-logo"
+					/>
+				</div>
 			</a>
 
-			<!-- Center: search (collapses to icon on small screens) -->
-			<div class="hidden md:block flex-1 max-w-[360px] mx-auto">
-				<div class="relative group premium-search-container">
-					<div class="absolute left-4 top-1/2 -translate-y-1/2 text-[#ea526f] pointer-events-none z-10 transition-colors duration-300">
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-							<circle cx="11" cy="11" r="8"></circle>
-							<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-						</svg>
+			<!-- ═══ ISLAND 2: CENTER TRUST STRIP (desktop only) ═══ -->
+			<div class="pointer-events-auto hidden xl:flex flex-1 justify-center" id="header-center-island">
+				<div class="relative flex items-center gap-5 bg-white/60 backdrop-blur-xl border border-[#ea526f]/15 rounded-full px-6 py-2.5 group transition-all duration-500">
+					<!-- CQC star badge -->
+					<div class="flex items-center gap-2 pr-5 border-r border-[#ea526f]/15">
+						<span class="w-7 h-7 rounded-full bg-gradient-to-br from-[#ea526f] to-[#d63b58] text-white flex items-center justify-center shadow-[0_4px_10px_rgba(233,81,111,0.4)]">
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+								<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+							</svg>
+						</span>
+						<span class="flex flex-col leading-tight">
+							<span class="text-[9px] font-bold uppercase tracking-[0.18em] text-[#ea526f]">CQC Rating</span>
+							<span class="text-[12px] font-bold text-not-quite-black tracking-tight">Outstanding</span>
+						</span>
 					</div>
-					<LiveSearch
-						placeholder="Search…"
-						collections={["posts", "pages"]}
-						class="block"
-						inputClass="!w-full bg-[#fdf5f1]/70 hover:bg-[#fdf5f1] focus:bg-white backdrop-blur-md border border-transparent focus:border-[#ea526f]/30 rounded-full py-2.5 pl-11 pr-5 text-[13px] font-semibold text-not-quite-black transition-all duration-500 ease-out-expo outline-none placeholder:text-[#888] placeholder:font-medium"
-						expandOnFocus={{ collapsed: "100%", expanded: "100%" }}
-						resultsClass="!bg-white/95 backdrop-blur-3xl !border-black/5 !rounded-3xl !shadow-[0_20px_50px_rgba(0,0,0,0.1)] mt-3 overflow-hidden !max-h-[420px]"
-						resultClass="hover:bg-[#fdf5f1] focus:bg-[#fdf5f1] transition-colors"
-					/>
+					<!-- Rotating tagline -->
+					<div class="relative h-5 overflow-hidden text-[12px] font-medium text-not-quite-black/70 min-w-[260px]" aria-hidden="true" id="header-tagline-wheel">
+						<div class="absolute inset-0 flex flex-col transition-transform duration-700 ease-out-expo" id="header-tagline-track">
+							<span class="h-5 flex items-center whitespace-nowrap">Evidence-based hormone &amp; menopause care</span>
+							<span class="h-5 flex items-center whitespace-nowrap">UK's leading female hormonal health clinic</span>
+							<span class="h-5 flex items-center whitespace-nowrap">Pay over time with Klarna</span>
+							<span class="h-5 flex items-center whitespace-nowrap">Mon – Fri · 9:00am – 5:00pm</span>
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<!-- Right cluster -->
-			<div class="flex items-center gap-2 md:gap-3 relative z-20">
-				<!-- Phone (desktop) -->
-				<a
-					href="tel:01789595004"
-					class="hidden xl:inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full text-not-quite-black hover:text-[#ea526f] hover:bg-[#fdf5f1] transition-all duration-300 group"
-					aria-label="Call 01789 595004"
+			<!-- ═══ ISLAND 3: ACTION CLUSTER ═══ -->
+			<div class="pointer-events-auto flex items-center gap-2 md:gap-2.5 flex-shrink-0">
+				<!-- Action pill (search + phone) -->
+				<div
+					class="hidden md:flex items-center gap-1 bg-white/95 backdrop-blur-2xl border border-white/70 rounded-full shadow-[0_20px_50px_-10px_rgba(0,0,0,0.08),0_0_0_1px_rgba(255,255,255,0.5)] p-1.5 md:p-2 transition-all duration-500"
+					id="header-utility-pill"
 				>
-					<span class="w-8 h-8 rounded-full bg-[#fdf5f1] text-[#ea526f] flex items-center justify-center group-hover:bg-[#ea526f] group-hover:text-white transition-colors">
-						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+					<!-- Search trigger -->
+					<button
+						type="button"
+						id="header-search-toggle"
+						class="w-10 h-10 lg:w-11 lg:h-11 rounded-full hover:bg-[#fdf5f1] text-not-quite-black hover:text-[#ea526f] flex items-center justify-center transition-colors duration-300"
+						aria-label="Open search"
+					>
+						<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="11" cy="11" r="8"></circle>
+							<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
 						</svg>
-					</span>
-					<span class="hidden 2xl:flex flex-col items-start leading-tight">
-						<span class="text-[9px] font-bold uppercase tracking-[0.15em] text-[#888]">Call us</span>
-						<span class="text-[13px] font-bold tracking-tight">01789 595004</span>
-					</span>
-					<span class="2xl:hidden text-[13px] font-bold tracking-tight">01789 595004</span>
-				</a>
-
-				<!-- Mobile search trigger -->
-				<button
-					type="button"
-					id="mobile-search-toggle"
-					class="md:hidden w-11 h-11 rounded-full bg-[#fdf5f1] text-[#ea526f] flex items-center justify-center hover:bg-[#ea526f] hover:text-white transition-colors duration-300"
-					aria-label="Open search"
-				>
-					<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-						<circle cx="11" cy="11" r="8"></circle>
-						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-					</svg>
-				</button>
+					</button>
+					<!-- Phone (lg+) -->
+					<a
+						href="tel:01789595004"
+						class="hidden lg:flex items-center gap-2.5 pl-2.5 pr-4 h-10 lg:h-11 rounded-full hover:bg-[#fdf5f1] text-not-quite-black hover:text-[#ea526f] transition-colors duration-300 group"
+						aria-label="Call 01789 595004"
+					>
+						<span class="w-8 h-8 rounded-full bg-[#fdf5f1] text-[#ea526f] flex items-center justify-center group-hover:bg-[#ea526f] group-hover:text-white transition-colors">
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+							</svg>
+						</span>
+						<span class="flex flex-col leading-tight text-left">
+							<span class="text-[9px] font-bold uppercase tracking-[0.15em] text-[#888]">Call us</span>
+							<span class="text-[12.5px] font-bold tracking-tight">01789 595004</span>
+						</span>
+					</a>
+				</div>
 
 				<!-- Appointment dropdown (desktop) -->
 				<div class="hidden md:block">
 					<AppointmentDropdown client:load />
 				</div>
 
-				<!-- Mobile Book button -->
+				<!-- Mobile: search + book -->
+				<button
+					type="button"
+					id="mobile-search-toggle"
+					class="md:hidden w-11 h-11 rounded-full bg-white/95 border border-white/70 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.1)] text-[#ea526f] flex items-center justify-center"
+					aria-label="Open search"
+				>
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="11" cy="11" r="8"></circle>
+						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+					</svg>
+				</button>
 				<a
 					href="https://portal.newsonhealth.co.uk/patient-portal/booking-request"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="md:hidden inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#ea526f] text-white text-[11px] font-bold uppercase tracking-widest rounded-full shadow-[0_10px_25px_rgba(233,81,111,0.35)] hover:-translate-y-0.5 transition-transform"
+					class="md:hidden inline-flex items-center gap-1.5 px-4 h-11 bg-[#ea526f] text-white text-[11px] font-bold uppercase tracking-widest rounded-full shadow-[0_10px_25px_rgba(233,81,111,0.4)]"
 				>
 					Book
 				</a>
 
-				<!-- Mega menu trigger -->
+				<!-- Menu trigger -->
 				<MegaMenu client:load logoSrc={customLogo?.src} />
 			</div>
 		</div>
@@ -117,86 +147,111 @@ const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 
 	document.addEventListener("DOMContentLoaded", () => {
 		const header = document.getElementById("global-header");
-		const headerBg = document.getElementById("header-bg");
-		const headerInner = document.getElementById("header-inner");
-		const logo = document.getElementById("header-logo");
+		const logoPlate = document.getElementById("header-logo-plate");
+		const logoEl = document.getElementById("header-logo");
+		const utilityPill = document.getElementById("header-utility-pill");
+		const centerIsland = document.getElementById("header-center-island");
+		const taglineTrack = document.getElementById("header-tagline-track");
 
-		if (!header || !headerBg || !headerInner || !logo) return;
+		if (!header || !logoPlate || !logoEl) return;
 
 		let lastScrollY = window.scrollY;
-		gsap.set(header, { xPercent: -50 });
+
+		// Rotating tagline (cycle every 3.5s)
+		if (taglineTrack) {
+			let idx = 0;
+			const items = taglineTrack.children.length;
+			setInterval(() => {
+				idx = (idx + 1) % items;
+				taglineTrack.style.transform = `translateY(-${idx * 20}px)`;
+			}, 3500);
+		}
 
 		ScrollTrigger.create({
 			start: "top -50",
 			end: 99999,
 			toggleClass: { className: "is-scrolled", targets: header },
 			onUpdate: (self) => {
-				const currentScrollY = window.scrollY;
+				const y = window.scrollY;
 
-				if (currentScrollY > 20) {
-					headerBg.classList.add("shadow-[0_25px_60px_-15px_rgba(233,81,111,0.18)]", "border-[#ea526f]/15");
-					headerInner.classList.remove("h-[68px]", "md:h-[88px]");
-					headerInner.classList.add("h-[60px]", "md:h-[72px]");
-					logo.classList.remove("h-9", "md:h-11", "lg:h-[52px]");
-					logo.classList.add("h-7", "md:h-9", "lg:h-10");
+				if (y > 20) {
+					logoPlate.classList.add("py-2", "md:py-2.5", "shadow-[0_18px_40px_-10px_rgba(233,81,111,0.22)]");
+					logoPlate.classList.remove("py-3", "md:py-4");
+					logoEl.classList.remove("h-9", "md:h-11", "lg:h-[52px]");
+					logoEl.classList.add("h-7", "md:h-9", "lg:h-10");
+					utilityPill?.classList.add("p-1", "md:p-1.5");
+					utilityPill?.classList.remove("p-1.5", "md:p-2");
+					centerIsland?.classList.add("opacity-0", "scale-95", "pointer-events-none");
 				} else {
-					headerBg.classList.remove("shadow-[0_25px_60px_-15px_rgba(233,81,111,0.18)]", "border-[#ea526f]/15");
-					headerInner.classList.remove("h-[60px]", "md:h-[72px]");
-					headerInner.classList.add("h-[68px]", "md:h-[88px]");
-					logo.classList.remove("h-7", "md:h-9", "lg:h-10");
-					logo.classList.add("h-9", "md:h-11", "lg:h-[52px]");
+					logoPlate.classList.remove("py-2", "md:py-2.5", "shadow-[0_18px_40px_-10px_rgba(233,81,111,0.22)]");
+					logoPlate.classList.add("py-3", "md:py-4");
+					logoEl.classList.add("h-9", "md:h-11", "lg:h-[52px]");
+					logoEl.classList.remove("h-7", "md:h-9", "lg:h-10");
+					utilityPill?.classList.remove("p-1", "md:p-1.5");
+					utilityPill?.classList.add("p-1.5", "md:p-2");
+					centerIsland?.classList.remove("opacity-0", "scale-95", "pointer-events-none");
 				}
 
-				if (currentScrollY > 150) {
-					if (currentScrollY > lastScrollY && self.direction === 1) {
-						gsap.to(header, { yPercent: -150, xPercent: -50, duration: 0.5, ease: "power3.inOut" });
-					} else if (currentScrollY < lastScrollY && self.direction === -1) {
-						gsap.to(header, { yPercent: 0, xPercent: -50, duration: 0.5, ease: "power3.out" });
+				if (y > 150) {
+					if (y > lastScrollY && self.direction === 1) {
+						gsap.to(header, { yPercent: -120, duration: 0.5, ease: "power3.inOut" });
+					} else if (y < lastScrollY && self.direction === -1) {
+						gsap.to(header, { yPercent: 0, duration: 0.5, ease: "power3.out" });
 					}
 				} else {
-					gsap.to(header, { yPercent: 0, xPercent: -50, duration: 0.5, ease: "power3.out" });
+					gsap.to(header, { yPercent: 0, duration: 0.5, ease: "power3.out" });
 				}
 
-				lastScrollY = currentScrollY;
+				lastScrollY = y;
 			},
 		});
 
-		// Mobile search overlay
-		const mobileSearchBtn = document.getElementById("mobile-search-toggle");
-		mobileSearchBtn?.addEventListener("click", () => {
+		// Search overlay (desktop trigger + mobile trigger share the same overlay)
+		const openSearchOverlay = () => {
+			if (document.getElementById("global-search-overlay")) return;
 			const overlay = document.createElement("div");
-			overlay.className = "fixed inset-0 z-[160] bg-white/95 backdrop-blur-2xl flex items-start justify-center pt-24 px-6 animate-in";
+			overlay.id = "global-search-overlay";
+			overlay.className =
+				"fixed inset-0 z-[160] bg-[#1a0a10]/50 backdrop-blur-md flex items-start justify-center pt-28 px-6 transition-opacity duration-300 opacity-0";
 			overlay.innerHTML = `
-				<div class="w-full max-w-xl relative">
-					<button type="button" class="absolute -top-12 right-0 w-10 h-10 rounded-full bg-black/5 text-not-quite-black flex items-center justify-center" aria-label="Close search">
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-					</button>
-					<input id="mobile-search-input" type="search" placeholder="Search the clinic…" class="w-full bg-[#fdf5f1] focus:bg-white border border-transparent focus:border-[#ea526f]/30 rounded-full py-4 pl-14 pr-5 text-[15px] font-semibold text-not-quite-black outline-none shadow-lg" />
-					<span class="absolute left-5 top-1/2 -translate-y-1/2 text-[#ea526f] pointer-events-none">
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-					</span>
+				<div class="w-full max-w-2xl relative">
+					<div class="bg-white rounded-3xl shadow-[0_30px_80px_-20px_rgba(233,81,111,0.4)] p-3">
+						<div class="relative">
+							<span class="absolute left-5 top-1/2 -translate-y-1/2 text-[#ea526f] pointer-events-none">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+							</span>
+							<input id="global-search-input" type="search" placeholder="Search the clinic…" class="w-full bg-[#fdf5f1] focus:bg-white border border-transparent focus:border-[#ea526f]/30 rounded-2xl py-4 pl-14 pr-14 text-[16px] font-medium text-not-quite-black outline-none transition-colors" />
+							<button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/5 hover:bg-[#ea526f] hover:text-white text-not-quite-black flex items-center justify-center transition-colors" aria-label="Close search">
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+							</button>
+						</div>
+						<p class="px-5 py-3 text-[11px] tracking-wider uppercase text-[#888] font-bold">Press <kbd class="px-1.5 py-0.5 rounded bg-black/5 font-mono text-[10px] text-[#444]">Esc</kbd> to close</p>
+					</div>
 				</div>
 			`;
 			document.body.appendChild(overlay);
 			document.body.style.overflow = "hidden";
-			(overlay.querySelector("#mobile-search-input") as HTMLInputElement | null)?.focus();
+			requestAnimationFrame(() => (overlay.style.opacity = "1"));
+			(overlay.querySelector("#global-search-input") as HTMLInputElement | null)?.focus();
 			const close = () => {
-				overlay.remove();
-				document.body.style.overflow = "";
+				overlay.style.opacity = "0";
+				setTimeout(() => {
+					overlay.remove();
+					document.body.style.overflow = "";
+				}, 200);
 			};
 			overlay.addEventListener("click", (e) => {
 				if (e.target === overlay) close();
 			});
 			overlay.querySelector("button[aria-label='Close search']")?.addEventListener("click", close);
-			document.addEventListener(
-				"keydown",
-				function escListener(e) {
-					if (e.key === "Escape") {
-						close();
-						document.removeEventListener("keydown", escListener);
-					}
+			document.addEventListener("keydown", function esc(e) {
+				if (e.key === "Escape") {
+					close();
+					document.removeEventListener("keydown", esc);
 				}
-			);
-		});
+			});
+		};
+		document.getElementById("header-search-toggle")?.addEventListener("click", openSearchOverlay);
+		document.getElementById("mobile-search-toggle")?.addEventListener("click", openSearchOverlay);
 	});
 </script>
