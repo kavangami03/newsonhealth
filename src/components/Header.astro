@@ -134,40 +134,30 @@ const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 			}, 4000);
 		}
 
+		// Header stays sticky/visible at all times — only adjusts size, never hides.
+		// Keep yPercent at 0 so it always reads at top: 0.
+		gsap.set(wrap, { yPercent: 0 });
+
 		ScrollTrigger.create({
 			start: "top -50",
 			end: 99999,
 			toggleClass: { className: "is-scrolled", targets: wrap },
-			onUpdate: (self) => {
+			onUpdate: () => {
 				const y = window.scrollY;
 
 				if (y > 20) {
-					// Collapse: shrink header, hide ribbon
+					// Compact mode: shrink the pill (ribbon stays visible — sticky)
 					inner.classList.remove("h-[68px]", "md:h-20");
 					inner.classList.add("h-[60px]", "md:h-[68px]");
 					logo.classList.remove("h-9", "md:h-11", "lg:h-12");
 					logo.classList.add("h-7", "md:h-9", "lg:h-10");
 					header.classList.add("shadow-[0_20px_50px_-15px_rgba(233,81,111,0.25)]");
-					ribbon?.classList.add("h-0", "max-h-0", "opacity-0");
-					ribbon?.classList.remove("h-9", "md:h-10", "opacity-100");
 				} else {
 					inner.classList.add("h-[68px]", "md:h-20");
 					inner.classList.remove("h-[60px]", "md:h-[68px]");
 					logo.classList.add("h-9", "md:h-11", "lg:h-12");
 					logo.classList.remove("h-7", "md:h-9", "lg:h-10");
 					header.classList.remove("shadow-[0_20px_50px_-15px_rgba(233,81,111,0.25)]");
-					ribbon?.classList.remove("h-0", "max-h-0", "opacity-0");
-					ribbon?.classList.add("h-9", "md:h-10", "opacity-100");
-				}
-
-				if (y > 200) {
-					if (y > lastScrollY && self.direction === 1) {
-						gsap.to(wrap, { yPercent: -120, duration: 0.5, ease: "power3.inOut" });
-					} else if (y < lastScrollY && self.direction === -1) {
-						gsap.to(wrap, { yPercent: 0, duration: 0.5, ease: "power3.out" });
-					}
-				} else {
-					gsap.to(wrap, { yPercent: 0, duration: 0.5, ease: "power3.out" });
 				}
 
 				lastScrollY = y;
