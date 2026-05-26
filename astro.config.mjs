@@ -25,6 +25,12 @@ import { libsql, sqlite } from "emdash/db";
  */
 
 const isProduction = !!process.env.VERCEL;
+const hasS3Storage = !!(
+	process.env.S3_ENDPOINT &&
+	process.env.S3_BUCKET &&
+	process.env.S3_ACCESS_KEY_ID &&
+	process.env.S3_SECRET_ACCESS_KEY
+);
 
 export default defineConfig({
 	output: "server",
@@ -53,7 +59,7 @@ export default defineConfig({
 						authToken: process.env.TURSO_AUTH_TOKEN,
 					})
 				: sqlite({ url: "file:./data.db" }),
-			storage: isProduction
+			storage: hasS3Storage
 				? s3({
 						endpoint: process.env.S3_ENDPOINT,
 						bucket: process.env.S3_BUCKET,
