@@ -99,17 +99,45 @@ const clinicians: any[] = emdashClinicians.length > 0 ? emdashClinicians.map((e:
 ];
 
 const { entries: emdashPosts } = await getEmDashCollection("posts", { orderBy: { published_at: "desc" }, limit: 3 }).catch(() => ({ entries: [] }));
-const posts: any[] = emdashPosts.length > 0 ? emdashPosts.map((e: any) => ({
-	title: e.data.title as string,
-	excerpt: e.data.excerpt as string,
-	image: (e.data.featured_image as string) ?? "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fff94864f61bb4f0022_HRT%20letters%20on%20bluebackground.avif",
-	link: `/posts/${e.slug || e.id}`,
-	edit: e.edit,
-})) : [
-	{ title: "Natural or synthetic HRT: understanding the difference", excerpt: "Synthetic HRT and natural hormone replacement therapy for menopause symptoms are not the same - learn the differences", image: "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fff94864f61bb4f0022_HRT%20letters%20on%20bluebackground.avif", link: "/posts/natural-or-synthetic-hrt-understanding-the-difference" },
-	{ title: "What should I know before having a blood test while on HRT?", excerpt: "Newson Clinic's guide to blood tests while on HRT", image: "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/6878e2c416536bf36a6e67b2_Blood%20Test%20vials%20and%20paperwork%20on%20a%20desk.jpg", link: "/posts/what-should-i-know-before-having-a-blood-test-while-on-hrt" },
-	{ title: "What are the benefits of testosterone for women who take HRT?", excerpt: "Testosterone can be taken alongside oestrogen and/or progesterone to treat perimenopausal and menopausal symptoms", image: "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fd4224281befdb70694_Word%20testosterone%20from%20wooden%20blocks.avif", link: "/posts/what-are-the-benefits-of-testosterone-for-women-who-take-hrt" },
+let posts: any[] = emdashPosts.length > 0 ? emdashPosts.map((e: any) => {
+	const slug = e.slug || e.id;
+	let image = e.data.featured_image as string;
+	if (!image || image.trim() === "" || image === "null") {
+		if (slug.includes("testosterone") || e.data.title?.toLowerCase().includes("testosterone")) {
+			image = "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fd4224281befdb70694_Word%20testosterone%20from%20wooden%20blocks.avif";
+		} else if (slug.includes("blood") || e.data.title?.toLowerCase().includes("blood")) {
+			image = "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/6878e2c416536bf36a6e67b2_Blood%20Test%20vials%20and%20paperwork%20on%20a%20desk.jpg";
+		} else {
+			image = "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fff94864f61bb4f0022_HRT%20letters%20on%20bluebackground.avif";
+		}
+	}
+	return {
+		title: e.data.title as string,
+		excerpt: e.data.excerpt as string,
+		image,
+		link: `/posts/${slug}`,
+		edit: e.edit,
+		slug,
+	};
+}) : [
+	{ title: "Natural or synthetic HRT: understanding the difference", excerpt: "Synthetic HRT and natural hormone replacement therapy for menopause symptoms are not the same - learn the differences", image: "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fff94864f61bb4f0022_HRT%20letters%20on%20bluebackground.avif", link: "/posts/natural-or-synthetic-hrt-understanding-the-difference", slug: "natural-or-synthetic-hrt-understanding-the-difference" },
+	{ title: "What should I know before having a blood test while on HRT?", excerpt: "Newson Clinic's guide to blood tests while on HRT", image: "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/6878e2c416536bf36a6e67b2_Blood%20Test%20vials%20and%20paperwork%20on%20a%20desk.jpg", link: "/posts/what-should-i-know-before-having-a-blood-test-while-on-hrt", slug: "what-should-i-know-before-having-a-blood-test-while-on-hrt" },
+	{ title: "What are the benefits of testosterone for women who take HRT?", excerpt: "Testosterone can be taken alongside oestrogen and/or progesterone to treat perimenopausal and menopausal symptoms", image: "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fd4224281befdb70694_Word%20testosterone%20from%20wooden%20blocks.avif", link: "/posts/what-are-the-benefits-of-testosterone-for-women-who-take-hrt", slug: "what-are-the-benefits-of-testosterone-for-women-who-take-hrt" },
 ];
+
+// Sort to ensure the exact requested order
+const orderMap: Record<string, number> = {
+	"natural-or-synthetic-hrt-understanding-the-difference": 1,
+	"what-should-i-know-before-having-a-blood-test-while-on-hrt": 2,
+	"what-are-the-benefits-of-testosterone-for-women-who-take-hrt": 3,
+};
+
+posts.sort((a, b) => {
+	const orderA = orderMap[a.slug] || 99;
+	const orderB = orderMap[b.slug] || 99;
+	return orderA - orderB;
+});
+
 
 const serviceTags = [
 	{ name: "Consultation", link: "https://www.newsonhealth.co.uk/consultations" },
