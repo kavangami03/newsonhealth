@@ -101,15 +101,15 @@ const clinicians: any[] = emdashClinicians.length > 0 ? emdashClinicians.map((e:
 const { entries: emdashPosts } = await getEmDashCollection("posts", { orderBy: { published_at: "desc" }, limit: 3 }).catch(() => ({ entries: [] }));
 let posts: any[] = emdashPosts.length > 0 ? emdashPosts.map((e: any) => {
 	const slug = e.slug || e.id;
-	let image = e.data.featured_image as string;
-	if (!image || image.trim() === "" || image === "null") {
-		if (slug.includes("testosterone") || e.data.title?.toLowerCase().includes("testosterone")) {
-			image = "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fd4224281befdb70694_Word%20testosterone%20from%20wooden%20blocks.avif";
-		} else if (slug.includes("blood") || e.data.title?.toLowerCase().includes("blood")) {
-			image = "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/6878e2c416536bf36a6e67b2_Blood%20Test%20vials%20and%20paperwork%20on%20a%20desk.jpg";
-		} else {
-			image = "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fff94864f61bb4f0022_HRT%20letters%20on%20bluebackground.avif";
-		}
+	let image = "";
+	if (slug.includes("testosterone") || e.data.title?.toLowerCase().includes("testosterone")) {
+		image = "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fd4224281befdb70694_Word%20testosterone%20from%20wooden%20blocks.avif";
+	} else if (slug.includes("blood") || e.data.title?.toLowerCase().includes("blood")) {
+		image = "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/6878e2c416536bf36a6e67b2_Blood%20Test%20vials%20and%20paperwork%20on%20a%20desk.jpg";
+	} else if (slug.includes("natural-or-synthetic") || e.data.title?.toLowerCase().includes("natural or synthetic")) {
+		image = "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fff94864f61bb4f0022_HRT%20letters%20on%20bluebackground.avif";
+	} else {
+		image = (e.data.featured_image as string) || "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/68624fff94864f61bb4f0022_HRT%20letters%20on%20bluebackground.avif";
 	}
 	return {
 		title: e.data.title as string,
