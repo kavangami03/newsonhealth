@@ -90,13 +90,13 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 	<!-- ═══════════════════════════════════════
 	     FAQS HERO
 	     ═══════════════════════════════════════ -->
-	<header class="relative bg-mesh-gradient pt-24 pb-16 border-b border-black/5 overflow-hidden">
+	<header class="relative bg-mesh-gradient pt-20 sm:pt-24 pb-10 sm:pb-14 md:pb-16 border-b border-black/5 overflow-hidden">
 		<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
 			<div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-newson-pink/10 rounded-full blur-[100px] animate-blob"></div>
 			<div class="absolute bottom-[-20%] right-[-10%] w-[400px] h-[400px] bg-complimentary-pink/15 rounded-full blur-[120px] animate-blob animation-delay-2000"></div>
 		</div>
-		<div class="container mx-auto px-6 max-w-4xl text-center relative z-10">
-			<nav class="flex items-center justify-center gap-2 text-xs font-semibold mb-6" aria-label="Breadcrumb">
+		<div class="container mx-auto px-4 sm:px-6 max-w-4xl text-center relative z-10">
+			<nav class="flex items-center justify-center gap-2 text-[12px] font-semibold mb-4 sm:mb-5 md:mb-6" aria-label="Breadcrumb">
 				<a href="/" class="text-text-grey hover:text-newson-pink transition-colors">Home</a>
 				<span class="text-lines opacity-50">/</span>
 				<span class="text-newson-pink">FAQs</span>
@@ -116,7 +116,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 	<main class="relative bg-buff section-spacing overflow-hidden" id="faq-accordions-section">
 		<div class="absolute top-0 right-0 w-[50%] h-[60%] bg-[radial-gradient(circle,var(--color-peach)_0%,transparent_70%)] opacity-50 pointer-events-none mix-blend-multiply"></div>
 		
-		<div class="container mx-auto px-6 max-w-3xl relative z-10 glass-panel p-8 md:p-12">
+		<div class="container mx-auto px-4 sm:px-6 max-w-3xl relative z-10 glass-panel p-5 sm:p-6 md:p-12">
 			<AnimatedReveal client:visible duration={1.2} yOffset={30}>
 				<FaqAccordion client:visible categories={faqCategories} />
 			</AnimatedReveal>
@@ -129,17 +129,17 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 	<section class="bg-white section-spacing border-t border-black/5 relative overflow-hidden" id="faqs-cta-section">
 		<div class="absolute top-[-30%] left-[-10%] w-[400px] h-[400px] bg-peachy-pink/20 rounded-full blur-[80px] animate-blob pointer-events-none"></div>
 		
-		<div class="container mx-auto px-6 max-w-3xl text-center relative z-10">
+		<div class="container mx-auto px-4 sm:px-6 max-w-3xl text-center relative z-10">
 			<AnimatedReveal client:visible>
-				<h2 class="text-fluid-4xl mb-6 text-gradient drop-shadow-sm">Still have questions?</h2>
-				<p class="text-lg text-text-grey leading-relaxed mb-10">
+				<h2 class="text-fluid-4xl mb-4 sm:mb-5 md:mb-6 text-gradient drop-shadow-sm">Still have questions?</h2>
+				<p class="text-base sm:text-lg text-text-grey leading-relaxed mb-6 sm:mb-8 md:mb-10">
 					If you couldn't find the answer you were looking for, please get in touch with our friendly support team or book a consultation.
 				</p>
-				<div class="flex flex-col sm:flex-row gap-6 justify-center">
-					<a href="/contact-us" class="px-10 py-5 bg-not-quite-black text-white text-sm font-semibold uppercase tracking-widest rounded-full shadow-premium hover:shadow-glow hover:-translate-y-2 hover:scale-105 hover:bg-newson-pink transition-all duration-500 ease-bounce" id="faq-cta-contact">
+				<div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+					<a href="/contact-us" class="px-7 py-3.5 sm:px-9 sm:py-4 md:px-10 md:py-5 bg-not-quite-black text-white text-sm font-semibold uppercase tracking-widest rounded-full shadow-premium hover:shadow-glow hover:-translate-y-2 hover:scale-105 hover:bg-newson-pink transition-all duration-500 ease-bounce" id="faq-cta-contact">
 						Contact Support
 					</a>
-					<a href="https://portal.newsonhealth.co.uk/patient-portal/booking-request" target="_blank" class="glass-panel px-10 py-5 text-newson-pink text-sm font-semibold uppercase tracking-widest rounded-full hover:-translate-y-2 hover:scale-105 hover:border-newson-pink/40 transition-all duration-500 ease-bounce" id="faq-cta-book">
+					<a href="https://portal.newsonhealth.co.uk/patient-portal/booking-request" target="_blank" class="glass-panel px-7 py-3.5 sm:px-9 sm:py-4 md:px-10 md:py-5 text-newson-pink text-sm font-semibold uppercase tracking-widest rounded-full hover:-translate-y-2 hover:scale-105 hover:border-newson-pink/40 transition-all duration-500 ease-bounce" id="faq-cta-book">
 						Book Consultation
 					</a>
 				</div>

@@ -173,7 +173,7 @@ export default function MegaMenu({ logoSrc }: { logoSrc?: string }) {
 					<form
 						action="/search"
 						method="get"
-						className="menu-top-utility flex flex-col sm:flex-row items-stretch gap-3 mb-8 lg:mb-10"
+						className="menu-top-utility lg:hidden flex flex-col sm:flex-row items-stretch gap-3 mb-8 lg:mb-10"
 						onSubmit={(e) => {
 							const input = e.currentTarget.querySelector('input[name="q"]') as HTMLInputElement | null;
 							const q = input?.value.trim();
@@ -195,7 +195,7 @@ export default function MegaMenu({ logoSrc }: { logoSrc?: string }) {
 								type="search"
 								name="q"
 								placeholder="Search the clinic — services, articles, FAQs…"
-								className="w-full bg-[#fdf5f1] focus:bg-white border border-transparent focus:border-[#ea526f]/30 rounded-full py-3.5 sm:py-4 pl-14 pr-5 text-[14px] sm:text-[15px] font-medium text-not-quite-black outline-none transition-colors placeholder:text-[#888]"
+								className="w-full bg-[#FFFFFF] border border-transparent focus:border-[#ea526f]/30 rounded-full py-3.5 sm:py-4 pl-14 pr-5 text-[14px] sm:text-[15px] font-medium text-not-quite-black outline-none transition-colors placeholder:text-[#888]"
 							/>
 						</label>
 						<a

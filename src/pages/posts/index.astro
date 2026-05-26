@@ -36,16 +36,16 @@ const remainingPosts = postsWithMeta.slice(1);
 	<!-- ═══════════════════════════════════════
 	     LIBRARY HERO
 	     ═══════════════════════════════════════ -->
-	<header class="bg-gradient-to-br from-peach via-bg-soft-pink to-peachy-pink pt-24 pb-16 border-b border-black/5">
-		<div class="container mx-auto px-6 max-w-4xl text-center">
-			<nav class="flex items-center justify-center gap-2 text-xs font-medium mb-6" aria-label="Breadcrumb">
+	<header class="bg-gradient-to-br from-peach via-bg-soft-pink to-peachy-pink pt-20 sm:pt-24 pb-10 sm:pb-14 md:pb-16 border-b border-black/5">
+		<div class="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
+			<nav class="flex items-center justify-center gap-2 text-[12px] font-medium mb-4 sm:mb-5 md:mb-6" aria-label="Breadcrumb">
 				<a href="/" class="text-text-grey hover:text-newson-pink transition-colors">Home</a>
 				<span class="text-lines opacity-50">/</span>
 				<span class="text-newson-pink">Knowledge Library</span>
 			</nav>
 			<AnimatedReveal client:visible duration={1.2}>
-				<h1 class="text-fluid-5xl tracking-tight text-not-quite-black mb-6">Knowledge Library</h1>
-				<p class="text-lg text-text-grey max-w-2xl mx-auto leading-relaxed">
+				<h1 class="text-fluid-5xl tracking-tight text-not-quite-black mb-4 sm:mb-5 md:mb-6">Knowledge Library</h1>
+				<p class="text-base sm:text-lg text-text-grey max-w-2xl mx-auto leading-relaxed">
 					Unbiased, evidence-based articles and resources about women’s hormonal health,
 					perimenopause, menopause, and overall clinical wellbeing.
 				</p>
@@ -54,16 +54,16 @@ const remainingPosts = postsWithMeta.slice(1);
 	</header>
 
 	<main class="bg-white section-spacing">
-		<div class="container mx-auto px-6 max-w-7xl">
+		<div class="container mx-auto px-4 sm:px-6 max-w-7xl">
 			<!-- ═══════════════════════════════════════
 			     FEATURED POST
 			     ═══════════════════════════════════════ -->
 			{featuredPost && (
-				<section class="mb-20" id="featured-article-section">
+				<section class="mb-10 sm:mb-14 md:mb-20" id="featured-article-section">
 					<AnimatedReveal client:visible yOffset={40}>
-						<span class="inline-block text-xs font-semibold text-newson-pink uppercase tracking-widest mb-6">Latest &amp; Featured</span>
+						<span class="inline-block text-[12px] font-semibold text-newson-pink uppercase tracking-widest mb-4 sm:mb-5 md:mb-6">Latest &amp; Featured</span>
 						<article class="premium-surface group bg-white overflow-hidden flex flex-col lg:flex-row">
-							<div class="lg:w-[55%] relative overflow-hidden min-h-[300px] lg:min-h-[400px]">
+							<div class="lg:w-[55%] relative overflow-hidden min-h-[240px] sm:min-h-[280px] lg:min-h-[400px]">
 								{featuredPost.post.data.featured_image ? (
 									<a href={`/posts/${featuredPost.post.id}`} class="block w-full h-full" aria-label={`Read ${featuredPost.post.data.title}`}>
 										<Image image={featuredPost.post.data.featured_image} class="w-full h-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105" />
@@ -75,8 +75,8 @@ const remainingPosts = postsWithMeta.slice(1);
 								)}
 							</div>
 
-							<div class="lg:w-[45%] p-8 lg:p-12 flex flex-col justify-center gap-6">
-								<div class="flex items-center gap-4 text-xs">
+							<div class="lg:w-[45%] p-5 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center gap-4 sm:gap-5 md:gap-6">
+								<div class="flex items-center gap-3 sm:gap-4 text-[12px]">
 									{featuredPost.categories.length > 0 && (
 										<span class="font-semibold text-newson-pink uppercase tracking-widest">
 											{featuredPost.categories[0].label}
@@ -93,7 +93,7 @@ const remainingPosts = postsWithMeta.slice(1);
 									)}
 								</div>
 
-								<h2 class="text-3xl lg:text-4xl font-display leading-tight">
+								<h2 class="text-[1.5rem] sm:text-[1.75rem] md:text-3xl lg:text-4xl font-display leading-tight">
 									<a href={`/posts/${featuredPost.post.id}`} class="text-not-quite-black hover:text-newson-pink transition-colors">{featuredPost.post.data.title}</a>
 								</h2>
 
@@ -113,7 +113,7 @@ const remainingPosts = postsWithMeta.slice(1);
 											))}
 										</div>
 									)}
-									<a href={`/posts/${featuredPost.post.id}`} class="shrink-0 px-6 py-2.5 bg-white border border-black/5 text-not-quite-black text-xs font-medium uppercase tracking-wider rounded-full shadow-sm hover:shadow-premium-hover hover:border-newson-pink/30 hover:text-newson-pink transition-all duration-300">
+									<a href={`/posts/${featuredPost.post.id}`} class="shrink-0 px-6 py-2.5 bg-white border border-black/5 text-not-quite-black text-[12px] font-medium uppercase tracking-wider rounded-full shadow-sm hover:shadow-premium-hover hover:border-newson-pink/30 hover:text-newson-pink transition-all duration-300">
 										Read Article
 									</a>
 								</div>
@@ -126,19 +126,19 @@ const remainingPosts = postsWithMeta.slice(1);
 			<!-- ═══════════════════════════════════════
 			     ARTICLES GRID
 			     ═══════════════════════════════════════ -->
-			<section class="border-t border-black/5 pt-16" id="all-articles-section">
+			<section class="border-t border-black/5 pt-8 sm:pt-12 md:pt-16" id="all-articles-section">
 				<AnimatedReveal client:visible>
-					<h2 class="text-3xl font-display mb-10">All Articles</h2>
+					<h2 class="text-[1.75rem] sm:text-[2rem] md:text-3xl font-display mb-6 sm:mb-8 md:mb-10">All Articles</h2>
 				</AnimatedReveal>
-				
+
 				{remainingPosts.length === 0 && !featuredPost ? (
 					<AnimatedReveal client:visible>
-						<div class="text-center py-16 text-text-grey">
+						<div class="text-center py-10 sm:py-12 md:py-16 text-text-grey">
 							<p>No articles found in our library yet. Please check back soon.</p>
 						</div>
 					</AnimatedReveal>
 				) : (
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
 						{remainingPosts.map(({ post, tags, categories }) => (
 							<article class="premium-surface group flex flex-col overflow-hidden bg-white">
 								<div class="relative h-56 overflow-hidden">
@@ -153,8 +153,8 @@ const remainingPosts = postsWithMeta.slice(1);
 									)}
 								</div>
 
-								<div class="p-6 flex flex-col flex-grow gap-4">
-									<div class="flex items-center gap-3 text-[11px]">
+								<div class="p-4 sm:p-5 md:p-6 flex flex-col flex-grow gap-4">
+									<div class="flex items-center gap-3 text-[12px]">
 										{categories.length > 0 && (
 											<span class="font-semibold text-newson-pink uppercase tracking-widest">{categories[0].label}</span>
 										)}
@@ -183,7 +183,7 @@ const remainingPosts = postsWithMeta.slice(1);
 										{tags.length > 0 && (
 											<div class="flex overflow-hidden gap-1.5">
 												{tags.slice(0, 2).map((t) => (
-													<a href={`/tag/${t.slug}`} class="px-2.5 py-1 bg-buff text-text-grey text-[10px] font-medium rounded-full border border-black/5 hover:bg-newson-pink hover:text-white hover:border-newson-pink transition-colors whitespace-nowrap">
+													<a href={`/tag/${t.slug}`} class="px-2.5 py-1 bg-buff text-text-grey text-[12px] font-medium rounded-full border border-black/5 hover:bg-newson-pink hover:text-white hover:border-newson-pink transition-colors whitespace-nowrap">
 														{t.label}
 													</a>
 												))}

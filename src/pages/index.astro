@@ -150,23 +150,23 @@ const medicalClinicSchema = {
 	<script type="application/ld+json" set:html={JSON.stringify(medicalClinicSchema)}></script>
 
 	<!-- ============ HERO SECTION ============ -->
-	<section class="relative min-h-screen w-full bg-[#fcfcfc] overflow-hidden pt-32 pb-24 lg:pt-40 lg:pb-32" id="hero-section">
+	<section class="relative min-h-screen w-full bg-[#fcfcfc] overflow-hidden pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-20 lg:pb-32 lg:pt-40" id="hero-section">
 		<!-- Huge abstract background blooms -->
 		<div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-[#f7d3d9]/60 to-transparent rounded-full blur-[120px] pointer-events-none -translate-y-1/3 translate-x-1/3"></div>
 		<div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#ea526f]/5 rounded-full blur-[120px] pointer-events-none translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
-		<div class="container mx-auto px-6 max-w-[1520px] relative z-10 h-full">
-			<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center h-full">
+		<div class="container mx-auto px-4 sm:px-6 max-w-[1520px] relative z-10 h-full">
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 md:gap-12 lg:gap-8 items-center h-full">
 				<!-- Left Column: Typography & Content (7 columns wide) -->
-				<div class="lg:col-span-7 flex flex-col pt-10 lg:pt-0 z-20">
+				<div class="lg:col-span-7 flex flex-col pt-6 sm:pt-8 lg:pt-0 z-20">
 					<AnimatedReveal client:visible duration={1.2} yOffset={30}>
-						<div class="inline-flex items-center gap-4 mb-8 lg:mb-12">
+						<div class="inline-flex items-center gap-4 mb-5 sm:mb-6 md:mb-8 lg:mb-12">
 							<div class="w-16 h-[2px] bg-[#ea526f]"></div>
 							<span class="text-[#ea526f] text-[12px] font-bold tracking-[0.25em] uppercase" {...heroSec?.edit?.subtitle}>{heroSec?.data?.subtitle ?? "Expert Hormone Care"}</span>
 						</div>
 					</AnimatedReveal>
 
 					<AnimatedReveal client:visible duration={1.2} delay={0.2} yOffset={40}>
-						<h1 class="font-display text-[4rem] sm:text-[5.5rem] lg:text-[6.5rem] xl:text-[8rem] leading-[0.9] tracking-[-0.03em] text-not-quite-black mb-10 text-balance" {...heroSec?.edit?.title}>
+						<h1 class="font-display text-[2.5rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[8rem] leading-[0.9] tracking-[-0.03em] text-not-quite-black mb-6 sm:mb-8 md:mb-10 text-balance" {...heroSec?.edit?.title}>
 							{(heroSec?.data?.title ?? "Embrace life again") === "Embrace life again" ? (
 								<>
 									Embrace <br /> <span class="text-[#ea526f] italic font-light relative inline-block">
@@ -182,56 +182,56 @@ const medicalClinicSchema = {
 					</AnimatedReveal>
 
 					<AnimatedReveal client:visible duration={1.2} delay={0.4} yOffset={30}>
-						<p class="text-[1.25rem] lg:text-[1.5rem] text-[#666] font-medium max-w-[500px] mb-12 leading-[1.6]" {...heroSec?.edit?.description}>
+						<p class="text-[1rem] sm:text-[1.15rem] md:text-[1.25rem] lg:text-[1.5rem] text-[#666] font-medium max-w-[500px] mb-6 sm:mb-10 md:mb-12 leading-[1.6]" {...heroSec?.edit?.description}>
 							{heroSec?.data?.description ?? "Rated Outstanding by CQC. We provide unbiased, evidence-based information to support women's hormonal health and overall wellbeing."}
 						</p>
 					</AnimatedReveal>
 
 					<AnimatedReveal client:visible duration={1.2} delay={0.6} yOffset={20}>
-						<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-							<!-- Primary CTA -->
+						<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+							<!-- ═══ Primary CTA — split-ticket with arrow notch ═══ -->
 							<a
 								href={heroSec?.data?.button_url ?? "https://portal.newsonhealth.co.uk/patient-portal/booking-request"}
 								target="_blank"
-								class="cta-primary group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 pl-7 pr-3 py-3 rounded-full bg-gradient-to-br from-[#ea526f] via-[#e63d5d] to-[#d63b58] text-white text-[12px] font-bold uppercase tracking-[0.16em] shadow-[0_18px_40px_-10px_rgba(233,81,111,0.55),inset_0_1px_0_rgba(255,255,255,0.25)] hover:shadow-[0_25px_50px_-10px_rgba(233,81,111,0.65)] hover:-translate-y-1 transition-all duration-500 ease-out-expo overflow-hidden"
+								class="cta-primary group relative inline-flex items-center w-full sm:w-auto h-11 sm:h-[42px] rounded-full bg-[#ea526f] text-white text-[12px] font-bold uppercase tracking-[0.14em] shadow-[0_14px_32px_-10px_rgba(233,81,111,0.55)] hover:shadow-[0_18px_38px_-10px_rgba(233,81,111,0.7)] hover:-translate-y-0.5 transition-all duration-300 ease-out overflow-hidden pl-5 pr-1"
 							>
-								<span class="absolute inset-0 bg-gradient-to-br from-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" aria-hidden="true"></span>
-								<span class="relative flex-1 text-center sm:text-left pl-1" {...heroSec?.edit?.button_text}>
+								<!-- Soft animated highlight sweep -->
+								<span class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-out-expo pointer-events-none" aria-hidden="true"></span>
+								<span class="relative flex-1 text-center sm:text-left mr-2" {...heroSec?.edit?.button_text}>
 									{heroSec?.data?.button_text ?? "Start your journey"}
 								</span>
-								<span class="relative w-11 h-11 rounded-full bg-white text-[#ea526f] flex items-center justify-center overflow-hidden shadow-[inset_0_-2px_0_rgba(0,0,0,0.05)]">
-									<!-- Animated arrow track -->
-									<span class="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-out-expo group-hover:translate-x-6">
-										<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+								<!-- Pill end-cap with sliding arrow -->
+								<span class="relative h-[34px] sm:h-[32px] aspect-square rounded-full bg-white text-[#ea526f] flex items-center justify-center overflow-hidden shadow-[inset_0_-1px_0_rgba(0,0,0,0.05)]">
+									<span class="absolute inset-0 flex items-center justify-center transition-transform duration-400 ease-out-expo group-hover:translate-x-5">
+										<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 									</span>
-									<span class="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-out-expo -translate-x-6 group-hover:translate-x-0">
-										<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+									<span class="absolute inset-0 flex items-center justify-center transition-transform duration-400 ease-out-expo -translate-x-5 group-hover:translate-x-0">
+										<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 									</span>
 								</span>
 							</a>
 
-							<!-- Secondary CTA -->
+							<!-- ═══ Secondary CTA — ghost with growing underline ═══ -->
 							<a
 								href="#founders-section"
-								class="cta-secondary group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-3 rounded-full bg-white text-not-quite-black text-[12px] font-bold uppercase tracking-[0.16em] border border-black/8 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)] hover:border-[#ea526f]/35 hover:text-[#ea526f] hover:-translate-y-1 hover:shadow-[0_18px_36px_-12px_rgba(233,81,111,0.35)] transition-all duration-500 ease-out-expo overflow-hidden"
+								class="cta-secondary group relative inline-flex items-center justify-center w-full sm:w-auto h-11 sm:h-[42px] gap-3 px-5 rounded-full text-not-quite-black text-[12px] font-bold uppercase tracking-[0.14em] border border-black/10 bg-white/40 backdrop-blur-sm hover:border-not-quite-black hover:bg-not-quite-black hover:text-white hover:-translate-y-0.5 transition-all duration-300 ease-out"
 							>
-								<!-- Pink fill that grows from left -->
-								<span class="absolute inset-0 bg-[#fdf5f1] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out-expo pointer-events-none" aria-hidden="true"></span>
 								<!-- Avatar dot stack -->
 								<span class="relative flex -space-x-1.5">
-									<span class="block w-5 h-5 rounded-full bg-[#ea526f] border-2 border-white"></span>
-									<span class="block w-5 h-5 rounded-full bg-[#f7d3d9] border-2 border-white"></span>
+									<span class="block w-4 h-4 rounded-full bg-[#ea526f] border-[1.5px] border-white"></span>
+									<span class="block w-4 h-4 rounded-full bg-[#f7d3d9] border-[1.5px] border-white"></span>
 								</span>
 								<span class="relative">Meet the founders</span>
+								<svg class="relative w-3 h-3 -ml-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 							</a>
 						</div>
 					</AnimatedReveal>
 				</div>
 
 				<!-- Right Column: Media & Interactive Elements (5 columns wide) -->
-				<div class="lg:col-span-5 relative h-[500px] lg:h-[750px] w-full flex items-center justify-center">
+				<div class="lg:col-span-5 relative h-[360px] sm:h-[460px] lg:h-[750px] w-full flex items-center justify-center">
 					<AnimatedReveal client:visible duration={1.5} delay={0.4} yOffset={0} className="w-full h-full relative">
-						<div class="absolute inset-0 rounded-[3rem] lg:rounded-t-full lg:rounded-b-[3rem] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.15)] border-[8px] border-white z-10 group" {...heroSec?.edit?.video_url}>
+						<div class="absolute inset-0 rounded-[3rem] lg:rounded-t-full lg:rounded-b-[3rem] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.15)] border-[4px] sm:border-[6px] md:border-[8px] border-white z-10 group" {...heroSec?.edit?.video_url}>
 							<video src={heroSec?.data?.video_url ?? heroVideo} poster={heroPoster.src} autoplay loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[3s] ease-out"></video>
 							<!-- Soft overlay -->
 							<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-80"></div>
@@ -266,15 +266,15 @@ const medicalClinicSchema = {
 										</div>
 										<div class="flex-1 min-w-0">
 											<h3 class="font-display text-[1.15rem] text-not-quite-black leading-tight truncate">Dr Louise Newson</h3>
-											<p class="text-[10px] font-bold text-[#ea526f] uppercase tracking-[0.15em] mt-0.5">Clinic Founder</p>
+											<p class="text-[12px] font-bold text-[#ea526f] uppercase tracking-[0.15em] mt-0.5">Clinic Founder</p>
 										</div>
 									</div>
 
 									<!-- Credentials chip row -->
 									<div class="flex flex-wrap gap-1.5 mb-4">
-										<span class="px-2.5 py-1 rounded-full bg-[#fdf5f1] text-[9px] font-bold text-[#ea526f] uppercase tracking-wider">MBChB</span>
-										<span class="px-2.5 py-1 rounded-full bg-[#fdf5f1] text-[9px] font-bold text-[#ea526f] uppercase tracking-wider">MRCGP</span>
-										<span class="px-2.5 py-1 rounded-full bg-[#fdf5f1] text-[9px] font-bold text-[#ea526f] uppercase tracking-wider">FRCP</span>
+										<span class="px-2.5 py-1 rounded-full bg-[#fdf5f1] text-[12px] font-bold text-[#ea526f] uppercase tracking-wider">MBChB</span>
+										<span class="px-2.5 py-1 rounded-full bg-[#fdf5f1] text-[12px] font-bold text-[#ea526f] uppercase tracking-wider">MRCGP</span>
+										<span class="px-2.5 py-1 rounded-full bg-[#fdf5f1] text-[12px] font-bold text-[#ea526f] uppercase tracking-wider">FRCP</span>
 									</div>
 
 									<!-- CQC star line -->
@@ -286,7 +286,7 @@ const medicalClinicSchema = {
 											<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
 											<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
 										</span>
-										<span class="text-[10px] font-bold text-[#888] tracking-wide">CQC Outstanding</span>
+										<span class="text-[12px] font-bold text-[#888] tracking-wide">CQC Outstanding</span>
 									</div>
 								</div>
 							</div>
@@ -298,26 +298,26 @@ const medicalClinicSchema = {
 
 		<!-- Scroll Indicator (Bottom Left) -->
 		<div class="absolute bottom-8 left-12 z-20">
-			<a href="#founders-section" class="w-12 h-12 rounded-full border border-black/10 hover:border-[#ea526f] flex items-center justify-center text-[#ea526f] bg-white hover:bg-[#ea526f] hover:text-white transition-all duration-500 group hover:scale-110 shadow-[0_10px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_15px_30px_rgba(233,81,111,0.2)]">
+			<a href="#founders-section" class="w-12 h-12 rounded-full border border-black/10 hover:border-[#ea526f] flex items-center justify-center text-[#ea526f] bg-white hover:bg-[#ea526f] hover:text-white transition-all duration-500 group hover:scale-110 shadow-[0_10px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_15px_30px_rgba(233,81,111,0.2)] hidden md:flex">
 				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-y-1.5 transition-transform duration-300"><path d="M12 5v14M19 12l-7 7-7-7"></path></svg>
 			</a>
 		</div>
 	</section>
 
 	<!-- ============ FOUNDERS SECTION ============ -->
-	<section class="relative bg-white py-24 md:py-32 overflow-hidden" id="founders-section">
+	<section class="relative bg-white py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden" id="founders-section">
 		<!-- Soft ambient gradients -->
 		<div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-[#fdf5f1] via-[#fdf5f1]/50 to-transparent rounded-full blur-[100px] -z-10 translate-x-1/3 -translate-y-1/4"></div>
-		<div class="container mx-auto px-6 max-w-[1400px] relative z-10">
-			<div class="flex flex-col lg:flex-row items-center gap-20 lg:gap-32">
+		<div class="container mx-auto px-4 sm:px-6 max-w-[1400px] relative z-10">
+			<div class="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 md:gap-20 lg:gap-32">
 				<!-- Left Content -->
 				<div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left pt-8 lg:pt-0">
 					<AnimatedReveal client:visible duration={1.2} delay={0.1} yOffset={0}>
-						<div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white shadow-sm border border-black/5 mb-8">
+						<div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white shadow-sm border border-black/5 mb-5 sm:mb-6 md:mb-8">
 							<span class="w-2 h-2 rounded-full bg-[#ea526f] animate-pulse"></span>
-							<span class="text-[#ea526f] text-[11px] font-bold tracking-widest uppercase" {...foundersSec?.edit?.subtitle}>{foundersSec?.data?.subtitle ?? "The Visionaries"}</span>
+							<span class="text-[#ea526f] text-[12px] font-bold tracking-widest uppercase" {...foundersSec?.edit?.subtitle}>{foundersSec?.data?.subtitle ?? "The Visionaries"}</span>
 						</div>
-						<h2 class="font-display text-[3.5rem] lg:text-[4.5rem] text-not-quite-black mb-8 leading-[1.05] tracking-tight" {...foundersSec?.edit?.title}>
+						<h2 class="font-display text-[2.25rem] sm:text-[2.75rem] md:text-[3rem] lg:text-[4.5rem] text-not-quite-black mb-5 sm:mb-6 md:mb-8 leading-[1.05] tracking-tight" {...foundersSec?.edit?.title}>
 							{(foundersSec?.data?.title ?? "Founded by Dr Louise Newson & Dr Rebecca Lewis") === "Founded by Dr Louise Newson & Dr Rebecca Lewis" ? (
 								<>
 									Founded by <br class="hidden lg:block" /> <span class="text-[#ea526f] relative inline-block group cursor-default">
@@ -333,8 +333,8 @@ const medicalClinicSchema = {
 								foundersSec?.data?.title
 							)}
 						</h2>
-						<div class="relative pl-8 mb-12 border-l-[3px] border-[#ea526f]">
-							<p class="text-[1.2rem] lg:text-[1.35rem] text-not-quite-black leading-relaxed font-medium mb-6" {...foundersSec?.edit?.description}>
+						<div class="relative pl-5 sm:pl-8 mb-6 sm:mb-12 border-l-[3px] border-[#ea526f]">
+							<p class="text-[0.95rem] sm:text-[1.05rem] md:text-[1.2rem] lg:text-[1.35rem] text-not-quite-black leading-relaxed font-medium mb-6" {...foundersSec?.edit?.description}>
 								{foundersSec?.data?.description ?? "Evidence-based care and treatment founded on scientific research and a wealth of clinical experience."}
 							</p>
 							<p class="text-[1.05rem] text-[#666] leading-[1.8]" {...foundersSec?.edit?.content}>
@@ -342,7 +342,7 @@ const medicalClinicSchema = {
 							</p>
 						</div>
 						<div class="flex flex-col sm:flex-row items-center gap-6">
-							<a href={foundersSec?.data?.button_url ?? "https://www.drlouisenewson.co.uk"} target="_blank" class="px-8 py-4 bg-[#ea526f] text-white text-[13px] font-bold uppercase tracking-widest rounded-full shadow-[0_10px_30px_rgba(233,81,111,0.3)] hover:shadow-[0_15px_40px_rgba(233,81,111,0.4)] hover:-translate-y-1 transition-all duration-500 ease-out flex items-center gap-3 group">
+							<a href={foundersSec?.data?.button_url ?? "https://www.drlouisenewson.co.uk"} target="_blank" class="px-6 py-3 sm:px-7 sm:py-3.5 md:px-8 md:py-4 bg-[#ea526f] text-white text-[13px] font-bold uppercase tracking-widest rounded-full shadow-[0_10px_30px_rgba(233,81,111,0.3)] hover:shadow-[0_15px_40px_rgba(233,81,111,0.4)] hover:-translate-y-1 transition-all duration-500 ease-out flex items-center gap-3 group">
 								<span {...foundersSec?.edit?.button_text}>{foundersSec?.data?.button_text ?? "Dr Louise's Website"}</span>
 								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1.5 transition-transform duration-300"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
 							</a>
@@ -351,7 +351,7 @@ const medicalClinicSchema = {
 				</div>
 
 				<!-- Right Composition: Advanced Masonry / Floating Images -->
-				<div class="w-full lg:w-1/2 relative h-[600px] lg:h-[700px]">
+				<div class="w-full lg:w-1/2 relative h-[440px] sm:h-[520px] md:h-[600px] lg:h-[700px]">
 					<AnimatedReveal client:visible duration={1.5} yOffset={0} className="w-full h-full">
 						<div class="absolute top-10 right-10 w-[60%] h-[65%] rounded-[3rem] overflow-hidden shadow-2xl border-[6px] border-white z-20 group hover:-translate-y-2 transition-all duration-700 ease-out-expo" {...foundersSec?.edit?.image}>
 							<img src={foundersSec?.data?.image ?? founderPortrait.src} alt="Dr Louise Newson and Dr Rebecca Lewis" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s]" />
@@ -362,14 +362,14 @@ const medicalClinicSchema = {
 							<img src={foundersSec?.data?.secondary_image ?? founderClinical.src} alt="Dr Louise Newson at the clinic" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s]" />
 						</div>
 
-						<div class="absolute top-[80%] -left-4 z-40 bg-white/80 backdrop-blur-xl rounded-2xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-white/60 animate-float w-max">
-							<div class="flex items-center gap-5">
-								<div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#ea526f] to-[#d63b58] flex items-center justify-center text-white shadow-lg">
+						<div class="absolute top-[80%] md:-left-4 z-40 bg-white/80 backdrop-blur-xl rounded-2xl p-3 md:p-6 shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-white/60 animate-float w-max">
+							<div class="flex items-center gap-2 md:gap-5">
+								<div class="w-10 h-10 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-[#ea526f] to-[#d63b58] flex items-center justify-center text-white shadow-lg">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
 								</div>
 								<div>
-									<p class="text-[10px] text-text-grey font-bold uppercase tracking-[0.2em] mb-1">CQC Rating</p>
-									<p class="text-xl font-display text-not-quite-black font-semibold">Outstanding</p>
+									<p class="text-[12px] text-text-grey font-bold uppercase tracking-[0.2em] mb-0 md:mb-1">CQC Rating</p>
+									<p class="md:text-xl text-md font-display text-not-quite-black font-semibold">Outstanding</p>
 								</div>
 							</div>
 						</div>
@@ -382,19 +382,19 @@ const medicalClinicSchema = {
 	</section>
 
 	<!-- ============ SERVICES SECTION ============ -->
-	<section class="relative bg-white py-24 md:py-32 overflow-hidden" id="services-section">
+	<section class="relative bg-white py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden" id="services-section">
 		<!-- Subtle background blobs for a premium feel -->
 		<div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-[#f7d3d9]/40 to-transparent rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
 		<div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#ea526f]/5 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
-		<div class="container mx-auto px-6 max-w-[1400px] relative z-10">
+		<div class="container mx-auto px-4 sm:px-6 max-w-[1400px] relative z-10">
 			<!-- Header & Intro -->
-			<div class="max-w-4xl mx-auto text-center mb-16">
+			<div class="max-w-4xl mx-auto text-center mb-8 sm:mb-12 md:mb-16">
 				<AnimatedReveal client:visible duration={1.2} yOffset={30}>
-					<div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white shadow-sm border border-black/5 mb-6">
+					<div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white shadow-sm border border-black/5 mb-4 sm:mb-5 md:mb-6">
 						<span class="w-2 h-2 rounded-full bg-[#ea526f] animate-pulse"></span>
-						<span class="text-[#ea526f] text-[11px] font-bold tracking-widest uppercase" {...servicesSec?.edit?.subtitle}>{servicesSec?.data?.subtitle ?? "Our Services"}</span>
+						<span class="text-[#ea526f] text-[12px] font-bold tracking-widest uppercase" {...servicesSec?.edit?.subtitle}>{servicesSec?.data?.subtitle ?? "Our Services"}</span>
 					</div>
-					<h2 class="font-display text-[3.5rem] md:text-[4.5rem] text-not-quite-black mb-8 leading-[1.05] tracking-tight" {...servicesSec?.edit?.title}>
+					<h2 class="font-display text-[2.25rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] text-not-quite-black mb-5 sm:mb-6 md:mb-8 leading-[1.05] tracking-tight" {...servicesSec?.edit?.title}>
 						{(servicesSec?.data?.title ?? "Ways we can help you") === "Ways we can help you" ? (
 							<>
 								Ways we can <span class="text-[#ea526f] italic font-light relative inline-block">help you<svg class="absolute w-[110%] h-3 -bottom-1 -left-2 text-[#ea526f]/30" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5Q50 10 100 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path></svg></span>
@@ -403,11 +403,11 @@ const medicalClinicSchema = {
 							servicesSec?.data?.title
 						)}
 					</h2>
-					<p class="text-[1.15rem] md:text-[1.25rem] text-[#666] leading-relaxed font-medium mb-10 text-balance" {...servicesSec?.edit?.description}>
+					<p class="text-[0.95rem] sm:text-[1.05rem] md:text-[1.15rem] lg:text-[1.25rem] text-[#666] leading-relaxed font-medium mb-6 sm:mb-8 md:mb-10 text-balance" {...servicesSec?.edit?.description}>
 						{servicesSec?.data?.description ?? "We are the UK's leading female hormonal health clinic, rated Outstanding by the CQC, with expert clinicians providing individualised appointments for women's hormone health. We prescribe body identical hormones for perimenopause, menopause, PMS, PMDD, postnatal depression and other conditions including PCOS/PMOS and endometriosis."}
 					</p>
 
-					<div class="flex flex-wrap justify-center gap-3 md:gap-4 mt-8">
+					<div class="flex flex-wrap justify-center gap-3 md:gap-4 mt-5 sm:mt-6 md:mt-8">
 						{serviceTags.map((service) => (
 							<a href={service.link} class="px-6 py-3 rounded-full bg-white border border-black/10 text-[13px] font-bold uppercase tracking-widest text-not-quite-black hover:border-[#ea526f] hover:bg-[#ea526f] hover:text-white hover:shadow-[0_10px_20px_rgba(233,81,111,0.2)] transition-all duration-300 transform hover:-translate-y-1">
 								{service.name}
@@ -418,7 +418,7 @@ const medicalClinicSchema = {
 			</div>
 
 			<!-- Services Carousel Container -->
-			<div class="w-full relative z-20 mt-20">
+			<div class="w-full relative z-20 mt-8 sm:mt-12 md:mt-16 lg:mt-20">
 				<div class="swiper services-swiper w-full !overflow-visible py-10">
 					<div class="swiper-wrapper">
 						{services.map((item) => (
@@ -435,7 +435,7 @@ const medicalClinicSchema = {
 										</div>
 									</div>
 									<!-- Content Wrapper -->
-									<div class="p-8 flex flex-col flex-1 bg-white">
+									<div class="p-5 sm:p-6 md:p-8 flex flex-col flex-1 bg-white">
 										<h3 class="text-[1.4rem] font-display text-not-quite-black group-hover:text-[#ea526f] transition-colors duration-300 mb-4 leading-[1.2] line-clamp-2 min-h-[3.36rem]">{item.title}</h3>
 										<p class="text-[14px] text-text-grey leading-relaxed flex-1 mb-8 line-clamp-3 min-h-[4.2rem]" {...item.edit?.text}>{item.text}</p>
 										<div class="mt-auto">
@@ -464,19 +464,19 @@ const medicalClinicSchema = {
 	</section>
 
 	<!-- ============ CLINICS SECTION ============ -->
-	<section class="relative bg-[#111111] py-24 md:py-32 overflow-hidden" id="clinics-section">
+	<section class="relative bg-[#111111] py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden" id="clinics-section">
 		<!-- Atmospheric background glow -->
 		<div class="absolute top-0 right-0 w-[800px] h-[800px] bg-[#ea526f]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
-		<div class="container mx-auto px-6 max-w-[1400px]">
-			<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 relative z-10 gap-8">
+		<div class="container mx-auto px-4 sm:px-6 max-w-[1400px]">
+			<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 md:mb-16 relative z-10 gap-8">
 				<div class="max-w-2xl">
 					<AnimatedReveal client:visible duration={1.2} yOffset={30}>
-						<div class="inline-flex items-center gap-3 mb-6">
+						<div class="inline-flex items-center gap-3 mb-4 sm:mb-5 md:mb-6">
 							<span class="w-12 h-[1px] bg-[#ea526f]"></span>
-							<span class="text-[#ea526f] text-[11px] font-bold tracking-widest uppercase" {...clinicsSec?.edit?.subtitle}>{clinicsSec?.data?.subtitle ?? "Global Presence"}</span>
+							<span class="text-[#ea526f] text-[12px] font-bold tracking-widest uppercase" {...clinicsSec?.edit?.subtitle}>{clinicsSec?.data?.subtitle ?? "Global Presence"}</span>
 						</div>
-						<h2 class="font-display text-[3.5rem] md:text-[5rem] text-white mb-6 font-normal tracking-tight leading-none" {...clinicsSec?.edit?.title}>{clinicsSec?.data?.title ?? "Our clinics"}</h2>
-						<p class="text-[1.15rem] text-white/60 leading-relaxed font-light" {...clinicsSec?.edit?.description}>
+						<h2 class="font-display text-[2.25rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[5rem] text-white mb-4 sm:mb-5 md:mb-6 font-normal tracking-tight leading-none" {...clinicsSec?.edit?.title}>{clinicsSec?.data?.title ?? "Our clinics"}</h2>
+						<p class="text-[0.95rem] sm:text-[1.05rem] md:text-[1.15rem] text-white/60 leading-relaxed font-light" {...clinicsSec?.edit?.description}>
 							{clinicsSec?.data?.description ?? "Patient care is our top priority. We use our research and evidence-based knowledge across our beautifully designed clinics to offer the best care and advice in the world."}
 						</p>
 					</AnimatedReveal>
@@ -498,20 +498,20 @@ const medicalClinicSchema = {
 				<div class="swiper-wrapper">
 					{clinics.map((clinic) => (
 						<div class="swiper-slide group cursor-grab" {...clinic.edit?.title}>
-							<a href={clinic.link} class="relative w-full h-[450px] md:h-[550px] rounded-3xl overflow-hidden block border border-white/10 shadow-2xl">
+							<a href={clinic.link} class="relative w-full h-[380px] sm:h-[420px] md:h-[550px] rounded-3xl overflow-hidden block border border-white/10 shadow-2xl">
 								<!-- Background Image -->
 								<img src={clinic.image} alt={clinic.title} class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out z-0" onerror="this.style.display='none'" />
 								<!-- Dark Gradient Overlay -->
 								<div class="absolute inset-0 bg-gradient-to-t from-[#111] via-[#111]/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500 z-10"></div>
 								<!-- Content Container -->
-								<div class="absolute inset-0 z-20 flex flex-col justify-end p-8 md:p-10">
+								<div class="absolute inset-0 z-20 flex flex-col justify-end p-5 sm:p-6 md:p-10">
 									<div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
 										{clinic.town && (
-											<span class="inline-block px-4 py-1.5 mb-6 border border-white/30 text-white/90 text-[11px] font-bold uppercase tracking-widest rounded-full backdrop-blur-sm" {...clinic.edit?.town}>
+											<span class="inline-block px-4 py-1.5 mb-6 border border-white/30 text-white/90 text-[12px] font-bold uppercase tracking-widest rounded-full backdrop-blur-sm" {...clinic.edit?.town}>
 												{clinic.town}
 											</span>
 										)}
-										<h3 class="text-[2rem] md:text-[2.5rem] font-display text-white mb-3 leading-[1.1] tracking-tight">{clinic.title}</h3>
+										<h3 class="text-[1.5rem] sm:text-[1.75rem] md:text-[2.5rem] font-display text-white mb-3 leading-[1.1] tracking-tight">{clinic.title}</h3>
 										<div class="flex items-end justify-between opacity-80 group-hover:opacity-100 transition-opacity duration-500">
 											<div class="text-[14px] text-white/70 font-light leading-relaxed">
 												{clinic.address1 && <p {...clinic.edit?.address1}>{clinic.address1}</p>}
@@ -531,9 +531,9 @@ const medicalClinicSchema = {
 				</div>
 			</div>
 		</div>
-		<div class="container mx-auto px-6 max-w-[1400px]">
-			<div class="text-center mt-20">
-				<a href="/clinics" class="inline-flex items-center gap-3 px-10 py-4 border border-white/20 text-white text-[14px] font-bold uppercase tracking-widest rounded-full hover:bg-white hover:text-[#111] transition-all duration-500 group">
+		<div class="container mx-auto px-4 sm:px-6 max-w-[1400px]">
+			<div class="text-center mt-10 sm:mt-14 md:mt-20">
+				<a href="/clinics" class="inline-flex items-center gap-3 px-7 py-3.5 sm:px-9 sm:py-4 md:px-10 md:py-4 border border-white/20 text-white text-[14px] font-bold uppercase tracking-widest rounded-full hover:bg-white hover:text-[#111] transition-all duration-500 group">
 					Explore all locations
 					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1.5 transition-transform duration-300"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
 				</a>
@@ -542,23 +542,23 @@ const medicalClinicSchema = {
 	</section>
 
 	<!-- ============ APPOINTMENTS SECTION ============ -->
-	<section class="relative bg-white py-24 md:py-32 overflow-hidden" id="appointments-section">
+	<section class="relative bg-white py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden" id="appointments-section">
 		<!-- Decorative blobs -->
 		<div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-[#ea526f]/10 to-transparent rounded-full blur-[100px] pointer-events-none -z-10"></div>
 		<div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-[#fdf5f1] to-transparent rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
-		<div class="container mx-auto px-6 max-w-[1400px]">
-			<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+		<div class="container mx-auto px-4 sm:px-6 max-w-[1400px]">
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 md:gap-16 lg:gap-24 items-center">
 
 				<!-- Left Content: Typography & Selection Cards -->
 				<div class="lg:col-span-5 flex flex-col justify-center">
 					<AnimatedReveal client:visible duration={1.2} yOffset={30}>
-						<div class="inline-flex items-center gap-3 mb-6">
+						<div class="inline-flex items-center gap-3 mb-4 sm:mb-5 md:mb-6">
 							<span class="w-12 h-[1px] bg-[#ea526f]"></span>
-							<span class="text-[#ea526f] text-[11px] font-bold tracking-widest uppercase" {...appointmentsSec?.edit?.subtitle}>{appointmentsSec?.data?.subtitle ?? "Your Journey"}</span>
+							<span class="text-[#ea526f] text-[12px] font-bold tracking-widest uppercase" {...appointmentsSec?.edit?.subtitle}>{appointmentsSec?.data?.subtitle ?? "Your Journey"}</span>
 						</div>
 
-						<h2 class="font-display text-[3.5rem] md:text-[4.5rem] text-not-quite-black mb-6 leading-[1.05] tracking-tight" {...appointmentsSec?.edit?.title}>
+						<h2 class="font-display text-[2.25rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] text-not-quite-black mb-4 sm:mb-5 md:mb-6 leading-[1.05] tracking-tight" {...appointmentsSec?.edit?.title}>
 							{(appointmentsSec?.data?.title ?? "Appointments that work round you.") === "Appointments that work round you." ? (
 								<>
 									Appointments that work round <span class="text-[#ea526f] italic font-light pr-4">you.</span>
@@ -568,7 +568,7 @@ const medicalClinicSchema = {
 							)}
 						</h2>
 
-						<p class="text-[1.15rem] text-[#666] leading-relaxed font-light mb-12" {...appointmentsSec?.edit?.description}>
+						<p class="text-[0.95rem] sm:text-[1.05rem] md:text-[1.15rem] text-[#666] leading-relaxed font-light mb-6 sm:mb-10 md:mb-12" {...appointmentsSec?.edit?.description}>
 							{appointmentsSec?.data?.description ?? "Our expert clinicians offer oestrogen or video appointments for perimenopause and menopause, PMS, PMDD and testosterone for women. Choose the experience that suits your lifestyle."}
 						</p>
 					</AnimatedReveal>
@@ -577,7 +577,7 @@ const medicalClinicSchema = {
 					<div class="flex flex-col gap-4">
 						{appointmentOptions.map((opt, idx) => (
 							<AnimatedReveal client:visible duration={1.2} delay={0.2 + idx * 0.1} yOffset={20}>
-								<a href={opt.url} class="group flex items-center p-6 bg-white border border-black/5 rounded-[2rem] hover:border-[#ea526f]/30 hover:shadow-[0_20px_40px_rgba(233,81,111,0.08)] transition-all duration-500 hover:-translate-y-1 relative overflow-hidden block" {...opt.edit?.title}>
+								<a href={opt.url} class="group flex items-center p-4 sm:p-5 md:p-6 bg-white border border-black/5 rounded-[2rem] hover:border-[#ea526f]/30 hover:shadow-[0_20px_40px_rgba(233,81,111,0.08)] transition-all duration-500 hover:-translate-y-1 relative overflow-hidden block" {...opt.edit?.title}>
 									<div class="absolute inset-0 bg-gradient-to-r from-[#ea526f]/0 to-[#ea526f]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 									<div class="w-16 h-16 rounded-full bg-[#fdf5f1] text-[#ea526f] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#ea526f] group-hover:text-white transition-all duration-500 shadow-sm relative z-10">
 										{opt.icon === "video" ? (
@@ -586,8 +586,8 @@ const medicalClinicSchema = {
 											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
 										)}
 									</div>
-									<div class="ml-6 flex-1 relative z-10">
-										<h4 class="text-[1.2rem] font-display text-not-quite-black mb-1 group-hover:text-[#ea526f] transition-colors">{opt.title}</h4>
+									<div class="ml-4 sm:ml-5 md:ml-6 flex-1 relative z-10">
+										<h4 class="text-[0.95rem] sm:text-[1.05rem] md:text-[1.2rem] font-display text-not-quite-black mb-1 group-hover:text-[#ea526f] transition-colors">{opt.title}</h4>
 										<p class="text-[13px] text-[#666] font-light" {...opt.edit?.subtitle}>{opt.subtitle}</p>
 									</div>
 									<div class="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-black/40 group-hover:border-[#ea526f] group-hover:text-[#ea526f] transition-all duration-300 relative z-10 shrink-0 bg-white">
@@ -600,9 +600,9 @@ const medicalClinicSchema = {
 				</div>
 
 				<!-- Right Visual: Tall Image Component -->
-				<div class="lg:col-span-7 w-full mt-12 lg:mt-0 flex justify-end">
+				<div class="lg:col-span-7 w-full mt-6 sm:mt-8 md:mt-12 lg:mt-0 flex justify-end">
 					<AnimatedReveal client:visible duration={1.5} delay={0.2} yOffset={40} className="w-full">
-						<div class="w-full h-[500px] md:h-[700px] lg:h-[750px] rounded-[3rem] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.12)] border border-black/5 group relative ml-auto">
+						<div class="w-full h-[360px] sm:h-[460px] md:h-[700px] lg:h-[750px] rounded-[3rem] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.12)] border border-black/5 group relative ml-auto">
 							<img src={appointmentsSec?.data?.image ?? appointmentsImage.src} alt={appointmentsSec?.data?.title ?? "Video Consultation"} class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-[2s] ease-out" {...appointmentsSec?.edit?.image} />
 							<!-- Soft overlay -->
 							<div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-80 pointer-events-none"></div>
@@ -624,17 +624,17 @@ const medicalClinicSchema = {
 	</section>
 
 	<!-- ============ ADVICE SECTION ============ -->
-	<section class="relative bg-[#fcfcfc] py-24 md:py-32" id="advice-section">
-		<div class="container mx-auto px-6 max-w-[1400px]">
+	<section class="relative bg-[#fcfcfc] py-12 sm:py-16 md:py-24 lg:py-32" id="advice-section">
+		<div class="container mx-auto px-4 sm:px-6 max-w-[1400px]">
 			<!-- Header -->
-			<div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 relative z-10 gap-8">
+			<div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 sm:mb-12 md:mb-16 relative z-10 gap-8">
 				<div class="max-w-2xl">
 					<AnimatedReveal client:visible duration={1.2} yOffset={30}>
-						<div class="inline-flex items-center gap-3 mb-6">
+						<div class="inline-flex items-center gap-3 mb-4 sm:mb-5 md:mb-6">
 							<span class="w-12 h-[1px] bg-[#ea526f]"></span>
-							<span class="text-[#ea526f] text-[11px] font-bold tracking-widest uppercase" {...adviceSec?.edit?.subtitle}>{adviceSec?.data?.subtitle ?? "Expert Knowledge"}</span>
+							<span class="text-[#ea526f] text-[12px] font-bold tracking-widest uppercase" {...adviceSec?.edit?.subtitle}>{adviceSec?.data?.subtitle ?? "Expert Knowledge"}</span>
 						</div>
-						<h2 class="font-display text-[3.5rem] md:text-[4.5rem] text-not-quite-black mb-6 leading-[1.05] tracking-tight" {...adviceSec?.edit?.title}>
+						<h2 class="font-display text-[2.25rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] text-not-quite-black mb-4 sm:mb-5 md:mb-6 leading-[1.05] tracking-tight" {...adviceSec?.edit?.title}>
 							{(adviceSec?.data?.title ?? "Advice and information") === "Advice and information" ? (
 								<>
 									Advice and <span class="text-[#ea526f] italic font-light">information</span>
@@ -643,14 +643,14 @@ const medicalClinicSchema = {
 								adviceSec?.data?.title
 							)}
 						</h2>
-						<p class="text-[1.15rem] text-[#666] leading-relaxed font-light" {...adviceSec?.edit?.description}>
+						<p class="text-[0.95rem] sm:text-[1.05rem] md:text-[1.15rem] text-[#666] leading-relaxed font-light" {...adviceSec?.edit?.description}>
 							{adviceSec?.data?.description ?? "We believe in empowering people through information and education. Explore our library of resources."}
 						</p>
 					</AnimatedReveal>
 				</div>
 				<div class="lg:pb-2">
 					<AnimatedReveal client:visible duration={1.2} delay={0.2} yOffset={20}>
-						<a href="/resources" class="inline-flex items-center gap-3 px-8 py-4 border border-black/10 text-not-quite-black text-[13px] font-bold uppercase tracking-widest rounded-full hover:bg-[#ea526f] hover:border-[#ea526f] hover:text-white hover:shadow-[0_10px_20px_rgba(233,81,111,0.2)] transition-all duration-500 group bg-white">
+						<a href="/resources" class="inline-flex items-center gap-3 px-6 py-3 sm:px-7 sm:py-3.5 md:px-8 md:py-4 border border-black/10 text-not-quite-black text-[13px] font-bold uppercase tracking-widest rounded-full hover:bg-[#ea526f] hover:border-[#ea526f] hover:text-white hover:shadow-[0_10px_20px_rgba(233,81,111,0.2)] transition-all duration-500 group bg-white">
 							View all articles
 							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1.5 transition-transform duration-300"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
 						</a>
@@ -659,25 +659,25 @@ const medicalClinicSchema = {
 			</div>
 
 			<!-- Premium Editorial Grid -->
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
 				{posts.map((article, index) => (
 					<AnimatedReveal client:visible duration={1.2} delay={index * 0.15} yOffset={40}>
-						<a href={article.link} class="group block relative w-full h-[550px] rounded-[2.5rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-black/5 bg-[#111]" {...article.edit?.title}>
+						<a href={article.link} class="group block relative w-full h-[440px] sm:h-[500px] md:h-[550px] rounded-[2.5rem] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-black/5 bg-[#111]" {...article.edit?.title}>
 							<!-- Background Image -->
 							<img src={article.image} alt={article.title} class="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105 opacity-80 group-hover:opacity-100" onerror="this.style.display='none'" />
 							<!-- Dark Gradient Overlay -->
 							<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500"></div>
 							<!-- Floating Content Card -->
 							<div class="absolute inset-x-0 bottom-0 p-4 md:p-6 flex flex-col justify-end">
-								<div class="bg-white/95 backdrop-blur-xl rounded-[2rem] p-6 shadow-2xl transform translate-y-3 group-hover:translate-y-0 transition-transform duration-500 ease-out border border-white/50">
-									<h3 class="text-[1.35rem] font-display text-not-quite-black mb-3 leading-tight group-hover:text-[#ea526f] transition-colors line-clamp-2">
+								<div class="bg-white/95 backdrop-blur-xl rounded-[2rem] p-4 sm:p-5 md:p-6 shadow-2xl transform translate-y-3 group-hover:translate-y-0 transition-transform duration-500 ease-out border border-white/50">
+									<h3 class="text-[1rem] sm:text-[1.15rem] md:text-[1.35rem] font-display text-not-quite-black mb-3 leading-tight group-hover:text-[#ea526f] transition-colors line-clamp-2">
 										{article.title}
 									</h3>
 									<p class="text-[13px] text-text-grey font-medium line-clamp-2 mb-6" {...article.edit?.excerpt}>
 										{article.excerpt}
 									</p>
 									<div class="flex items-center justify-between mt-auto">
-										<span class="text-[11px] font-bold text-[#ea526f] uppercase tracking-widest">Read Article</span>
+										<span class="text-[12px] font-bold text-[#ea526f] uppercase tracking-widest">Read Article</span>
 										<div class="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-black/40 group-hover:bg-[#ea526f] group-hover:border-[#ea526f] group-hover:text-white transition-all duration-300">
 											<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
 										</div>
@@ -692,16 +692,16 @@ const medicalClinicSchema = {
 	</section>
 
 	<!-- ============ CLINICIANS SECTION ============ -->
-	<section class="bg-white py-24 md:py-32 overflow-hidden" id="clinicians-section">
-		<div class="container mx-auto px-6 max-w-[1400px]">
-			<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 relative z-10 gap-8">
+	<section class="bg-white py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden" id="clinicians-section">
+		<div class="container mx-auto px-4 sm:px-6 max-w-[1400px]">
+			<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 md:mb-16 relative z-10 gap-8">
 				<div class="max-w-2xl">
 					<AnimatedReveal client:visible duration={1.2} yOffset={30}>
-						<div class="inline-flex items-center gap-3 mb-6">
+						<div class="inline-flex items-center gap-3 mb-4 sm:mb-5 md:mb-6">
 							<span class="w-12 h-[1px] bg-[#ea526f]"></span>
-							<span class="text-[#ea526f] text-[11px] font-bold tracking-widest uppercase" {...cliniciansSec?.edit?.subtitle}>{cliniciansSec?.data?.subtitle ?? "The Team"}</span>
+							<span class="text-[#ea526f] text-[12px] font-bold tracking-widest uppercase" {...cliniciansSec?.edit?.subtitle}>{cliniciansSec?.data?.subtitle ?? "The Team"}</span>
 						</div>
-						<h2 class="font-display text-[3.5rem] md:text-[4.5rem] text-not-quite-black mb-6 leading-[1.05] tracking-tight" {...cliniciansSec?.edit?.title}>
+						<h2 class="font-display text-[2.25rem] sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] text-not-quite-black mb-4 sm:mb-5 md:mb-6 leading-[1.05] tracking-tight" {...cliniciansSec?.edit?.title}>
 							{(cliniciansSec?.data?.title ?? "Meet our clinicians") === "Meet our clinicians" ? (
 								<>
 									Meet our <span class="text-[#ea526f] italic font-light">clinicians</span>
@@ -710,7 +710,7 @@ const medicalClinicSchema = {
 								cliniciansSec?.data?.title
 							)}
 						</h2>
-						<p class="text-[1.15rem] text-[#666] leading-relaxed font-light" {...cliniciansSec?.edit?.description}>
+						<p class="text-[0.95rem] sm:text-[1.05rem] md:text-[1.15rem] text-[#666] leading-relaxed font-light" {...cliniciansSec?.edit?.description}>
 							{cliniciansSec?.data?.description ?? "Newson Clinic is the UK's leading female hormonal health clinic. Our expert team share a passion for hormone health and cover a wealth of specialisms from mental health to nutrition."}
 						</p>
 					</AnimatedReveal>
@@ -731,12 +731,12 @@ const medicalClinicSchema = {
 						{clinicians.map((doc) => (
 							<div class="swiper-slide group cursor-grab" {...doc.edit?.name}>
 								<div class="w-full flex flex-col items-center">
-									<div class="w-[280px] h-[360px] rounded-[3rem] overflow-hidden mb-8 bg-buff shadow-[0_20px_40px_rgba(0,0,0,0.08)] relative border border-black/5">
+									<div class="w-[240px] h-[320px] sm:w-[280px] sm:h-[360px] rounded-[3rem] overflow-hidden mb-5 sm:mb-6 md:mb-8 bg-buff shadow-[0_20px_40px_rgba(0,0,0,0.08)] relative border border-black/5">
 										<img src={doc.image} alt={doc.name} class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out grayscale-[20%] group-hover:grayscale-0" onerror="this.style.display='none'" />
 									</div>
 									<div class="text-center px-4">
-										<h4 class="font-display text-[1.75rem] text-not-quite-black leading-tight mb-2 group-hover:text-[#ea526f] transition-colors">{doc.name}</h4>
-										<p class="text-[11px] font-bold tracking-widest text-[#ea526f] uppercase mb-4" {...doc.edit?.role}>{doc.role}</p>
+										<h4 class="font-display text-[1.35rem] sm:text-[1.5rem] md:text-[1.75rem] text-not-quite-black leading-tight mb-2 group-hover:text-[#ea526f] transition-colors">{doc.name}</h4>
+										<p class="text-[12px] font-bold tracking-widest text-[#ea526f] uppercase mb-4" {...doc.edit?.role}>{doc.role}</p>
 										<p class="text-[14px] text-text-grey leading-relaxed font-light line-clamp-3 max-w-[280px] mx-auto" {...doc.edit?.bio}>{doc.bio}</p>
 									</div>
 								</div>
@@ -761,7 +761,7 @@ const medicalClinicSchema = {
 			slidesPerView: 1,
 			spaceBetween: 24,
 			loop: true,
-			autoplay: { delay: 5000, disableOnInteraction: false },
+			autoplay: { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: false, waitForTransition: false },
 			navigation: {
 				nextEl: ".services-next",
 				prevEl: ".services-prev",
@@ -778,7 +778,7 @@ const medicalClinicSchema = {
 			slidesPerView: 1,
 			spaceBetween: 24,
 			loop: true,
-			autoplay: { delay: 5500, disableOnInteraction: false },
+			autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: false, waitForTransition: false },
 			navigation: {
 				nextEl: ".clinics-next",
 				prevEl: ".clinics-prev",
@@ -794,7 +794,7 @@ const medicalClinicSchema = {
 			slidesPerView: 1,
 			spaceBetween: 24,
 			loop: true,
-			autoplay: { delay: 4500, disableOnInteraction: false },
+			autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: false, waitForTransition: false },
 			navigation: {
 				nextEl: ".clinicians-next",
 				prevEl: ".clinicians-prev",
