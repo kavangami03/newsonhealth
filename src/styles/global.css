@@ -112,6 +112,28 @@
     letter-spacing: -0.02em;
     font-weight: 400;
   }
+
+  /* Every interactive control gets the hand cursor by default.
+     Browsers ship buttons with the default arrow cursor — this restores the
+     usual web expectation. :disabled keeps the not-allowed cursor. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  summary,
+  label[for],
+  select,
+  input[type="button"]:not(:disabled),
+  input[type="submit"]:not(:disabled),
+  input[type="reset"]:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled),
+  input[type="file"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [role="button"][aria-disabled="true"] {
+    cursor: not-allowed;
+  }
 }
 
 /* ============================================
