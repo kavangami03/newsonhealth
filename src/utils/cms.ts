@@ -159,15 +159,53 @@ export async function getList<T = any>(
 	}
 }
 
+// ── Fallbacks ─────────────────────────────────────────────────────
+// If the CMS returns nothing (collection missing, stale schema registry,
+// network failure on Turso, etc.) we still want a complete-looking footer
+// instead of a blank section. These match the seed defaults.
+const FALLBACK_SOCIALS = [
+	{ platform: "facebook", url: "https://www.facebook.com/newsonhealth" },
+	{ platform: "instagram", url: "https://www.instagram.com/newsonhealth" },
+	{ platform: "linkedin", url: "https://www.linkedin.com/company/newson-health" },
+];
+
+const FALLBACK_FOOTER_LINKS: Record<string, { label: string; url: string }[]> = {
+	knowledge: [
+		{ label: "Menopause & perimenopause", url: "/knowledge-menopause-perimenopause" },
+		{ label: "Women's hormonal health", url: "/knowledge-womens-hormonal-health" },
+		{ label: "Knowledge library", url: "/posts" },
+		{ label: "How to guides", url: "/how-to-guides" },
+		{ label: "FAQs", url: "/faqs" },
+	],
+	clinic: [
+		{ label: "About", url: "/about-us" },
+		{ label: "Our team", url: "/meet-the-team" },
+		{ label: "Prices", url: "/prices" },
+		{ label: "Our clinics", url: "/clinics" },
+		{ label: "Join our team", url: "/careers-home" },
+		{ label: "Contact", url: "/contact-us" },
+	],
+	services: [
+		{ label: "Consultations", url: "/consultations" },
+		{ label: "Testosterone for women", url: "/testosterone-for-women" },
+		{ label: "Prescriptions", url: "/prescriptions" },
+		{ label: "PMS and PMDD", url: "/services-pms-and-pmdd" },
+		{ label: "Coils & Scans", url: "/coils" },
+	],
+};
+
 export async function getSocialLinks() {
 	const entries = await getList<any>("social_links", { orderBy: { sort_order: "asc" } });
-	return entries
+	const fromCms = entries
 		.map((e) => ({ platform: String(e.data.title || "").toLowerCase(), url: e.data.link as string, edit: e.edit }))
 		.filter((l) => l.platform && l.url);
+	return fromCms.length > 0 ? fromCms : FALLBACK_SOCIALS;
 }
 
 export async function getFooterLinks() {
 	const entries = await getList<any>("footer_links", { orderBy: { sort_order: "asc" } });
+	if (entries.length === 0) return FALLBACK_FOOTER_LINKS;
+
 	const columns: Record<string, { label: string; url: string; edit?: any }[]> = {
 		knowledge: [],
 		clinic: [],
@@ -178,6 +216,11 @@ export async function getFooterLinks() {
 		if (!columns[col]) columns[col] = [];
 		columns[col].push({ label: e.data.title, url: e.data.link, edit: e.edit });
 	});
+
+	// Fill any column that came back empty (e.g. missing field) from the fallback
+	for (const key of Object.keys(FALLBACK_FOOTER_LINKS)) {
+		if (!columns[key] || columns[key].length === 0) columns[key] = FALLBACK_FOOTER_LINKS[key];
+	}
 	return columns;
 }
 
