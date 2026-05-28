@@ -3,7 +3,7 @@
 	"version": "1",
 	"meta": {
 		"name": "Newson Health Modular CMS",
-		"description": "Modular CMS for Newson Clinic. Each homepage section is one entry in home_sections; reusable lists (services, clinics, appointments, clinicians, posts, faqs) are their own collections.",
+		"description": "Fully editable CMS for Newson Clinic. Every page, every section, every link is content. Hero blocks live in `home_sections`; reusable lists (services, clinics, etc.) are their own collections; global chrome (brand, footer, social) lives in dedicated single-purpose collections.",
 		"author": "Antigravity"
 	},
 	"settings": {
@@ -28,6 +28,145 @@
 				{ "slug": "image", "label": "Primary Image", "type": "string" },
 				{ "slug": "secondary_image", "label": "Secondary Image", "type": "string" },
 				{ "slug": "video_url", "label": "Video URL", "type": "string" }
+			]
+		},
+		{
+			"slug": "page_intros",
+			"label": "Page Heroes",
+			"labelSingular": "Page Hero",
+			"icon": "panel-top",
+			"description": "Hero / banner content for every static page. One entry per page slug (posts, contact-us, faqs, meet-the-team, prices, 404, post-sidebar).",
+			"supports": ["drafts", "search"],
+			"fields": [
+				{ "slug": "title", "label": "Title (use <span>italic</span> for highlight)", "type": "string", "required": true, "searchable": true },
+				{ "slug": "subtitle", "label": "Eyebrow / Tag", "type": "string" },
+				{ "slug": "description", "label": "Lead Paragraph", "type": "text", "searchable": true },
+				{ "slug": "content", "label": "Secondary Body (post-sidebar widget)", "type": "text" },
+				{ "slug": "breadcrumb_label", "label": "Breadcrumb Label", "type": "string" },
+				{ "slug": "button_text", "label": "Primary Button Text", "type": "string" },
+				{ "slug": "button_url", "label": "Primary Button URL", "type": "string" },
+				{ "slug": "secondary_button_text", "label": "Secondary Button Text", "type": "string" },
+				{ "slug": "secondary_button_url", "label": "Secondary Button URL", "type": "string" },
+				{ "slug": "image", "label": "Image URL", "type": "string" }
+			]
+		},
+		{
+			"slug": "brand_info",
+			"label": "Brand & Contact",
+			"labelSingular": "Brand Entry",
+			"icon": "id-card",
+			"description": "Single source of truth for clinic identity: phone, email, address, hours, registered name. Used by header, footer, contact page, and MedicalClinic SEO schema. Edit the `brand` entry.",
+			"supports": ["drafts"],
+			"fields": [
+				{ "slug": "title", "label": "Internal Label", "type": "string", "required": true },
+				{ "slug": "phone", "label": "Phone Number (display)", "type": "string" },
+				{ "slug": "phone_link", "label": "Phone Number (tel: link)", "type": "string" },
+				{ "slug": "email", "label": "Support Email", "type": "string" },
+				{ "slug": "address_line1", "label": "Address Line 1", "type": "string" },
+				{ "slug": "address_line2", "label": "Address Line 2", "type": "string" },
+				{ "slug": "town", "label": "Town / City", "type": "string" },
+				{ "slug": "region", "label": "Region / County", "type": "string" },
+				{ "slug": "postcode", "label": "Postcode", "type": "string" },
+				{ "slug": "country_code", "label": "Country Code (ISO)", "type": "string" },
+				{ "slug": "hours_label", "label": "Opening Hours (display text)", "type": "string" },
+				{ "slug": "hours_open", "label": "Opens (24h, e.g. 09:00)", "type": "string" },
+				{ "slug": "hours_close", "label": "Closes (24h, e.g. 17:00)", "type": "string" },
+				{ "slug": "est_year", "label": "Established Year", "type": "string" },
+				{ "slug": "caption", "label": "Header Caption (italic line)", "type": "string" },
+				{ "slug": "registered_name", "label": "Registered / Legal Name", "type": "string" },
+				{ "slug": "patient_portal_url", "label": "Patient Portal URL", "type": "string" },
+				{ "slug": "booking_url", "label": "Primary Booking URL", "type": "string" }
+			]
+		},
+		{
+			"slug": "trust_messages",
+			"label": "Trust Ribbon",
+			"labelSingular": "Trust Message",
+			"icon": "megaphone",
+			"description": "Rotating messages in the top trust ribbon (above the header). Icons: star, phone, calendar, clock, shield, heart.",
+			"supports": ["drafts"],
+			"fields": [
+				{ "slug": "title", "label": "Message (you can wrap key words in <strong>)", "type": "text", "required": true },
+				{ "slug": "icon", "label": "Icon Key (star|phone|calendar|clock|shield|heart)", "type": "string" },
+				{ "slug": "sort_order", "label": "Sort Order", "type": "integer" }
+			]
+		},
+		{
+			"slug": "service_tags",
+			"label": "Service Pills",
+			"labelSingular": "Service Pill",
+			"icon": "tag",
+			"description": "Tag pills displayed in the homepage Services section (Consultation, Blood Test, etc.).",
+			"supports": ["drafts"],
+			"fields": [
+				{ "slug": "title", "label": "Label", "type": "string", "required": true },
+				{ "slug": "link", "label": "Link URL", "type": "string" },
+				{ "slug": "sort_order", "label": "Sort Order", "type": "integer" }
+			]
+		},
+		{
+			"slug": "pricing_tiers",
+			"label": "Pricing Tiers",
+			"labelSingular": "Pricing Tier",
+			"icon": "credit-card",
+			"description": "Fee tier cards on /prices. Use the `features` field one bullet per line.",
+			"supports": ["drafts", "search"],
+			"fields": [
+				{ "slug": "title", "label": "Tier Name", "type": "string", "required": true, "searchable": true },
+				{ "slug": "price", "label": "Price (e.g. £295 or From £50)", "type": "string", "required": true },
+				{ "slug": "period", "label": "Period Label (e.g. First Visit)", "type": "string" },
+				{ "slug": "duration", "label": "Duration (e.g. 55 minutes)", "type": "string" },
+				{ "slug": "badge", "label": "Highlight Badge Text (optional)", "type": "string" },
+				{ "slug": "description", "label": "Short Description", "type": "text", "searchable": true },
+				{ "slug": "features", "label": "Features (one per line)", "type": "text", "required": true },
+				{ "slug": "cta_label", "label": "Button Label", "type": "string" },
+				{ "slug": "cta_url", "label": "Button URL", "type": "string" },
+				{ "slug": "featured", "label": "Featured Tier (highlighted card)", "type": "boolean" },
+				{ "slug": "sort_order", "label": "Sort Order", "type": "integer" }
+			]
+		},
+		{
+			"slug": "contact_widgets",
+			"label": "Contact Widgets",
+			"labelSingular": "Contact Widget",
+			"icon": "contact",
+			"description": "Sidebar widget cards on /contact-us (location, helpline, email, accessibility, etc.). Icons: map-pin, phone, mail, info, accessibility, clock.",
+			"supports": ["drafts"],
+			"fields": [
+				{ "slug": "title", "label": "Card Title", "type": "string", "required": true, "searchable": true },
+				{ "slug": "subtitle", "label": "Body Text (HTML allowed, use <br/> for line breaks)", "type": "text", "searchable": true },
+				{ "slug": "icon", "label": "Icon Key (map-pin|phone|mail|info|accessibility|clock)", "type": "string" },
+				{ "slug": "link_label", "label": "Action Link Label", "type": "string" },
+				{ "slug": "link_url", "label": "Action Link URL", "type": "string" },
+				{ "slug": "accent", "label": "Accent Style (default|primary)", "type": "string" },
+				{ "slug": "sort_order", "label": "Sort Order", "type": "integer" }
+			]
+		},
+		{
+			"slug": "social_links",
+			"label": "Social Links",
+			"labelSingular": "Social Link",
+			"icon": "share-2",
+			"description": "Social media URLs used in the footer. Platform key (facebook|instagram|linkedin|twitter|youtube|tiktok) selects the icon.",
+			"supports": ["drafts"],
+			"fields": [
+				{ "slug": "title", "label": "Platform Key (facebook|instagram|linkedin|twitter|youtube|tiktok)", "type": "string", "required": true },
+				{ "slug": "link", "label": "Profile URL", "type": "string", "required": true },
+				{ "slug": "sort_order", "label": "Sort Order", "type": "integer" }
+			]
+		},
+		{
+			"slug": "footer_links",
+			"label": "Footer Links",
+			"labelSingular": "Footer Link",
+			"icon": "link",
+			"description": "Individual footer links grouped by column. Column key (knowledge|clinic|services) controls placement.",
+			"supports": ["drafts"],
+			"fields": [
+				{ "slug": "title", "label": "Link Label", "type": "string", "required": true },
+				{ "slug": "link", "label": "URL", "type": "string", "required": true },
+				{ "slug": "column", "label": "Column (knowledge|clinic|services)", "type": "string", "required": true },
+				{ "slug": "sort_order", "label": "Sort Order (within column)", "type": "integer" }
 			]
 		},
 		{
@@ -115,12 +254,13 @@
 			"label": "FAQs",
 			"labelSingular": "FAQ",
 			"icon": "question",
-			"description": "Frequently asked questions shown on /faqs.",
+			"description": "Frequently asked questions. The `category` field groups them (used on /faqs accordions and on /prices). Use `Pricing` for prices-page FAQs.",
 			"supports": ["drafts", "search"],
 			"fields": [
 				{ "slug": "question", "label": "Question", "type": "string", "required": true, "searchable": true },
 				{ "slug": "answer", "label": "Answer", "type": "text", "required": true, "searchable": true },
-				{ "slug": "category", "label": "Category", "type": "string", "required": true }
+				{ "slug": "category", "label": "Category", "type": "string", "required": true },
+				{ "slug": "sort_order", "label": "Sort Order", "type": "integer" }
 			]
 		},
 		{
@@ -230,6 +370,288 @@
 					"description": "Our team of GP menopause specialists are here to listen, support, and provide expert care tailored to you."
 				}
 			}
+		],
+		"brand_info": [
+			{
+				"slug": "brand",
+				"status": "published",
+				"data": {
+					"title": "Newson Clinic — Brand Info",
+					"phone": "01789 595004",
+					"phone_link": "01789595004",
+					"email": "info@newsonhealth.co.uk",
+					"address_line1": "Winton House",
+					"address_line2": "Church Street",
+					"town": "Stratford-upon-Avon",
+					"region": "Warwickshire",
+					"postcode": "CV37 6HB",
+					"country_code": "GB",
+					"hours_label": "Monday – Friday · 9:00am – 5:00pm",
+					"hours_open": "09:00",
+					"hours_close": "17:00",
+					"est_year": "2018",
+					"caption": "Hormone & menopause care",
+					"registered_name": "Newson Health",
+					"patient_portal_url": "https://portal.newsonhealth.co.uk/patient-portal",
+					"booking_url": "https://portal.newsonhealth.co.uk/patient-portal/booking-request"
+				}
+			}
+		],
+		"trust_messages": [
+			{
+				"slug": "cqc-outstanding",
+				"status": "published",
+				"data": {
+					"title": "<strong>Outstanding</strong> rated by the Care Quality Commission",
+					"icon": "star",
+					"sort_order": 1
+				}
+			},
+			{
+				"slug": "patient-team",
+				"status": "published",
+				"data": {
+					"title": "Speak with our patient team — <strong>01789 595004</strong>",
+					"icon": "phone",
+					"sort_order": 2
+				}
+			},
+			{
+				"slug": "opening-hours",
+				"status": "published",
+				"data": {
+					"title": "Monday – Friday · 9:00am – 5:00pm",
+					"icon": "calendar",
+					"sort_order": 3
+				}
+			},
+			{
+				"slug": "klarna",
+				"status": "published",
+				"data": {
+					"title": "Pay over time with <strong>Klarna</strong>",
+					"icon": "clock",
+					"sort_order": 4
+				}
+			}
+		],
+		"page_intros": [
+			{
+				"slug": "posts",
+				"status": "published",
+				"data": {
+					"title": "Knowledge Library",
+					"subtitle": "Knowledge Hub",
+					"description": "Unbiased, evidence-based articles and resources about women's hormonal health, perimenopause, menopause, and overall clinical wellbeing.",
+					"breadcrumb_label": "Knowledge Library"
+				}
+			},
+			{
+				"slug": "contact-us",
+				"status": "published",
+				"data": {
+					"title": "Let's start the <span>conversation.</span>",
+					"subtitle": "Get In Touch",
+					"description": "Whether you have a question about booking your appointment, our fees, or how we work, our friendly patient support team is here to help.",
+					"breadcrumb_label": "Contact Us"
+				}
+			},
+			{
+				"slug": "faqs",
+				"status": "published",
+				"data": {
+					"title": "Frequently Asked Questions",
+					"subtitle": "Knowledge",
+					"description": "Have questions about appointments, body-identical HRT, prescriptions, or diagnostics? We've compiled expert answers to help you feel informed and confident.",
+					"breadcrumb_label": "FAQs",
+					"button_text": "Contact Support",
+					"button_url": "/contact-us",
+					"secondary_button_text": "Book Consultation",
+					"secondary_button_url": "https://portal.newsonhealth.co.uk/patient-portal/booking-request"
+				}
+			},
+			{
+				"slug": "meet-the-team",
+				"status": "published",
+				"data": {
+					"title": "The minds behind <span>world-class care</span>",
+					"subtitle": "Our Team",
+					"description": "Newson Clinic is home to the UK's leading menopause and perimenopause clinicians. All our specialists are highly qualified GPs with advanced hormone certification.",
+					"breadcrumb_label": "Our Team",
+					"button_text": "Book Consultation",
+					"button_url": "https://portal.newsonhealth.co.uk/patient-portal/booking-request"
+				}
+			},
+			{
+				"slug": "prices",
+				"status": "published",
+				"data": {
+					"title": "Invest in your <span>hormonal health</span>",
+					"subtitle": "Transparent Clinical Pricing",
+					"description": "We believe in complete transparency. No hidden fees, just world-class, evidence-based care tailored entirely to your unique hormonal journey.",
+					"breadcrumb_label": "Pricing & Fees"
+				}
+			},
+			{
+				"slug": "not-found",
+				"status": "published",
+				"data": {
+					"title": "Page not found",
+					"subtitle": "404",
+					"description": "We're sorry, but the page you are looking for does not exist or has been moved.",
+					"button_text": "Return Home",
+					"button_url": "/",
+					"secondary_button_text": "Browse Knowledge",
+					"secondary_button_url": "/posts"
+				}
+			},
+			{
+				"slug": "post-sidebar",
+				"status": "published",
+				"data": {
+					"title": "Consult a Specialist",
+					"subtitle": "Evidence-Based Medicine",
+					"description": "Get personalized treatment and support for perimenopause, menopause, or hormonal issues.",
+					"content": "All information on Newson Clinic is written or reviewed by menopause and hormone experts to ensure medical accuracy.",
+					"button_text": "Book Consultation",
+					"button_url": "https://portal.newsonhealth.co.uk/patient-portal/booking-request"
+				}
+			}
+		],
+		"service_tags": [
+			{ "slug": "consultation", "status": "published", "data": { "title": "Consultation", "link": "https://www.newsonhealth.co.uk/consultations", "sort_order": 1 } },
+			{ "slug": "blood-test", "status": "published", "data": { "title": "Blood Test", "link": "https://www.newsonhealth.co.uk/blood-tests", "sort_order": 2 } },
+			{ "slug": "dexa-scan", "status": "published", "data": { "title": "DEXA Scan", "link": "https://www.newsonhealth.co.uk/dexa-body-scans", "sort_order": 3 } },
+			{ "slug": "coils", "status": "published", "data": { "title": "Coils", "link": "https://www.newsonhealth.co.uk/coils", "sort_order": 4 } },
+			{ "slug": "ultrasound", "status": "published", "data": { "title": "Ultrasound", "link": "https://www.newsonhealth.co.uk/services/ultrasound-scans", "sort_order": 5 } },
+			{ "slug": "prescriptions", "status": "published", "data": { "title": "Prescriptions", "link": "https://www.newsonhealth.co.uk/prescriptions", "sort_order": 6 } },
+			{ "slug": "wellbeing", "status": "published", "data": { "title": "Wellbeing", "link": "https://www.newsonhealth.co.uk/health-wellbeing", "sort_order": 7 } }
+		],
+		"pricing_tiers": [
+			{
+				"slug": "follow-up-consultation",
+				"status": "published",
+				"data": {
+					"title": "Follow-up Consultation",
+					"price": "£195",
+					"period": "Per Visit",
+					"duration": "30 minutes",
+					"badge": "",
+					"description": "For existing patients to review progress and optimize treatment.",
+					"features": "Detailed symptom improvement review\nHRT dosage adjustments & optimization\nOngoing prescription renewals\nClinical letter copy for your GP",
+					"cta_label": "Book Follow-up",
+					"cta_url": "https://portal.newsonhealth.co.uk/patient-portal/booking-request",
+					"featured": false,
+					"sort_order": 1
+				}
+			},
+			{
+				"slug": "initial-consultation",
+				"status": "published",
+				"data": {
+					"title": "Initial Consultation",
+					"price": "£295",
+					"period": "First Visit",
+					"duration": "55 minutes",
+					"badge": "Most Popular",
+					"description": "Comprehensive assessment and personalized treatment plan.",
+					"features": "Comprehensive medical history review\nSymptom assessment & clinical diagnosis\nPersonalized treatment plan discussion\nBody-identical HRT prescribing\nFull clinical consultation letter copy",
+					"cta_label": "Request Booking",
+					"cta_url": "https://portal.newsonhealth.co.uk/patient-portal/booking-request",
+					"featured": true,
+					"sort_order": 2
+				}
+			},
+			{
+				"slug": "diagnostics-scans",
+				"status": "published",
+				"data": {
+					"title": "Diagnostics & Scans",
+					"price": "From £50",
+					"period": "Per Scan",
+					"duration": "Varies",
+					"badge": "",
+					"description": "Specialized testing and bone density screening.",
+					"features": "Comprehensive blood tests (From £50)\nDEXA scan for bone density (£125)\nCoil fitting & removals (Custom)\nReviewed by clinical specialists",
+					"cta_label": "View Details",
+					"cta_url": "https://portal.newsonhealth.co.uk/patient-portal/booking-request",
+					"featured": false,
+					"sort_order": 3
+				}
+			}
+		],
+		"contact_widgets": [
+			{
+				"slug": "location",
+				"status": "published",
+				"data": {
+					"title": "Our Location",
+					"subtitle": "Winton House, Church Street,<br/>Stratford-upon-Avon, Warwickshire,<br/>CV37 6HB",
+					"icon": "map-pin",
+					"link_label": "Get Directions",
+					"link_url": "https://www.google.com/maps/place/Winton+House,+Stratford-upon-Avon",
+					"accent": "default",
+					"sort_order": 1
+				}
+			},
+			{
+				"slug": "helpline",
+				"status": "published",
+				"data": {
+					"title": "Patient Helpline",
+					"subtitle": "<a href=\"tel:01789595004\">01789 595004</a><br/><small>Monday – Friday, 9:00am to 5:00pm</small>",
+					"icon": "phone",
+					"accent": "default",
+					"sort_order": 2
+				}
+			},
+			{
+				"slug": "support-email",
+				"status": "published",
+				"data": {
+					"title": "Support Email",
+					"subtitle": "<a href=\"mailto:info@newsonhealth.co.uk\">info@newsonhealth.co.uk</a>",
+					"icon": "mail",
+					"accent": "primary",
+					"sort_order": 3
+				}
+			},
+			{
+				"slug": "accessibility",
+				"status": "published",
+				"data": {
+					"title": "Parking & Accessibility",
+					"subtitle": "Winton House has dedicated patient parking spaces located to the rear of the building. Level access is available via our main reception, and all patient consultation rooms are fully wheelchair accessible.",
+					"icon": "accessibility",
+					"accent": "default",
+					"sort_order": 4
+				}
+			}
+		],
+		"social_links": [
+			{ "slug": "facebook", "status": "published", "data": { "title": "facebook", "link": "https://www.facebook.com/newsonhealth", "sort_order": 1 } },
+			{ "slug": "instagram", "status": "published", "data": { "title": "instagram", "link": "https://www.instagram.com/newsonhealth", "sort_order": 2 } },
+			{ "slug": "linkedin", "status": "published", "data": { "title": "linkedin", "link": "https://www.linkedin.com/company/newson-health", "sort_order": 3 } }
+		],
+		"footer_links": [
+			{ "slug": "fl-menopause-perimenopause", "status": "published", "data": { "title": "Menopause & perimenopause", "link": "/knowledge-menopause-perimenopause", "column": "knowledge", "sort_order": 1 } },
+			{ "slug": "fl-womens-hormonal-health", "status": "published", "data": { "title": "Women's hormonal health", "link": "/knowledge-womens-hormonal-health", "column": "knowledge", "sort_order": 2 } },
+			{ "slug": "fl-knowledge-library", "status": "published", "data": { "title": "Knowledge library", "link": "/posts", "column": "knowledge", "sort_order": 3 } },
+			{ "slug": "fl-how-to-guides", "status": "published", "data": { "title": "How to guides", "link": "/how-to-guides", "column": "knowledge", "sort_order": 4 } },
+			{ "slug": "fl-faqs", "status": "published", "data": { "title": "FAQs", "link": "/faqs", "column": "knowledge", "sort_order": 5 } },
+
+			{ "slug": "fl-about", "status": "published", "data": { "title": "About", "link": "/about-us", "column": "clinic", "sort_order": 1 } },
+			{ "slug": "fl-our-team", "status": "published", "data": { "title": "Our team", "link": "/meet-the-team", "column": "clinic", "sort_order": 2 } },
+			{ "slug": "fl-prices", "status": "published", "data": { "title": "Prices", "link": "/prices", "column": "clinic", "sort_order": 3 } },
+			{ "slug": "fl-our-clinics", "status": "published", "data": { "title": "Our clinics", "link": "/clinics", "column": "clinic", "sort_order": 4 } },
+			{ "slug": "fl-join-team", "status": "published", "data": { "title": "Join our team", "link": "/careers-home", "column": "clinic", "sort_order": 5 } },
+			{ "slug": "fl-contact", "status": "published", "data": { "title": "Contact", "link": "/contact-us", "column": "clinic", "sort_order": 6 } },
+
+			{ "slug": "fl-consultations", "status": "published", "data": { "title": "Consultations", "link": "/consultations", "column": "services", "sort_order": 1 } },
+			{ "slug": "fl-testosterone", "status": "published", "data": { "title": "Testosterone for women", "link": "/testosterone-for-women", "column": "services", "sort_order": 2 } },
+			{ "slug": "fl-prescriptions", "status": "published", "data": { "title": "Prescriptions", "link": "/prescriptions", "column": "services", "sort_order": 3 } },
+			{ "slug": "fl-pms-pmdd", "status": "published", "data": { "title": "PMS and PMDD", "link": "/services-pms-and-pmdd", "column": "services", "sort_order": 4 } },
+			{ "slug": "fl-coils-scans", "status": "published", "data": { "title": "Coils & Scans", "link": "/coils", "column": "services", "sort_order": 5 } }
 		]
 	}
 }

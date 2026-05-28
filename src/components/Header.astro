@@ -1,12 +1,24 @@
 ---
 import { getSiteSettings } from "emdash";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
+import { getBrand, getTrustMessages } from "../utils/cms";
 import MegaMenu from "./MegaMenu";
 import AppointmentDropdown from "./AppointmentDropdown";
 import customLogo from "../images/logo.svg";
 import Logo from "./Logo.astro";
 
 const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+const brand = await getBrand();
+const trustMessages = await getTrustMessages();
+
+const RIBBON_ICONS: Record<string, string> = {
+	star: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>',
+	phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+	calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+	clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+	shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+	heart: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+};
 ---
 
 <div class="fixed top-0 left-0 right-0 z-[150] transition-all duration-500 ease-out-expo pointer-events-none" id="global-header-wrap">
@@ -16,36 +28,35 @@ const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 		id="trust-ribbon"
 	>
 		<div class="max-w-[1640px] mx-auto px-4 md:px-6 lg:px-10 h-9 md:h-10 flex items-center justify-between gap-4 text-[11px] md:text-[12px] font-medium">
-			<!-- Left: rotating trust messages -->
+			<!-- Left: rotating trust messages (CMS-driven) -->
 			<div class="flex-1 overflow-hidden relative h-5">
 				<div class="absolute inset-0 flex flex-col transition-transform duration-700 ease-out-expo" id="ribbon-messages">
-					<span class="h-5 flex items-center gap-2 whitespace-nowrap">
-						<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-						<span><strong class="font-bold">Outstanding</strong> rated by the Care Quality Commission</span>
-					</span>
-					<span class="h-5 flex items-center gap-2 whitespace-nowrap">
-						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-						<span>Speak with our patient team — <strong class="font-bold">01789 595004</strong></span>
-					</span>
-					<span class="h-5 flex items-center gap-2 whitespace-nowrap">
-						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-						<span>Monday – Friday · 9:00am – 5:00pm</span>
-					</span>
-					<span class="h-5 flex items-center gap-2 whitespace-nowrap">
-						<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-						<span>Pay over time with <strong class="font-bold">Klarna</strong></span>
-					</span>
+					{trustMessages.length > 0 ? trustMessages.map((msg) => {
+						const icon = RIBBON_ICONS[msg.icon] ?? RIBBON_ICONS.star;
+						const useFill = msg.icon === "star";
+						return (
+							<span class="h-5 flex items-center gap-2 whitespace-nowrap" {...(msg.edit?.title ?? {})}>
+								<svg width="13" height="13" viewBox="0 0 24 24" fill={useFill ? "currentColor" : "none"} stroke={useFill ? "none" : "currentColor"} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icon}></svg>
+								<span set:html={msg.message}></span>
+							</span>
+						);
+					}) : (
+						<span class="h-5 flex items-center gap-2 whitespace-nowrap">
+							<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+							<span><strong class="font-bold">Outstanding</strong> rated by the Care Quality Commission</span>
+						</span>
+					)}
 				</div>
 			</div>
 
-			<!-- Right: fixed quick links -->
+			<!-- Right: brand quick links -->
 			<div class="hidden md:flex items-center gap-5">
-				<a href="tel:01789595004" class="inline-flex items-center gap-1.5 hover:text-white/80 transition-colors group">
+				<a href={`tel:${brand.phone_link}`} class="inline-flex items-center gap-1.5 hover:text-white/80 transition-colors group">
 					<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-					<span class="font-bold tracking-wide">01789 595004</span>
+					<span class="font-bold tracking-wide" {...(brand.edit?.phone ?? {})}>{brand.phone}</span>
 				</a>
 				<span class="w-px h-3.5 bg-white/30" aria-hidden="true"></span>
-				<a href="https://portal.newsonhealth.co.uk/patient-portal" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-white/80 transition-colors">
+				<a href={brand.patient_portal_url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-white/80 transition-colors">
 					<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
 					<span class="font-bold tracking-wide">Patient Portal</span>
 				</a>
@@ -69,10 +80,10 @@ const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 						class="w-auto h-8 md:h-12 lg:h-[56px] transition-transform duration-500 ease-out-expo group-hover:scale-[1.03]"
 						id="header-logo"
 					/>
-					<!-- Editorial micro-caption (xl+) -->
+					<!-- Editorial micro-caption (xl+) — CMS-driven -->
 					<span class="hidden xl:flex flex-col leading-none border-l border-black/10 pl-4 ml-1">
-						<span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#ea526f]">Est. 2018</span>
-						<span class="text-[16px] italic font-display text-not-quite-black/70 mt-1">Hormone &amp; menopause care</span>
+						<span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#ea526f]" {...(brand.edit?.est_year ?? {})}>Est. {brand.est_year}</span>
+						<span class="text-[16px] italic font-display text-not-quite-black/70 mt-1" {...(brand.edit?.caption ?? {})}>{brand.caption}</span>
 					</span>
 				</a>
 
@@ -121,10 +132,12 @@ const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 		if (ribbonMessages) {
 			let i = 0;
 			const count = ribbonMessages.children.length;
-			setInterval(() => {
-				i = (i + 1) % count;
-				ribbonMessages.style.transform = `translateY(-${i * 20}px)`;
-			}, 4000);
+			if (count > 1) {
+				setInterval(() => {
+					i = (i + 1) % count;
+					ribbonMessages.style.transform = `translateY(-${i * 20}px)`;
+				}, 4000);
+			}
 		}
 
 		// Header stays sticky/visible at all times — only adjusts size, never hides.

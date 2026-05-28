@@ -3,17 +3,32 @@ import Base from "../layouts/Base.astro";
 import { getSiteSettings, getEmDashCollection } from "emdash";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
 import { generateBreadcrumbSchema } from "../utils/schema";
+import { getPageIntro } from "../utils/cms";
 import AnimatedReveal from "../components/AnimatedReveal";
 import FaqAccordion from "../components/FaqAccordion";
 
 const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 
+const intro = await getPageIntro("faqs", {
+	title: "Frequently Asked Questions",
+	subtitle: "Knowledge",
+	description: "Have questions about appointments, body-identical HRT, prescriptions, or diagnostics? We've compiled expert answers to help you feel informed and confident.",
+	breadcrumb_label: "FAQs",
+	button_text: "Contact Support",
+	button_url: "/contact-us",
+	secondary_button_text: "Book Consultation",
+	secondary_button_url: "https://portal.newsonhealth.co.uk/patient-portal/booking-request",
+});
+
 const { entries: emdashFaqs } = await getEmDashCollection("faqs").catch(() => ({ entries: [] }));
 
+// Filter out pricing FAQs — they have their own home on /prices
+const nonPricingFaqs = emdashFaqs.filter((e: any) => String(e.data.category || "").toLowerCase() !== "pricing");
+
 let faqCategories;
-if (emdashFaqs && emdashFaqs.length > 0) {
+if (nonPricingFaqs.length > 0) {
 	const groups: Record<string, any> = {};
-	emdashFaqs.forEach(entry => {
+	nonPricingFaqs.forEach((entry: any) => {
 		const cat = (entry.data.category || "General") as string;
 		if (!groups[cat]) {
 			groups[cat] = [];
@@ -99,12 +114,12 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 			<nav class="flex items-center justify-center gap-2 text-[12px] font-semibold mb-4 sm:mb-5 md:mb-6" aria-label="Breadcrumb">
 				<a href="/" class="text-text-grey hover:text-newson-pink transition-colors">Home</a>
 				<span class="text-lines opacity-50">/</span>
-				<span class="text-newson-pink">FAQs</span>
+				<span class="text-newson-pink" {...(intro.edit?.breadcrumb_label ?? {})}>{intro.breadcrumb_label}</span>
 			</nav>
 			<AnimatedReveal client:visible duration={1.2}>
-				<h1 class="text-fluid-5xl mb-6 tracking-tight text-gradient drop-shadow-sm">Frequently Asked Questions</h1>
-				<p class="text-lg text-text-grey max-w-2xl mx-auto leading-relaxed glass-panel px-6 py-4">
-					Have questions about appointments, body-identical HRT, prescriptions, or diagnostics? We've compiled expert answers to help you feel informed and confident.
+				<h1 class="text-fluid-5xl mb-6 tracking-tight text-gradient drop-shadow-sm" {...(intro.edit?.title ?? {})}>{intro.title}</h1>
+				<p class="text-lg text-text-grey max-w-2xl mx-auto leading-relaxed glass-panel px-6 py-4" {...(intro.edit?.description ?? {})}>
+					{intro.description}
 				</p>
 			</AnimatedReveal>
 		</div>
@@ -136,12 +151,16 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 					If you couldn't find the answer you were looking for, please get in touch with our friendly support team or book a consultation.
 				</p>
 				<div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-					<a href="/contact-us" class="px-7 py-3.5 sm:px-9 sm:py-4 md:px-10 md:py-5 bg-not-quite-black text-white text-sm font-semibold uppercase tracking-widest rounded-full shadow-premium hover:shadow-glow hover:-translate-y-2 hover:scale-105 hover:bg-newson-pink transition-all duration-500 ease-bounce" id="faq-cta-contact">
-						Contact Support
-					</a>
-					<a href="https://portal.newsonhealth.co.uk/patient-portal/booking-request" target="_blank" class="glass-panel px-7 py-3.5 sm:px-9 sm:py-4 md:px-10 md:py-5 text-newson-pink text-sm font-semibold uppercase tracking-widest rounded-full hover:-translate-y-2 hover:scale-105 hover:border-newson-pink/40 transition-all duration-500 ease-bounce" id="faq-cta-book">
-						Book Consultation
-					</a>
+					{intro.button_text && intro.button_url && (
+						<a href={intro.button_url} class="px-7 py-3.5 sm:px-9 sm:py-4 md:px-10 md:py-5 bg-not-quite-black text-white text-sm font-semibold uppercase tracking-widest rounded-full shadow-premium hover:shadow-glow hover:-translate-y-2 hover:scale-105 hover:bg-newson-pink transition-all duration-500 ease-bounce" id="faq-cta-contact" {...(intro.edit?.button_text ?? {})}>
+							{intro.button_text}
+						</a>
+					)}
+					{intro.secondary_button_text && intro.secondary_button_url && (
+						<a href={intro.secondary_button_url} target="_blank" class="glass-panel px-7 py-3.5 sm:px-9 sm:py-4 md:px-10 md:py-5 text-newson-pink text-sm font-semibold uppercase tracking-widest rounded-full hover:-translate-y-2 hover:scale-105 hover:border-newson-pink/40 transition-all duration-500 ease-bounce" id="faq-cta-book" {...(intro.edit?.secondary_button_text ?? {})}>
+							{intro.secondary_button_text}
+						</a>
+					)}
 				</div>
 			</AnimatedReveal>
 		</div>

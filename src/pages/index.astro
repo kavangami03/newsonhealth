@@ -2,6 +2,7 @@
 import { getEmDashCollection, getSiteSettings } from "emdash";
 import Base from "../layouts/Base.astro";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
+import { getBrand, getServiceTags, imageUrl } from "../utils/cms";
 import AnimatedReveal from "../components/AnimatedReveal";
 
 // Video served as-is from /public to bypass Astro's asset bundling pipeline
@@ -13,6 +14,7 @@ import founderClinical from "../images/founders/dr-louise-newson-speaking.avif";
 import appointmentsImage from "../images/appointments/dr-louise-consultation.jpg";
 
 const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+const brand = await getBrand();
 
 // 1. Fetch Modular Homepage Sections (Hero, Founders, Services, etc.)
 const { entries: emdashSections } = await getEmDashCollection("home_sections").catch(() => ({ entries: [] }));
@@ -33,7 +35,7 @@ const services: any[] = emdashServices.length > 0 ? emdashServices.map((e: any) 
 	price: e.data.price as string,
 	text: e.data.text as string,
 	link: e.data.link as string,
-	image: e.data.image as string,
+	image: imageUrl(e.data.image),
 	edit: e.edit,
 })) : [
 	{ title: "Consultation with a doctor (initial)", price: "£295", text: "To ensure we can offer you the best service, our consultations are designed to personalise our advice for your individual needs.", link: "https://www.newsonhealth.co.uk/services/consultations", image: "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/685178efacc33ab0b3f4d6e0_Mask%20Group%2016.avif" },
@@ -54,7 +56,7 @@ const clinics: any[] = emdashClinics.length > 0 ? emdashClinics.map((e: any) => 
 	address2: e.data.address2 as string,
 	town: e.data.town as string,
 	postcode: e.data.postcode as string,
-	image: e.data.image as string,
+	image: imageUrl(e.data.image),
 	link: e.data.link as string,
 	edit: e.edit,
 })) : [
@@ -85,7 +87,7 @@ const clinicians: any[] = emdashClinicians.length > 0 ? emdashClinicians.map((e:
 	credentials: e.data.credentials as string,
 	bio: e.data.bio as string,
 	initials: e.data.initials as string,
-	image: (e.data.image as string) ?? `https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/69f092f7cf2ebe17032270dc_f03c9575-5eb9-483a-a8e6-e21298924e25.jpg`,
+	image: imageUrl(e.data.image, `https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/69f092f7cf2ebe17032270dc_f03c9575-5eb9-483a-a8e6-e21298924e25.jpg`),
 	edit: e.edit,
 })) : [
 	{ name: "Dr Sally Mok", role: "GP Menopause Specialist", credentials: "MB BS, MRCGP, DRCOG, DFSRH", image: "https://cdn.prod.website-files.com/683c4dc78bd8a76ef51980b3/69f092f7cf2ebe17032270dc_f03c9575-5eb9-483a-a8e6-e21298924e25.jpg", bio: "Highly experienced GP with over 20 years of clinical experience." },
@@ -139,7 +141,8 @@ posts.sort((a, b) => {
 });
 
 
-const serviceTags = [
+const cmsServiceTags = await getServiceTags();
+const serviceTags = cmsServiceTags.length > 0 ? cmsServiceTags : [
 	{ name: "Consultation", link: "https://www.newsonhealth.co.uk/consultations" },
 	{ name: "Blood Test", link: "https://www.newsonhealth.co.uk/blood-tests" },
 	{ name: "DEXA Scan", link: "https://www.newsonhealth.co.uk/dexa-body-scans" },
@@ -152,25 +155,25 @@ const serviceTags = [
 const medicalClinicSchema = {
 	"@context": "https://schema.org",
 	"@type": "MedicalClinic",
-	"name": "Newson Clinic",
+	"name": brand.registered_name,
 	"alternateName": siteTitle,
 	"url": Astro.url.origin,
 	"logo": `${Astro.url.origin}/logo.png`,
-	"telephone": "01789 595004",
-	"email": "info@newsonhealth.co.uk",
+	"telephone": brand.phone,
+	"email": brand.email,
 	"address": {
 		"@type": "PostalAddress",
-		"streetAddress": "Winton House, Church Street",
-		"addressLocality": "Stratford-upon-Avon",
-		"addressRegion": "Warwickshire",
-		"postalCode": "CV37 6HB",
-		"addressCountry": "GB",
+		"streetAddress": [brand.address_line1, brand.address_line2].filter(Boolean).join(", "),
+		"addressLocality": brand.town,
+		"addressRegion": brand.region,
+		"postalCode": brand.postcode,
+		"addressCountry": brand.country_code,
 	},
 	"openingHoursSpecification": {
 		"@type": "OpeningHoursSpecification",
 		"dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-		"opens": "09:00",
-		"closes": "17:00",
+		"opens": brand.hours_open,
+		"closes": brand.hours_close,
 	},
 	"medicalSpecialty": "Gynecologic",
 };
@@ -384,12 +387,12 @@ const medicalClinicSchema = {
 				<div class="w-full lg:w-1/2 relative h-[440px] sm:h-[520px] md:h-[600px] lg:h-[700px]">
 					<AnimatedReveal client:visible duration={1.5} yOffset={0} className="w-full h-full">
 						<div class="absolute top-10 right-10 w-[60%] h-[65%] rounded-[3rem] overflow-hidden shadow-2xl border-[6px] border-white z-20 group hover:-translate-y-2 transition-all duration-700 ease-out-expo" {...foundersSec?.edit?.image}>
-							<img src={foundersSec?.data?.image ?? founderPortrait.src} alt="Dr Louise Newson and Dr Rebecca Lewis" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s]" />
+							<img src={imageUrl(foundersSec?.data?.image, founderPortrait.src)} alt="Dr Louise Newson and Dr Rebecca Lewis" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s]" />
 							<div class="absolute inset-0 bg-[#ea526f]/10 group-hover:opacity-0 transition-opacity duration-700 mix-blend-multiply"></div>
 						</div>
 
 						<div class="absolute bottom-10 left-0 w-[55%] h-[55%] rounded-[2.5rem] overflow-hidden shadow-xl border-[6px] border-white z-30 group hover:-translate-y-2 transition-all duration-700 ease-out-expo delay-100" {...foundersSec?.edit?.secondary_image}>
-							<img src={foundersSec?.data?.secondary_image ?? founderClinical.src} alt="Dr Louise Newson at the clinic" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s]" />
+							<img src={imageUrl(foundersSec?.data?.secondary_image, founderClinical.src)} alt="Dr Louise Newson at the clinic" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s]" />
 						</div>
 
 						<div class="absolute top-[80%] md:-left-4 z-40 bg-white/80 backdrop-blur-xl rounded-2xl p-3 md:p-6 shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-white/60 animate-float w-max">
@@ -438,8 +441,8 @@ const medicalClinicSchema = {
 					</p>
 
 					<div class="flex flex-wrap justify-center gap-3 md:gap-4 mt-5 sm:mt-6 md:mt-8">
-						{serviceTags.map((service) => (
-							<a href={service.link} target="_blank" class="px-6 py-3 rounded-full bg-white border border-black/10 text-[13px] font-bold uppercase tracking-widest text-not-quite-black hover:border-[#ea526f] hover:bg-[#ea526f] hover:text-white hover:shadow-[0_10px_20px_rgba(233,81,111,0.2)] transition-all duration-300 transform hover:-translate-y-1">
+						{serviceTags.map((service: any) => (
+							<a href={service.link} target="_blank" class="px-6 py-3 rounded-full bg-white border border-black/10 text-[13px] font-bold uppercase tracking-widest text-not-quite-black hover:border-[#ea526f] hover:bg-[#ea526f] hover:text-white hover:shadow-[0_10px_20px_rgba(233,81,111,0.2)] transition-all duration-300 transform hover:-translate-y-1" {...(service.edit?.title ?? {})}>
 								{service.name}
 							</a>
 						))}
@@ -633,7 +636,7 @@ const medicalClinicSchema = {
 				<div class="lg:col-span-7 w-full mt-6 sm:mt-8 md:mt-12 lg:mt-0 flex justify-end">
 					<AnimatedReveal client:visible duration={1.5} delay={0.2} yOffset={40} className="w-full">
 						<div class="w-full h-[360px] sm:h-[460px] md:h-[700px] lg:h-[750px] rounded-[3rem] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.12)] border border-black/5 group relative ml-auto">
-							<img src={appointmentsSec?.data?.image ?? appointmentsImage.src} alt={appointmentsSec?.data?.title ?? "Video Consultation"} class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-[2s] ease-out" {...appointmentsSec?.edit?.image} />
+							<img src={imageUrl(appointmentsSec?.data?.image, appointmentsImage.src)} alt={appointmentsSec?.data?.title ?? "Video Consultation"} class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-[2s] ease-out" {...appointmentsSec?.edit?.image} />
 							<!-- Soft overlay -->
 							<div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-80 pointer-events-none"></div>
 							<!-- Floating Decor Badge -->

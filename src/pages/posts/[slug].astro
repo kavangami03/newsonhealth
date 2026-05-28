@@ -4,7 +4,18 @@ import { Image, PortableText, WidgetArea } from "emdash/ui";
 import Base from "../../layouts/Base.astro";
 import { resolveStarterSiteIdentity } from "../../utils/site-identity";
 import { generateBreadcrumbSchema, generateOrganizationSchema, generateMedicalWebPageSchema } from "../../utils/schema";
+import { getBrand, getPageIntro } from "../../utils/cms";
 import AnimatedReveal from "../../components/AnimatedReveal";
+
+const brand = await getBrand();
+const sidebar = await getPageIntro("post-sidebar", {
+	title: "Consult a Specialist",
+	subtitle: "Evidence-Based Medicine",
+	description: "Get personalized treatment and support for perimenopause, menopause, or hormonal issues.",
+	content: "All information on Newson Clinic is written or reviewed by menopause and hormone experts to ensure medical accuracy.",
+	button_text: "Book Consultation",
+	button_url: "https://portal.newsonhealth.co.uk/patient-portal/booking-request",
+});
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -167,12 +178,12 @@ const schemas = [breadcrumbSchema, medicalSchema];
 				<!-- Right Column: Sticky Sidebar -->
 				<aside aria-label="Sidebar" class="relative">
 					<div class="sticky top-24 flex flex-col gap-8">
-						<!-- Custom Clinician Trust Widget -->
+						<!-- Custom Clinician Trust Widget (CMS-driven via page_intros/post-sidebar) -->
 						<AnimatedReveal client:visible yOffset={30}>
 							<div class="premium-surface p-5 sm:p-6 md:p-8 bg-buff/50 border-l-4 border-l-newson-pink">
-								<h3 class="text-lg font-medium text-not-quite-black mb-4 pb-2 border-b border-newson-pink/20">Evidence-Based Medicine</h3>
-								<p class="text-sm text-text-grey leading-relaxed mb-4">
-									All information on Newson Clinic is written or reviewed by menopause and hormone experts to ensure medical accuracy.
+								<h3 class="text-lg font-medium text-not-quite-black mb-4 pb-2 border-b border-newson-pink/20" {...(sidebar.edit?.subtitle ?? {})}>{sidebar.subtitle}</h3>
+								<p class="text-sm text-text-grey leading-relaxed mb-4" {...(sidebar.edit?.content ?? {})}>
+									{sidebar.content}
 								</p>
 								<div class="flex flex-col text-xs">
 									<strong class="text-not-quite-black font-semibold">Dr Louise Newson</strong>
@@ -181,19 +192,19 @@ const schemas = [breadcrumbSchema, medicalSchema];
 							</div>
 						</AnimatedReveal>
 
-						<!-- Appointment CTA Widget -->
+						<!-- Appointment CTA Widget (CMS-driven) -->
 						<AnimatedReveal client:visible yOffset={30} delay={0.1}>
 							<div class="premium-surface p-5 sm:p-6 md:p-8 bg-gradient-to-br from-peach to-peachy-pink border border-newson-pink/20 shadow-glow">
-								<h3 class="text-lg font-medium text-not-quite-black mb-4 pb-2 border-b border-black/5">Consult a Specialist</h3>
-								<p class="text-sm text-text-grey leading-relaxed mb-6">
-									Get personalized treatment and support for perimenopause, menopause, or hormonal issues.
+								<h3 class="text-lg font-medium text-not-quite-black mb-4 pb-2 border-b border-black/5" {...(sidebar.edit?.title ?? {})}>{sidebar.title}</h3>
+								<p class="text-sm text-text-grey leading-relaxed mb-6" {...(sidebar.edit?.description ?? {})}>
+									{sidebar.description}
 								</p>
-								<a href="https://portal.newsonhealth.co.uk/patient-portal/booking-request" target="_blank" class="block w-full py-3.5 bg-not-quite-black text-white text-center text-xs font-medium uppercase tracking-wider rounded-full shadow-premium hover:shadow-glow hover:-translate-y-1 hover:bg-newson-pink transition-all duration-400 ease-out-expo mb-4" id="sidebar-cta">
-									Book Consultation
+								<a href={sidebar.button_url ?? brand.booking_url} target="_blank" class="block w-full py-3.5 bg-not-quite-black text-white text-center text-xs font-medium uppercase tracking-wider rounded-full shadow-premium hover:shadow-glow hover:-translate-y-1 hover:bg-newson-pink transition-all duration-400 ease-out-expo mb-4" id="sidebar-cta" {...(sidebar.edit?.button_text ?? {})}>
+									{sidebar.button_text}
 								</a>
-								<a href="tel:01789595004" class="flex items-center justify-center gap-2 text-sm font-semibold text-newson-pink hover:text-[#c43a57] transition-colors">
+								<a href={`tel:${brand.phone_link}`} class="flex items-center justify-center gap-2 text-sm font-semibold text-newson-pink hover:text-[#c43a57] transition-colors">
 									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-									01789 595004
+									{brand.phone}
 								</a>
 							</div>
 						</AnimatedReveal>

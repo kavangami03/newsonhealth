@@ -3,6 +3,7 @@ import { getEmDashCollection, getTermsForEntries, getSiteSettings } from "emdash
 import { Image } from "emdash/ui";
 import Base from "../../layouts/Base.astro";
 import { resolveStarterSiteIdentity } from "../../utils/site-identity";
+import { getPageIntro } from "../../utils/cms";
 import AnimatedReveal from "../../components/AnimatedReveal";
 
 const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
@@ -11,6 +12,13 @@ const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+
+const intro = await getPageIntro("posts", {
+	title: "Knowledge Library",
+	subtitle: "Knowledge Hub",
+	description: "Unbiased, evidence-based articles and resources about women's hormonal health, perimenopause, menopause, and overall clinical wellbeing.",
+	breadcrumb_label: "Knowledge Library",
+});
 
 // Batch get both tags and categories for our posts
 const postIds = posts.map((p) => p.data.id);
@@ -34,20 +42,19 @@ const remainingPosts = postsWithMeta.slice(1);
 
 <Base title={`Knowledge Library — ${siteTitle}`} description="Explore our library of evidence-based healthcare articles, menopause support, hormonal wellbeing guides, and expert advice.">
 	<!-- ═══════════════════════════════════════
-	     LIBRARY HERO
+	     LIBRARY HERO (CMS-driven via page_intros/posts)
 	     ═══════════════════════════════════════ -->
 	<header class="bg-gradient-to-br from-peach via-bg-soft-pink to-peachy-pink pt-20 sm:pt-24 pb-10 sm:pb-14 md:pb-16 border-b border-black/5">
 		<div class="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
 			<nav class="flex items-center justify-center gap-2 text-[12px] font-medium mb-4 sm:mb-5 md:mb-6" aria-label="Breadcrumb">
 				<a href="/" class="text-text-grey hover:text-newson-pink transition-colors">Home</a>
 				<span class="text-lines opacity-50">/</span>
-				<span class="text-newson-pink">Knowledge Library</span>
+				<span class="text-newson-pink" {...(intro.edit?.breadcrumb_label ?? {})}>{intro.breadcrumb_label}</span>
 			</nav>
 			<AnimatedReveal client:visible duration={1.2}>
-				<h1 class="text-fluid-5xl tracking-tight text-not-quite-black mb-4 sm:mb-5 md:mb-6">Knowledge Library</h1>
-				<p class="text-base sm:text-lg text-text-grey max-w-2xl mx-auto leading-relaxed">
-					Unbiased, evidence-based articles and resources about women’s hormonal health,
-					perimenopause, menopause, and overall clinical wellbeing.
+				<h1 class="text-fluid-5xl tracking-tight text-not-quite-black mb-4 sm:mb-5 md:mb-6" {...(intro.edit?.title ?? {})}>{intro.title}</h1>
+				<p class="text-base sm:text-lg text-text-grey max-w-2xl mx-auto leading-relaxed" {...(intro.edit?.description ?? {})}>
+					{intro.description}
 				</p>
 			</AnimatedReveal>
 		</div>
