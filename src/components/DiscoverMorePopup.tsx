@@ -134,7 +134,7 @@ function DiscoverTrigger({ visible, onClick }: { visible: boolean; onClick: () =
 			onMouseEnter={() => setHovered(true)}
 			onMouseLeave={() => setHovered(false)}
 			aria-label="Discover more about Dr Louise Newson"
-			className={`fixed bottom-6 right-6 z-[95] group flex items-center gap-3 pl-2 pr-1 py-1 rounded-full bg-white shadow-[0_18px_40px_-10px_rgba(233,81,111,0.45),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-[0_22px_50px_-10px_rgba(233,81,111,0.6)] transition-all duration-500 ease-out ${
+			className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[95] group flex items-center gap-1 sm:gap-3 pl-1 sm:pl-2 pr-1 py-1 rounded-full bg-white shadow-[0_18px_40px_-10px_rgba(233,81,111,0.45),0_0_0_1px_rgba(0,0,0,0.04)] hover:shadow-[0_22px_50px_-10px_rgba(233,81,111,0.6)] transition-all duration-500 ease-out ${
 				visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0 pointer-events-none"
 			}`}
 			style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}
@@ -153,9 +153,9 @@ function DiscoverTrigger({ visible, onClick }: { visible: boolean; onClick: () =
 				</span>
 			</span>
 
-			{/* Expanding label */}
+			{/* Expanding label — hidden on mobile so it doesn't collide with the booking pill */}
 			<span
-				className={`relative overflow-hidden transition-all duration-500 ease-out flex items-center`}
+				className="relative overflow-hidden transition-all duration-500 ease-out hidden sm:flex items-center"
 				style={{
 					width: hovered ? "190px" : "78px",
 					transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
@@ -163,11 +163,7 @@ function DiscoverTrigger({ visible, onClick }: { visible: boolean; onClick: () =
 			>
 				<span className="flex flex-col leading-tight pr-2 whitespace-nowrap">
 					<span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#ea526f]">Discover</span>
-					<span
-						className={`font-display text-[13px] text-not-quite-black transition-opacity duration-300 ${
-							hovered ? "opacity-100" : "opacity-100"
-						}`}
-					>
+					<span className="font-display text-[13px] text-not-quite-black">
 						{hovered ? (
 							<span>
 								<span className="italic font-light">More</span> from Dr&nbsp;Louise

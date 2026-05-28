@@ -20,6 +20,34 @@ export interface AppointmentOption {
   bylines?: ContentBylineCredit[];
 }
 
+export interface BrandEntry {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  phone?: string;
+  phone_link?: string;
+  email?: string;
+  address_line1?: string;
+  address_line2?: string;
+  town?: string;
+  region?: string;
+  postcode?: string;
+  country_code?: string;
+  hours_label?: string;
+  hours_open?: string;
+  hours_close?: string;
+  est_year?: string;
+  caption?: string;
+  registered_name?: string;
+  patient_portal_url?: string;
+  booking_url?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
 export interface Clinician {
   id: string;
   slug: string | null;
@@ -30,7 +58,7 @@ export interface Clinician {
   bio?: string;
   initials?: string;
   featured?: boolean;
-  image?: string;
+  image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -46,8 +74,25 @@ export interface Clinic {
   address2?: string;
   town?: string;
   postcode?: string;
-  image?: string;
+  image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
   link?: string;
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface ContactWidget {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle?: string;
+  icon?: string;
+  link_label?: string;
+  link_url?: string;
+  accent?: string;
   sort_order?: number;
   createdAt: Date;
   updatedAt: Date;
@@ -68,6 +113,20 @@ export interface Faq {
   bylines?: ContentBylineCredit[];
 }
 
+export interface FooterLink {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  link: string;
+  column: string;
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
 export interface Section {
   id: string;
   slug: string | null;
@@ -78,9 +137,29 @@ export interface Section {
   content?: string;
   button_text?: string;
   button_url?: string;
-  image?: string;
-  secondary_image?: string;
+  image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
+  secondary_image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
   video_url?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface PageHero {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  breadcrumb_label?: string;
+  button_text?: string;
+  button_url?: string;
+  secondary_button_text?: string;
+  secondary_button_url?: string;
+  image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
+  content?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -113,6 +192,40 @@ export interface Post {
   bylines?: ContentBylineCredit[];
 }
 
+export interface PricingTier {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  price: string;
+  period?: string;
+  duration?: string;
+  badge?: string;
+  description?: string;
+  features: string;
+  cta_label?: string;
+  cta_url?: string;
+  featured?: boolean;
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface ServicePill {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  link?: string;
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
 export interface Service {
   id: string;
   slug: string | null;
@@ -121,7 +234,33 @@ export interface Service {
   price?: string;
   text?: string;
   link?: string;
-  image?: string;
+  image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface SocialLink {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  link: string;
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface TrustMessage {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  icon?: string;
   sort_order?: number;
   createdAt: Date;
   updatedAt: Date;
@@ -132,12 +271,20 @@ export interface Service {
 declare module "emdash" {
   interface EmDashCollections {
     appointments: AppointmentOption;
+    brand_info: BrandEntry;
     clinicians: Clinician;
     clinics: Clinic;
+    contact_widgets: ContactWidget;
     faqs: Faq;
+    footer_links: FooterLink;
     home_sections: Section;
+    page_intros: PageHero;
     pages: Page;
     posts: Post;
+    pricing_tiers: PricingTier;
+    service_tags: ServicePill;
     services: Service;
+    social_links: SocialLink;
+    trust_messages: TrustMessage;
   }
 }

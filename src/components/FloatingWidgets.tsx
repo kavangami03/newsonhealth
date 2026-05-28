@@ -47,7 +47,7 @@ export default function FloatingWidgets() {
 		<>
 			{/* ─────────── Bottom-Left Booking Widget ─────────── */}
 			<div
-				className={`fixed bottom-6 left-6 z-[90] transition-all duration-700 ease-out ${
+				className={`fixed bottom-4 sm:bottom-6 left-4 sm:left-6 z-[90] transition-all duration-700 ease-out ${
 					mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
 				}`}
 				style={{ transitionTimingFunction: springTransition }}
@@ -103,14 +103,14 @@ export default function FloatingWidgets() {
 						</div>
 					</div>
 				) : (
-					/* ─── Collapsed pill ─── */
+					/* ─── Collapsed pill — icon-only on mobile, expands with label from sm+ ─── */
 					<button
 						type="button"
 						onClick={expandBooking}
 						aria-label="Open booking widget"
-						className="group flex items-center gap-3 pl-2 pr-5 py-2 rounded-full bg-white shadow-[0_15px_35px_-10px_rgba(233,81,111,0.4),0_0_0_1px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-10px_rgba(233,81,111,0.55)] transition-all duration-300"
+						className="group flex items-center gap-0 sm:gap-3 p-1 sm:pl-2 sm:pr-5 sm:py-2 rounded-full bg-white shadow-[0_15px_35px_-10px_rgba(233,81,111,0.4),0_0_0_1px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-10px_rgba(233,81,111,0.55)] transition-all duration-300"
 					>
-						<span className="w-10 h-10 rounded-full bg-[#ea526f] text-white flex items-center justify-center shadow-inner">
+						<span className="w-11 h-11 sm:w-10 sm:h-10 rounded-full bg-[#ea526f] text-white flex items-center justify-center shadow-inner">
 							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
 								<rect x="3" y="4" width="18" height="18" rx="2" />
 								<line x1="16" y1="2" x2="16" y2="6" />
@@ -118,7 +118,7 @@ export default function FloatingWidgets() {
 								<line x1="3" y1="10" x2="21" y2="10" />
 							</svg>
 						</span>
-						<span className="text-[13px] font-bold text-not-quite-black tracking-tight group-hover:text-[#ea526f] transition-colors">
+						<span className="hidden sm:inline text-[13px] font-bold text-not-quite-black tracking-tight group-hover:text-[#ea526f] transition-colors">
 							Book appointment
 						</span>
 					</button>

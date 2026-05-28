@@ -150,7 +150,11 @@ export async function getList<T = any>(
 	try {
 		const { entries } = await getEmDashCollection(collection as any, options as any);
 		return entries as any as T[];
-	} catch {
+	} catch (err) {
+		// Log instead of swallowing — if a collection is missing or the schema
+		// cache is stale (e.g. new collection added without restarting the dev
+		// server), this is the only signal we have.
+		console.warn(`[cms] getList("${collection}") failed:`, (err as Error)?.message ?? err);
 		return [];
 	}
 }
